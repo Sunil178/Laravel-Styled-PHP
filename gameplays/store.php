@@ -19,9 +19,9 @@
                                    <div class="form-group">
                                         <label class="form-label required">Employee</label>
                                         <select name="employee_id" class="form-select" required>
-                                             <option value=""> -- select board -- </option>
+                                             <option value=""> -- select employee -- </option>
                                              <?php foreach ($employees as $employee) { ?>
-                                                  <option <?php echo ($gameplay->employee_id == $employee->id) ? 'selected' : ''; ?> value="<?php echo $employee->id; ?>"><?php echo $employee->name . ' : ' . $employee->username ; ?></option>
+                                                  <option <?php echo ($gameplay->employee_id == $employee->id) ? 'selected' : ''; ?> value="<?php echo $employee->id; ?>"><?php echo $employee->name . ' : ' . $employee->username; ?></option>
                                              <?php } ?>
                                         </select>
                                    </div>

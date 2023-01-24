@@ -54,11 +54,42 @@
             </ul>
         </li>
 
-        <li class="menu-item">
-            <a href="../leads.php" class="menu-link">
+        <li class="menu-item open">
+            <a href="javascript:void(0);" class="menu-link">
                 <i class="menu-icon tf-icons bx bxl-android"></i>
                 <div data-i18n="Analytics">Leads</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="../leads" class="menu-link">
+                        <div data-i18n="Without menu">Index</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="../leads/store.php" class="menu-link">
+                        <div data-i18n="Without menu">Create</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="menu-item open">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-business"></i>
+                <div data-i18n="Analytics">Campaigns</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="../campaigns" class="menu-link">
+                        <div data-i18n="Without menu">Index</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="../campaigns/store.php" class="menu-link">
+                        <div data-i18n="Without menu">Create</div>
+                    </a>
+                </li>
+            </ul>
         </li>
 
     </ul>
