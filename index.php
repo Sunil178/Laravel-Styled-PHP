@@ -4,5 +4,5 @@
 
 <?php
     $customSection = ob_get_clean();
-    include 'views/layout/index.php';
+    include_once __DIR__.DIRECTORY_SEPARATOR."layout".DIRECTORY_SEPARATOR."index.php";
 ?>

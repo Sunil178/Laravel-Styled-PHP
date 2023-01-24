@@ -1,5 +1,5 @@
 <?php
-    include 'database/db.php';
+    include_once __DIR__ . DIRECTORY_SEPARATOR . 'db.php';
     class Model {
 
         private $conn;
