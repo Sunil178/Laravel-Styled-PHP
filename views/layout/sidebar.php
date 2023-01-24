@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="" class="app-brand-link">
+        <a href="index.php" class="app-brand-link">
             <span class="app-brand-logo demo">
                 <img src="./assets/img/aceaffilino-logo.jpg" alt=""
                     style="width: 6%; margin: 6px; margin-left: 37px;">
@@ -17,16 +17,23 @@
 
     <ul class="menu-inner py-1">
         <li class="menu-item">
-            <a href="" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+            <a href="employees.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-user"></i>
+                <div data-i18n="Analytics">Employees</div>
             </a>
         </li>
 
         <li class="menu-item">
-            <a href="" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-bell"></i>
-                <div data-i18n="Analytics">Notification</div>
+            <a href="gameplays.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bxs-dice-6"></i>
+                <div data-i18n="Analytics">Gameplays</div>
+            </a>
+        </li>
+
+        <li class="menu-item">
+            <a href="leads.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bxl-android"></i>
+                <div data-i18n="Analytics">Leads</div>
             </a>
         </li>
 

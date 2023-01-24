@@ -1,5 +1,5 @@
 <?php
-    include 'db.php';
+    include 'database/db.php';
     class Model {
 
         private $conn;
@@ -20,13 +20,13 @@
         private function affectExecuteRows($stmt) {
             if ($stmt->execute()) {
                 if($stmt->affected_rows > 0) {
-                    echo "Query executed successfully, ".$stmt->affected_rows." rows affected.";
+                    // echo "Query executed successfully, ".$stmt->affected_rows." rows affected.";
                 } else {
-                    echo "Query executed successfully, but no rows affected.";
+                    // echo "Query executed successfully, but no rows affected.";
                 }
                 return $stmt->affected_rows;
             } else {
-                echo "Error: " . $stmt->error;
+                // echo "Error: " . $stmt->error;
                 return false;
             }
         }
@@ -304,10 +304,10 @@
         }    
     }
 
-    $model = new Model('employees');
+    /* $model = new Model('employees');
     print_r($model->getAll());
     $data = [ 'name' => 'Sunil', 'email' => 'sunil@example.com', 'mobile' => 23 ];
     $conditions = ['username' => 'bharat'];
     $model->updateBy($data, $conditions);
-    print_r($model->getAll());
+    print_r($model->getAll()); */
 ?>

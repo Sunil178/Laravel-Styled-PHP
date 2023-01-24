@@ -53,7 +53,7 @@
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-            <?php include 'sidebar.php';?>
+            <?php include 'views/layout/sidebar.php';?>
             <!-- / Menu -->
 
             <!-- Layout container -->
@@ -118,7 +118,7 @@
                     <!-- / Content -->
 
                     <!-- Footer -->
-                    <?php include 'footer.php'; ?>
+                    <?php include 'views/layout/footer.php'; ?>
                     <!-- / Footer -->
 
                     <div class="content-backdrop fade"></div>
