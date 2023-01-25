@@ -1,4 +1,5 @@
 <?php
+    global $conn;
     include_once __DIR__ . '/db.php';
     class Model {
 

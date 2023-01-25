@@ -19,6 +19,8 @@ function showPage($page, $admin = false) {
 
 $request = $_SERVER['REQUEST_URI'];
 
+$request = str_replace('/tracker', '', $request);       //  For sever
+
 switch ($request) {
     case '/' :
         checkAuth() ? include_once __DIR__ . '/home.php' : include_once __DIR__ . '/views/login/index.php';
