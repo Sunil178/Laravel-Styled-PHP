@@ -29,7 +29,7 @@ else {
 
 if ($db_res !== false && $db_res > 0) {
     session_write_close();
-    header("Location: ../gameplays");
+    header("Location: /gameplays");
 }
 else {
     echo "Something Went Wrong!";

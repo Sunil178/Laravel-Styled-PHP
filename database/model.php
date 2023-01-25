@@ -43,6 +43,14 @@
             return $rows;
         }    
 
+        // $model->runQueryOne("SELECT * FROM users WHERE status = 'active'");
+        public function runQueryOne($query) {
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return (object)$result->fetch_assoc();
+        }    
+
         // $model->create([ 'name' => 'John Doe', 'email' => 'johndoe@example.com', 'mobile' => 30 ]);
         public function create($data) {
             $columns = implode(',', array_keys($data));

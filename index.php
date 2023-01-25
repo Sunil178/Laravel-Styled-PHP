@@ -26,7 +26,14 @@ if (is_file($file_path)) {
 
 switch ($request) {
     case '/' :
+        // include_once __DIR__ . '/home.php';
+        include_once __DIR__ . '/views/login/index.php';
+        break;
+    case '/home' :
         include_once __DIR__ . '/home.php';
+        break;
+    case '/login' :
+        include_once __DIR__ . '/views/login/index.php';
         break;
     case '/employees' :
         include_once __DIR__ . '/views/employees/index.php';

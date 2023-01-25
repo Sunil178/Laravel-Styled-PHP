@@ -35,7 +35,7 @@ else {
 
 if ($db_res !== false && $db_res > 0) {
     session_write_close();
-    header("Location: ../leads");
+    header("Location: /leads");
 }
 else {
     echo "Something Went Wrong!";
