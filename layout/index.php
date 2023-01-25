@@ -2,6 +2,8 @@
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
+    
+    $ROOT_INDEX = $ROOT_INDEX ?? './../';
 ?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed">
@@ -23,12 +25,12 @@
         rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="./../assets/vendor/fonts/boxicons.css" />
-    <link rel="stylesheet" href="./../assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="./../assets/css/demo.css" />
-    <link rel="stylesheet" href="./../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="./../assets/vendor/libs/apex-charts/apex-charts.css" />
-    <link rel="stylesheet" href="./../assets/vendor/css/theme-default.css"
+    <link rel="stylesheet" href="<?php echo $ROOT_INDEX; ?>assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="<?php echo $ROOT_INDEX; ?>assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="<?php echo $ROOT_INDEX; ?>assets/css/demo.css" />
+    <link rel="stylesheet" href="<?php echo $ROOT_INDEX; ?>assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="<?php echo $ROOT_INDEX; ?>assets/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="<?php echo $ROOT_INDEX; ?>assets/vendor/css/theme-default.css"
         class="template-customizer-theme-css" />
 
     <style>
@@ -88,7 +90,7 @@
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
-                                    <img src="./../assets/img/profile.png" alt class="w-px-40 h-auto rounded-circle" />
+                                    <img src="<?php echo $ROOT_INDEX; ?>assets/img/profile.png" alt class="w-px-40 h-auto rounded-circle" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
@@ -96,7 +98,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="./../assets/img/profile.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                        <img src="<?php echo $ROOT_INDEX; ?>assets/img/profile.png" alt class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
@@ -142,20 +144,20 @@
     <!-- / Layout wrapper -->
 
 
-    <script src="./../assets/vendor/js/helpers.js"></script>
-    <script src="./../assets/js/config.js"></script>
-    <script src="./../assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="./../assets/vendor/libs/popper/popper.js"></script>
-    <script src="./../assets/vendor/js/bootstrap.js"></script>
-    <script src="./../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="./../assets/vendor/js/menu.js"></script>
-    <script src="./../assets/vendor/libs/apex-charts/apexcharts.js"></script>
-    <script src="./../assets/js/main.js"></script>
-    <script src="./../assets/js/dashboards-analytics.js"></script>
-    <script async defer src="./../assets/js/buttons.js"></script>
-    <script src="./../assets/js/bootstrap.bundle.min.js"></script>
-    <script src="./../assets/js/slim.min.js"></script>
-    <script src="./../assets/js/jquery.validate.min.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/vendor/js/helpers.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/js/config.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/vendor/libs/popper/popper.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/vendor/js/bootstrap.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/vendor/js/menu.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/js/main.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/js/dashboards-analytics.js"></script>
+    <script async defer src="<?php echo $ROOT_INDEX; ?>assets/js/buttons.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/js/slim.min.js"></script>
+    <script src="<?php echo $ROOT_INDEX; ?>assets/js/jquery.validate.min.js"></script>
 
 </body>
 

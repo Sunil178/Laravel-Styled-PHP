@@ -4,5 +4,6 @@
 
 <?php
     $customSection = ob_get_clean();
+    $ROOT_INDEX = './';
     include_once __DIR__.DIRECTORY_SEPARATOR."layout".DIRECTORY_SEPARATOR."index.php";
 ?>
