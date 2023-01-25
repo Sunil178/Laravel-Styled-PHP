@@ -7,14 +7,14 @@
 
 <?php
 
-    if (!isset($_GET['campaign_id']) || $_GET['campaign_id'] == '') {
+    if (!isset($campaign_id) || $campaign_id == '') {
         echo "Error: campaign id is required";
         exit;
     }
     include_once __DIR__."/../../database/model.php";
 
     $model = new Model('campaigns');
-    $campaign = $model->get($_GET['campaign_id']);
+    $campaign = $model->get($campaign_id);
 
     include_once __DIR__."/store.php";
 ?>

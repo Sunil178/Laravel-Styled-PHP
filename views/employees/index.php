@@ -32,7 +32,7 @@
                         <td> <?php echo $employee->email ?> </td>
                         <td> <?php echo $employee->mobile ?> </td>
                         <td>
-                            <a href="/employees/edit.php?employee_id=<?php echo $employee->id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/employees/edit/<?php echo $employee->id ?>" class="btn btn-info btn-sm">Edit</a>
                         </td>
                     </tr>
                 <?php } ?>

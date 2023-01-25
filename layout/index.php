@@ -1,8 +1,3 @@
-<?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed">
 
@@ -100,10 +95,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span
-                                                        class="fw-semibold d-block">Sunny</span>
+                                                    <span class="fw-semibold d-block"><?php echo $_SESSION["employee_name"] ?? 'User'; ?></span>
                                                 </div>
                                             </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/logout">
+                                            <i class="bx bx-power-off me-2"></i>
+                                            <span class="align-middle">Log Out</span>
                                         </a>
                                     </li>
                                 </ul>

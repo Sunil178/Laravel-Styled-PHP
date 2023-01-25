@@ -13,84 +13,97 @@
         </a>
     </div>
 
-    <div class="menu-inner-shadow"></div>
-
     <ul class="menu-inner py-1">
-        <li class="menu-item open">
-            <a href="javascript:void(0);" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-user"></i>
-                <div data-i18n="Analytics">Employees</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="/employees" class="menu-link">
-                        <div data-i18n="Without menu">Index</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="/employees/create" class="menu-link">
-                        <div data-i18n="Without menu">Create</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+        <?php if (!checkAuth()) { ?>
+            <li class="menu-item open">
+                <a href="/login" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-log-in-circle"></i>
+                    <div data-i18n="Analytics">Login to access</div>
+                </a>
+            </li>
+        <?php } ?>
+        <?php if (checkAuth(true)) { ?>
+            <li class="menu-item open">
+                <a href="javascript:void(0);" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-user"></i>
+                    <div data-i18n="Analytics">Employees</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/employees" class="menu-link">
+                            <div data-i18n="Without menu">Index</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/employees/create" class="menu-link">
+                            <div data-i18n="Without menu">Create</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        <?php } ?>
 
-        <li class="menu-item open">
-            <a href="javascript:void(0);" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-dice-6"></i>
-                <div data-i18n="Analytics">Gameplays</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="/gameplays" class="menu-link">
-                        <div data-i18n="Without menu">Index</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="/gameplays/create" class="menu-link">
-                        <div data-i18n="Without menu">Create</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+        <?php if (checkAuth(true)) { ?>
+            <li class="menu-item open">
+                <a href="javascript:void(0);" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-business"></i>
+                    <div data-i18n="Analytics">Campaigns</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/campaigns" class="menu-link">
+                            <div data-i18n="Without menu">Index</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/campaigns/create" class="menu-link">
+                            <div data-i18n="Without menu">Create</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        <?php } ?>
 
-        <li class="menu-item open">
-            <a href="javascript:void(0);" class="menu-link">
-                <i class="menu-icon tf-icons bx bxl-android"></i>
-                <div data-i18n="Analytics">Leads</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="/leads" class="menu-link">
-                        <div data-i18n="Without menu">Index</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="/leads/create" class="menu-link">
-                        <div data-i18n="Without menu">Create</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+        <?php if (checkAuth()) { ?>
+            <li class="menu-item open">
+                <a href="javascript:void(0);" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-dice-6"></i>
+                    <div data-i18n="Analytics">Gameplays</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/gameplays" class="menu-link">
+                            <div data-i18n="Without menu">Index</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/gameplays/create" class="menu-link">
+                            <div data-i18n="Without menu">Create</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        <?php } ?>
 
-        <li class="menu-item open">
-            <a href="javascript:void(0);" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-business"></i>
-                <div data-i18n="Analytics">Campaigns</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="/campaigns" class="menu-link">
-                        <div data-i18n="Without menu">Index</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="/campaigns/create" class="menu-link">
-                        <div data-i18n="Without menu">Create</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
+        <?php if (checkAuth()) { ?>
+            <li class="menu-item open">
+                <a href="javascript:void(0);" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxl-android"></i>
+                    <div data-i18n="Analytics">Leads</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/leads" class="menu-link">
+                            <div data-i18n="Without menu">Index</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/leads/create" class="menu-link">
+                            <div data-i18n="Without menu">Create</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        <?php } ?>
     </ul>
 </aside>

@@ -12,7 +12,7 @@
                     <h5 class="mb-0"> <?php echo ($gameplay->id ? 'Edit' : 'Create') ?> Gameplay</h5>
                </div>
                <div class="card-body">
-                    <form method="POST" action="/controller/gameplay.php" id="form">
+                    <form method="POST" action="/gameplays/store" id="form">
                          <input type="hidden" name="gameplay_id" value="<?php echo $gameplay->id ?>">
                          <div class="row">
                               <div class="mb-3 col-md-4">

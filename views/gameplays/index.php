@@ -32,7 +32,7 @@
                         <td> <?php echo $gameplay->rake ?> </td>
                         <td> <?php echo $gameplay->count ?> </td>
                         <td>
-                            <a href="/gameplays/edit.php?gameplay_id=<?php echo $gameplay->id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/gameplays/edit/<?php echo $gameplay->id ?>" class="btn btn-info btn-sm">Edit</a>
                         </td>
                     </tr>
                 <?php } ?>

@@ -34,7 +34,7 @@
                         <td> <?php echo $lead->count ?> </td>
                         <td> <?php echo $lead->date ?> </td>
                         <td>
-                            <a href="/leads/edit.php?lead_id=<?php echo $lead->id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/leads/edit/<?php echo $lead->id ?>" class="btn btn-info btn-sm">Edit</a>
                         </td>
                     </tr>
                 <?php } ?>

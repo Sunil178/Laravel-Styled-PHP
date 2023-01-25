@@ -4,6 +4,5 @@
 
 <?php
     $customSection = ob_get_clean();
-    $ROOT_INDEX = '/';
     include_once __DIR__."/layout/index.php";
 ?>

@@ -22,7 +22,7 @@
                         <td> <?php echo ($index + 1) ?> </td>
                         <td> <?php echo $campaign->name ?> </td>
                         <td>
-                            <a href="/campaigns/edit.php?campaign_id=<?php echo $campaign->id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/campaigns/edit/<?php echo $campaign->id ?>" class="btn btn-info btn-sm">Edit</a>
                         </td>
                     </tr>
                 <?php } ?>

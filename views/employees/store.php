@@ -5,7 +5,7 @@
                     <h5 class="mb-0"> <?php echo ($employee->id ? 'Edit' : 'Create') ?> Employee</h5>
                </div>
                <div class="card-body">
-                    <form method="POST" action="/controller/employee.php" id="form">
+                    <form method="POST" action="/employees/store" id="form">
                     <input type="hidden" name="employee_id" value="<?php echo $employee->id ?>">
                          <div class="row">
                               <div class="mb-3 col-md-4">

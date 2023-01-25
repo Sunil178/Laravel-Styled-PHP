@@ -1,78 +1,128 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+function checkAuth($admin = false) {
+    if (!isset($_SESSION['employee_id']) || ($_SESSION['employee_id'] != 1 && $admin)) {
+        return false;
+    }
+    return true;
+}
+
+function showPage($page, $admin = false) {
+    checkAuth($admin) ? include_once __DIR__ . $page : include_once __DIR__ . '/views/403.php';
+}
+
 $request = $_SERVER['REQUEST_URI'];
-
-/* $public_folder = __DIR__ . '/test';
-echo $public_folder;
-exit;
-$file_path = $public_folder . $request;
-
-if (is_file($file_path)) {
-    $file_info = pathinfo($file_path);
-    $extension = $file_info['extension'];
-    $mime_types = [
-        'css' => 'text/css',
-        'js' => 'application/javascript',
-        'jpg' => 'image/jpeg',
-        'jpeg' => 'image/jpeg',
-        'png' => 'image/png',
-        'gif' => 'image/gif',
-    ];
-    $mime_type = $mime_types[$extension] ?? 'application/octet-stream';
-    header("Content-Type: $mime_type");
-    readfile($file_path);
-    exit;
-} */
 
 switch ($request) {
     case '/' :
-        // include_once __DIR__ . '/home.php';
-        include_once __DIR__ . '/views/login/index.php';
+        checkAuth() ? include_once __DIR__ . '/home.php' : include_once __DIR__ . '/views/login/index.php';
         break;
+
     case '/home' :
         include_once __DIR__ . '/home.php';
         break;
+
     case '/login' :
-        include_once __DIR__ . '/views/login/index.php';
+        if (checkAuth()) {
+            session_write_close();
+            header("Location: /");
+        } else {
+            include_once __DIR__ . '/views/login/index.php';
+        }
         break;
+
+    case '/login/auth' :
+        if (checkAuth()) {
+            session_write_close();
+            header("Location: /");
+        } else {
+            include_once __DIR__ . '/controller/login.php';
+        }
+        break;
+
+    case '/logout' :
+        showPage('/controller/logout.php');
+        break;
+
     case '/employees' :
-        include_once __DIR__ . '/views/employees/index.php';
+        showPage('/views/employees/index.php', true);
         break;
+
     case '/employees/create' :
-        include_once __DIR__ . '/views/employees/store.php';
+        showPage('/views/employees/store.php', true);
         break;
-    case '/employees/edit' :
-        include_once __DIR__ . '/views/employees/edit.php';
+
+    case '/employees/store' :
+        showPage('/controller/employee.php', true);
         break;
+
     case '/gameplays' :
-        include_once __DIR__ . '/views/gameplays/index.php';
+        showPage('/views/gameplays/index.php');
         break;
+
     case '/gameplays/create' :
-        include_once __DIR__ . '/views/gameplays/store.php';
+        showPage('/views/gameplays/store.php');
         break;
-    case '/gameplays/edit' :
-        include_once __DIR__ . '/views/gameplays/edit.php';
+
+    case '/gameplays/store' :
+        showPage('/controller/gameplay.php');
         break;
+
     case '/campaigns' :
-        include_once __DIR__ . '/views/campaigns/index.php';
+        showPage('/views/campaigns/index.php', true);
         break;
+
     case '/campaigns/create' :
-        include_once __DIR__ . '/views/campaigns/store.php';
+        showPage('/views/campaigns/store.php', true);
         break;
-    case '/campaigns/edit' :
-        include_once __DIR__ . '/views/campaigns/edit.php';
+
+    case '/campaigns/store' :
+        showPage('/controller/campaign.php', true);
         break;
+
     case '/leads' :
-        include_once __DIR__ . '/views/leads/index.php';
+        showPage('/views/leads/index.php');
         break;
+
     case '/leads/create' :
-        include_once __DIR__ . '/views/leads/store.php';
+        showPage('/views/leads/store.php');
         break;
-    case '/leads/edit' :
-        include_once __DIR__ . '/views/leads/edit.php';
+
+    case '/leads/store' :
+        showPage('/controller/lead.php');
         break;
+
     default:
-        // http_response_code(404);
-        // include_once __DIR__ . '/views/404.php';
+        switch (true) {
+            case preg_match('/^\/employees\/edit\/([0-9]+)$/', $request, $matches):
+                $employee_id = $matches[1];
+                showPage('/views/employees/edit.php', true);
+                break;
+
+            case preg_match('/^\/campaigns\/edit\/([0-9]+)$/', $request, $matches):
+                $campaign_id = $matches[1];
+                showPage('/views/campaigns/edit.php', true);
+                break;
+
+            case preg_match('/^\/gameplays\/edit\/([0-9]+)$/', $request, $matches):
+                $gameplay_id = $matches[1];
+                showPage('/views/gameplays/edit.php');
+                break;
+
+            case preg_match('/^\/leads\/edit\/([0-9]+)$/', $request, $matches):
+                $lead_id = $matches[1];
+                showPage('/views/leads/edit.php');
+                break;
+
+            default:
+                include_once __DIR__ . '/views/404.php';
+                break;
+        }
         break;
 }

@@ -5,7 +5,7 @@
                     <h5 class="mb-0">Login</h5>
                </div>
                <div class="card-body">
-                    <form method="POST" action="/controller/login.php" id="form">
+                    <form method="POST" action="/login/auth" id="form">
                          <div class="row">
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">

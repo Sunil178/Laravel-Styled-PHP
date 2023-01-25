@@ -14,7 +14,7 @@
                     <h5 class="mb-0"> <?php echo ($lead->id ? 'Edit' : 'Create') ?> Lead</h5>
                </div>
                <div class="card-body">
-                    <form method="POST" action="/controller/lead.php" id="form">
+                    <form method="POST" action="/leads/store" id="form">
                          <input type="hidden" name="lead_id" value="<?php echo $lead->id ?>">
                          <div class="row">
                               <div class="mb-3 col-md-4">
