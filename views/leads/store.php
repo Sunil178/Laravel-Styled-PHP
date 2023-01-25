@@ -1,7 +1,7 @@
 <?php ob_start(); ?>
 
 <?php
-     include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."database".DIRECTORY_SEPARATOR."model.php";
+     include_once __DIR__."/../../database/model.php";
      $model = new Model('employees');
      $employees = $model->getAll();
      $model = new Model('campaigns');
@@ -14,7 +14,7 @@
                     <h5 class="mb-0"> <?php echo ($lead->id ? 'Edit' : 'Create') ?> Lead</h5>
                </div>
                <div class="card-body">
-                    <form method="POST" action="../controller/lead.php" id="form">
+                    <form method="POST" action="/controller/lead.php" id="form">
                          <input type="hidden" name="lead_id" value="<?php echo $lead->id ?>">
                          <div class="row">
                               <div class="mb-3 col-md-4">
@@ -77,5 +77,5 @@
      </div>
 <?php
     $customSection = ob_get_clean();
-    include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."layout".DIRECTORY_SEPARATOR."index.php";
+    include_once __DIR__."/../../layout/index.php";
 ?>

@@ -1,7 +1,10 @@
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     ob_start();
 
-    include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."database".DIRECTORY_SEPARATOR."model.php";
+    include_once __DIR__."/../../database/model.php";
 
     $model = new Model('employees');
 
@@ -29,7 +32,7 @@
                         <td> <?php echo $employee->email ?> </td>
                         <td> <?php echo $employee->mobile ?> </td>
                         <td>
-                            <a href="../employees/edit.php?employee_id=<?php echo $employee->id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/employees/edit.php?employee_id=<?php echo $employee->id ?>" class="btn btn-info btn-sm">Edit</a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -40,5 +43,5 @@
 <?php
     $customSection = ob_get_clean();
 
-    include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."layout".DIRECTORY_SEPARATOR."index.php";
+    include_once __DIR__."/../../layout/index.php";
 ?>

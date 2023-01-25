@@ -9,7 +9,7 @@ if (!isset($_POST['employee_id'])) {
     exit;
 }
 
-include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."database".DIRECTORY_SEPARATOR."model.php";
+include_once __DIR__."/../database/model.php";
 
 $model = new Model('gameplays');
 $data = [

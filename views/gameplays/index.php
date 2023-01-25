@@ -1,7 +1,7 @@
 <?php
     ob_start();
 
-    include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."database".DIRECTORY_SEPARATOR."model.php";
+    include_once __DIR__."/../../database/model.php";
 
     $model = new Model('gameplays');
 
@@ -32,7 +32,7 @@
                         <td> <?php echo $gameplay->rake ?> </td>
                         <td> <?php echo $gameplay->count ?> </td>
                         <td>
-                            <a href="../gameplays/edit.php?gameplay_id=<?php echo $gameplay->id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/gameplays/edit.php?gameplay_id=<?php echo $gameplay->id ?>" class="btn btn-info btn-sm">Edit</a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -43,5 +43,5 @@
 <?php
     $customSection = ob_get_clean();
 
-    include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."layout".DIRECTORY_SEPARATOR."index.php";
+    include_once __DIR__."/../../layout/index.php";
 ?>

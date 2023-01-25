@@ -9,7 +9,7 @@ if ($_POST['confirm_password'] != $_POST['password']) {
     exit;
 }
 
-include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."database".DIRECTORY_SEPARATOR."model.php";
+include_once __DIR__."/../database/model.php";
 
 $model = new Model('employees');
 $data = [

@@ -14,7 +14,7 @@ if (!isset($_POST['campaign_id'])) {
     exit;
 }
 
-include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."database".DIRECTORY_SEPARATOR."model.php";
+include_once __DIR__."/../database/model.php";
 
 $model = new Model('leads');
 $data = [

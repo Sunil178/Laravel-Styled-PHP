@@ -5,7 +5,7 @@
                     <h5 class="mb-0"> <?php echo ($campaign->id ? 'Edit' : 'Create') ?> Campaign</h5>
                </div>
                <div class="card-body">
-                    <form method="POST" action="../controller/campaign.php" id="form">
+                    <form method="POST" action="/controller/campaign.php" id="form">
                          <input type="hidden" name="campaign_id" value="<?php echo $campaign->id ?>">
                          <div class="row">
                               <div class="mb-3 col-md-4">
@@ -22,5 +22,5 @@
      </div>
 <?php
     $customSection = ob_get_clean();
-    include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."layout".DIRECTORY_SEPARATOR."index.php";
+    include_once __DIR__."/../../layout/index.php";
 ?>

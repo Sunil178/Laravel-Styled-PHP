@@ -1,7 +1,7 @@
 <?php
     ob_start();
 
-    include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."database".DIRECTORY_SEPARATOR."model.php";
+    include_once __DIR__."/../../database/model.php";
 
     $model = new Model('leads');
 
@@ -34,7 +34,7 @@
                         <td> <?php echo $lead->count ?> </td>
                         <td> <?php echo $lead->date ?> </td>
                         <td>
-                            <a href="../leads/edit.php?lead_id=<?php echo $lead->id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/leads/edit.php?lead_id=<?php echo $lead->id ?>" class="btn btn-info btn-sm">Edit</a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -45,5 +45,5 @@
 <?php
     $customSection = ob_get_clean();
 
-    include_once __DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."layout".DIRECTORY_SEPARATOR."index.php";
+    include_once __DIR__."/../../layout/index.php";
 ?>
