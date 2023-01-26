@@ -1,7 +1,7 @@
 <?php
 
     if (!isset($lead_id) || $lead_id == '') {
-        echo "Error: lead id is required";
+        echo "Error: lead is required";
         exit;
     }
     include_once __DIR__."/../../database/model.php";

@@ -7,7 +7,7 @@
 
     $employee_id = $_SESSION['employee_id'];
 
-    $query = "SELECT leads.id, employees.name AS employees_name, employees.username, campaigns.name AS campaign_name, leads.type, leads.state, leads.count, leads.date FROM leads JOIN employees ON employees.id = leads.employee_id JOIN campaigns ON campaigns.id = leads.campaign_id";
+    $query = "SELECT leads.id, employees.name AS employees_name, employees.username, campaigns.name AS campaign_name, states.name as state_name, leads.type, leads.state, leads.count, leads.date FROM leads JOIN employees ON employees.id = leads.employee_id LEFT JOIN campaigns ON campaigns.id = leads.campaign_id LEFT JOIN states ON states.id = leads.state_id";
     if (!checkAdmin()) {
         $query .= " WHERE leads.employee_id = '$employee_id'";
     }
@@ -40,7 +40,7 @@
                         <?php } ?>
                         <td> <?php echo $lead->campaign_name ?> </td>
                         <td> <?php echo $lead->type ?> </td>
-                        <td> <?php echo $lead->state ?> </td>
+                        <td> <?php echo $lead->state_name ?> </td>
                         <td> <?php echo $lead->count ?> </td>
                         <td> <?php echo $lead->date ?> </td>
                         <td>

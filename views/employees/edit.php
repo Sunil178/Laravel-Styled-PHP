@@ -1,7 +1,7 @@
 <?php
 
     if (!isset($employee_id) || $employee_id == '') {
-        echo "Error: employee id is required";
+        echo "Error: employee is required";
         exit;
     }
     include_once __DIR__."/../../database/model.php";

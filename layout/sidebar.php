@@ -51,12 +51,12 @@
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item">
-                        <a href="/campaigns" class="menu-link">
+                        <a href="/acampaigns" class="menu-link">
                             <div data-i18n="Without menu">Index</div>
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="/campaigns/create" class="menu-link">
+                        <a href="/acampaigns/create" class="menu-link">
                             <div data-i18n="Without menu">Create</div>
                         </a>
                     </li>

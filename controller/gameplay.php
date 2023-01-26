@@ -2,7 +2,7 @@
 
 if (!isset($_POST['employee_id']) || $_POST['employee_id'] == '') {
     if (checkAuth(true)) {
-        echo "Employee id is required";
+        echo "Employee is required";
         exit;
     }
     $employee_id = $_SESSION['employee_id'];

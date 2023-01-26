@@ -2,7 +2,7 @@
 
 if (!isset($_POST['employee_id']) || $_POST['employee_id'] == '') {
     if (checkAuth(true)) {
-        echo "Employee id is required";
+        echo "Employee is required";
         exit;
     }
     $employee_id = $_SESSION['employee_id'];
@@ -15,12 +15,17 @@ if (!isset($_POST['employee_id']) || $_POST['employee_id'] == '') {
 }
 
 if (!isset($_POST['campaign_id']) || $_POST['campaign_id'] == '') {
-    echo "Campaign id is required";
+    echo "Campaign is required";
     exit;
 }
 
 if (!isset($_POST['type']) || $_POST['type'] == '') {
-    echo "Campaign id is required";
+    echo "Lead type is required";
+    exit;
+}
+
+if (!isset($_POST['state_id']) || $_POST['state_id'] == '') {
+    echo "State is required";
     exit;
 }
 
@@ -33,7 +38,7 @@ $data = [
     'employee_id' => $employee_id,
     'campaign_id' => $_POST['campaign_id'],
     'type' => $_POST['type'],
-    'state' => $_POST['state'],
+    'state_id' => $_POST['state_id'],
     'count' => (int)$_POST['count'],
     'date' => $date,
 ];

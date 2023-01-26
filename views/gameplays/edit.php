@@ -1,6 +1,6 @@
 <?php
     if (!isset($gameplay_id) || $gameplay_id == '') {
-        echo "Error: gameplay id is required";
+        echo "Error: gameplay is required";
         exit;
     }
     include_once __DIR__."/../../database/model.php";

@@ -1,7 +1,7 @@
 <?php
 
     if (!isset($campaign_id) || $campaign_id == '') {
-        echo "Error: campaign id is required";
+        echo "Error: campaign is required";
         exit;
     }
     include_once __DIR__."/../../database/model.php";

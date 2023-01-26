@@ -83,15 +83,15 @@ switch ($request) {
         showPage('/controller/gameplay.php');
         break;
 
-    case '/campaigns' :
+    case '/acampaigns' :
         showPage('/views/campaigns/index.php', [], true);
         break;
 
-    case '/campaigns/create' :
+    case '/acampaigns/create' :
         showPage('/views/campaigns/store.php', [], true);
         break;
 
-    case '/campaigns/store' :
+    case '/acampaigns/store' :
         showPage('/controller/campaign.php', [], true);
         break;
 
@@ -113,7 +113,7 @@ switch ($request) {
                 showPage('/views/employees/edit.php', ['employee_id', $matches[1]], true);
                 break;
 
-            case preg_match('/^\/campaigns\/edit\/([0-9]+)$/', $request, $matches):
+            case preg_match('/^\/acampaigns\/edit\/([0-9]+)$/', $request, $matches):
                 showPage('/views/campaigns/edit.php', ['campaign_id', $matches[1]], true);
                 break;
 

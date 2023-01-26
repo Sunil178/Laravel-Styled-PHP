@@ -6,6 +6,8 @@
      $employees = $model->getAll();
      $model = new Model('campaigns');
      $campaigns = $model->getAll();
+     $model = new Model('states');
+     $states = $model->getAll();
 ?>
 
      <div class="col-md-10">
@@ -55,8 +57,13 @@
                          <div class="row">
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label">State</label>
-                                        <input type="text" class="form-control" name="state" placeholder="Enter state" value="<?php echo $lead->state ?>">
+                                        <label class="form-label required">State</label>
+                                        <select name="state_id" class="form-select" required>
+                                             <option value=""> -- select state -- </option>
+                                             <?php foreach ($states as $state) { ?>
+                                                  <option <?php echo ($lead->state_id == $state->id) ? 'selected' : ''; ?> value="<?php echo $state->id; ?>"><?php echo $state->code . ' : ' . $state->name; ?></option>
+                                             <?php } ?>
+                                        </select>
                                    </div>
                               </div>
                               <div class="mb-3 col-md-4">

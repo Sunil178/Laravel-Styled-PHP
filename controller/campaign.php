@@ -14,7 +14,7 @@ else {
 
 if ($db_res !== false && $db_res > 0) {
     session_write_close();
-    header("Location: /campaigns");
+    header("Location: /acampaigns");
 }
 else {
     echo "Something Went Wrong!";

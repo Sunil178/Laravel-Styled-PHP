@@ -5,7 +5,7 @@
                     <h5 class="mb-0"> <?php echo ($campaign->id ? 'Edit' : 'Create') ?> Campaign</h5>
                </div>
                <div class="card-body">
-                    <form method="POST" action="/campaigns/store" id="form">
+                    <form method="POST" action="/acampaigns/store" id="form">
                          <input type="hidden" name="campaign_id" value="<?php echo $campaign->id ?>">
                          <div class="row">
                               <div class="mb-3 col-md-4">
