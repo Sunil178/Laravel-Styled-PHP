@@ -7,7 +7,7 @@
 
     $employee_id = $_SESSION['employee_id'];
 
-    $query = "SELECT gameplays.id, employees.name, employees.username, gameplays.emulator_name, gameplays.date, gameplays.rake, gameplays.count FROM gameplays JOIN employees ON employees.id = gameplays.employee_id";
+    $query = "SELECT gameplays.id, employees.name, employees.username, gameplays.emulator_name, gameplays.date, SUM(gameplay_rakes.rake) AS rake, COUNT(gameplay_rakes.id) AS count FROM gameplays JOIN employees ON employees.id = gameplays.employee_id LEFT JOIN gameplay_rakes ON gameplay_rakes.gameplay_id = gameplays.id GROUP BY gameplay_rakes.gameplay_id";
     if (!checkAdmin()) {
         $query .= " WHERE gameplays.employee_id = '$employee_id'";
     }

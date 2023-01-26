@@ -41,26 +41,39 @@
                                    </div>
                               </div>
                          </div>
-                         <div class="row">
-                              <div class="mb-3 col-md-4">
+                         <div class="row" id="rake-block">
+                              <div class="mb-3 col-md-2 rake-input">
                                    <div class="form-group">
-                                        <label class="form-label">Rake</label>
-                                        <input type="number" step="any" class="form-control" name="rake" placeholder="Enter rake" value="<?php echo $gameplay->rake ?>">
-                                   </div>
-                              </div>
-                              <div class="mb-3 col-md-4">
-                                   <div class="form-group">
-                                        <label class="form-label">Count</label>
-                                        <input type="number" step="any" class="form-control" name="count" placeholder="Enter count" value="<?php echo $gameplay->count ?>">
+                                        <label class="form-label">Rake 1</label>
+                                        <input type="number" step="any" class="form-control" name="rakes[0]" placeholder="Enter rake 1">
+                                        <input type="hidden" name="rake_ids[0]" value="0">
                                    </div>
                               </div>
                          </div>
                          <button type="submit" class="btn btn-primary">Submit</button>
+                         <button type="button" id="add-rake" class="btn btn-info">Add Rake</button>
                     </form>
                </div>
           </div>
      </div>
-<?php
-    $customSection = ob_get_clean();
-    include_once __DIR__."/../../layout/index.php";
-?>
+<?php $customSection = ob_get_clean(); ?>
+
+<?php ob_start(); ?>
+
+     <script>
+          var rake_input = $('#rake-block').first().html();
+          $('#add-rake').on('click', function(event) {
+               new_rake_input = $(rake_input);
+               rake_count = $('.rake-input').length + 1;
+               new_rake_input.find( 'label' ).text('Rake ' + rake_count);
+               new_rake_input.find( 'input[type="number"]' ).attr('placeholder', 'Enter rake ' + rake_count);
+               new_rake_input.find( 'input[type="number"]' ).attr('name', `rakes[${rake_count-1}]`);
+               new_rake_input.find( 'input[type="hidden"]' ).attr('name', `rake_ids[${rake_count-1}]`);
+               $('#rake-block').append(new_rake_input);
+          });
+     </script>
+
+<?php $customScript = ob_get_clean(); ?>
+
+<?php include_once __DIR__."/../../layout/index.php"; ?>
+

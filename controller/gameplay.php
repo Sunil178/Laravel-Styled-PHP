@@ -22,19 +22,35 @@ $model = new Model('gameplays');
 $data = [
     'employee_id' => $employee_id,
     'emulator_name' => $_POST['emulator_name'],
-    'rake' => (double)$_POST['rake'],
-    'count' => (int)$_POST['count'],
     'date' => $date,
 ];
 
 if ($_POST['gameplay_id']) {
-    $db_res = $model->update($data, $_POST['gameplay_id']);
+    $db_res1 = $model->update($data, $_POST['gameplay_id']);
 }
 else {
-    $db_res = $model->create($data);
+    $db_res1 = $model->create($data);
 }
 
-if ($db_res !== false && $db_res > 0) {
+$rakes = $_POST['rakes'];
+$rake_ids = $_POST['rake_ids'];
+
+$model = new Model('gameplay_rakes');
+foreach ($rake_ids as $rake_id_index => $rake_id) {
+    if ($rake_id == 0) {
+        $db_res2 = $model->create([
+            'gameplay_id' => $gameplay_id,
+            'rake' => $rakes[$rake_id_index],
+        ]);
+    }
+    else {
+        $db_res2 = $model->update([
+            'rake' => $rakes[$rake_id_index],
+        ], $rake_id);
+    }
+}
+
+if ($db_res1 !== false && $db_res1 > 0 && $db_res2 !== false) {
     session_write_close();
     header("Location: /gameplays");
 }
