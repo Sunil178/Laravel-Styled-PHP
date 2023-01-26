@@ -5,7 +5,13 @@
 
     $model = new Model('gameplays');
 
+    $employee_id = $_SESSION['employee_id'];
+
     $query = "SELECT gameplays.id, employees.name, employees.username, gameplays.emulator_name, gameplays.date, gameplays.rake, gameplays.count FROM gameplays JOIN employees ON employees.id = gameplays.employee_id";
+    if (!checkAdmin()) {
+        $query .= " WHERE gameplays.employee_id = '$employee_id'";
+    }
+    $query .= " ORDER BY gameplays.date DESC";
     $gameplays = $model->runQuery($query);
 ?>
 
@@ -14,11 +20,13 @@
             <thead>
                 <tr class="text-nowrap">
                     <th> # </th>
-                    <th> Employee Name </th>
+                    <?php if (checkAuth(true)) { ?>
+                        <th> Employee Name </th>
+                    <?php } ?>
                     <th> Emulator Name </th>
-                    <th> Date </th>
                     <th> Rake </th>
                     <th> Count </th>
+                    <th> Date </th>
                     <th> Action </th>
                 </tr>
             </thead>
@@ -26,11 +34,13 @@
                 <?php foreach ($gameplays as $index => $gameplay) { ?>
                     <tr>
                         <td> <?php echo ($index + 1) ?> </td>
-                        <td> <?php echo $gameplay->name . ' : ' . $gameplay->username ?> </td>
+                        <?php if (checkAuth(true)) { ?>
+                            <td> <?php echo $gameplay->name . ' : ' . $gameplay->username ?> </td>
+                        <?php } ?>
                         <td> <?php echo $gameplay->emulator_name ?> </td>
-                        <td> <?php echo $gameplay->date ?> </td>
                         <td> <?php echo $gameplay->rake ?> </td>
                         <td> <?php echo $gameplay->count ?> </td>
+                        <td> <?php echo $gameplay->date ?> </td>
                         <td>
                             <a href="/gameplays/edit/<?php echo $gameplay->id ?>" class="btn btn-info btn-sm">Edit</a>
                         </td>

@@ -1,10 +1,14 @@
 <?php
 
-ini_set('display_errors', 1);
+/* ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL); */
 
 session_start();
+
+function checkAdmin() {
+    return $_SESSION['employee_id'] == 1;
+}
 
 function checkAuth($admin = false) {
     if (!isset($_SESSION['employee_id']) || ($_SESSION['employee_id'] != 1 && $admin)) {
@@ -13,7 +17,10 @@ function checkAuth($admin = false) {
     return true;
 }
 
-function showPage($page, $admin = false) {
+function showPage($page, $data = [], $admin = false) {
+    if ($data) {
+        ${$data[0]} = $data[1];
+    }
     checkAuth($admin) ? include_once __DIR__ . $page : include_once __DIR__ . '/views/403.php';
 }
 
@@ -53,15 +60,15 @@ switch ($request) {
         break;
 
     case '/employees' :
-        showPage('/views/employees/index.php', true);
+        showPage('/views/employees/index.php', [], true);
         break;
 
     case '/employees/create' :
-        showPage('/views/employees/store.php', true);
+        showPage('/views/employees/store.php', [], true);
         break;
 
     case '/employees/store' :
-        showPage('/controller/employee.php', true);
+        showPage('/controller/employee.php', [], true);
         break;
 
     case '/gameplays' :
@@ -77,15 +84,15 @@ switch ($request) {
         break;
 
     case '/campaigns' :
-        showPage('/views/campaigns/index.php', true);
+        showPage('/views/campaigns/index.php', [], true);
         break;
 
     case '/campaigns/create' :
-        showPage('/views/campaigns/store.php', true);
+        showPage('/views/campaigns/store.php', [], true);
         break;
 
     case '/campaigns/store' :
-        showPage('/controller/campaign.php', true);
+        showPage('/controller/campaign.php', [], true);
         break;
 
     case '/leads' :
@@ -103,23 +110,19 @@ switch ($request) {
     default:
         switch (true) {
             case preg_match('/^\/employees\/edit\/([0-9]+)$/', $request, $matches):
-                $employee_id = $matches[1];
-                showPage('/views/employees/edit.php', true);
+                showPage('/views/employees/edit.php', ['employee_id', $matches[1]], true);
                 break;
 
             case preg_match('/^\/campaigns\/edit\/([0-9]+)$/', $request, $matches):
-                $campaign_id = $matches[1];
-                showPage('/views/campaigns/edit.php', true);
+                showPage('/views/campaigns/edit.php', ['campaign_id', $matches[1]], true);
                 break;
 
             case preg_match('/^\/gameplays\/edit\/([0-9]+)$/', $request, $matches):
-                $gameplay_id = $matches[1];
-                showPage('/views/gameplays/edit.php');
+                showPage('/views/gameplays/edit.php', ['gameplay_id', $matches[1]]);
                 break;
 
             case preg_match('/^\/leads\/edit\/([0-9]+)$/', $request, $matches):
-                $lead_id = $matches[1];
-                showPage('/views/leads/edit.php');
+                showPage('/views/leads/edit.php', ['lead_id', $matches[1]]);
                 break;
 
             default:

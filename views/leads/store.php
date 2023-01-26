@@ -17,17 +17,19 @@
                     <form method="POST" action="/leads/store" id="form">
                          <input type="hidden" name="lead_id" value="<?php echo $lead->id ?>">
                          <div class="row">
-                              <div class="mb-3 col-md-4">
-                                   <div class="form-group">
-                                        <label class="form-label required">Employee</label>
-                                        <select name="employee_id" class="form-select" required>
-                                             <option value=""> -- select employee -- </option>
-                                             <?php foreach ($employees as $employee) { ?>
-                                                  <option <?php echo ($lead->employee_id == $employee->id) ? 'selected' : ''; ?> value="<?php echo $employee->id; ?>"><?php echo $employee->name . ' : ' . $employee->username; ?></option>
-                                             <?php } ?>
-                                        </select>
+                              <?php if (checkAuth(true)) { ?>
+                                   <div class="mb-3 col-md-4">
+                                        <div class="form-group">
+                                             <label class="form-label required">Employee</label>
+                                             <select name="employee_id" class="form-select" required>
+                                                  <option value=""> -- select employee -- </option>
+                                                  <?php foreach ($employees as $employee) { ?>
+                                                       <option <?php echo ($lead->employee_id == $employee->id) ? 'selected' : ''; ?> value="<?php echo $employee->id; ?>"><?php echo $employee->name . ' : ' . $employee->username; ?></option>
+                                                  <?php } ?>
+                                             </select>
+                                        </div>
                                    </div>
-                              </div>
+                              <?php } ?>
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
                                         <label class="form-label required">Campaign</label>

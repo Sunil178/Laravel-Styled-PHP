@@ -1,23 +1,30 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-if (!isset($_POST['employee_id'])) {
-    echo "Employee id is required";
-    exit;
+if (!isset($_POST['employee_id']) || $_POST['employee_id'] == '') {
+    if (checkAuth(true)) {
+        echo "Employee id is required";
+        exit;
+    }
+    $employee_id = $_SESSION['employee_id'];
+} else {
+    if (checkAuth(true)) {
+        $employee_id = $_POST['employee_id'];
+    } else {
+        $employee_id = $_SESSION['employee_id'];
+    }
 }
 
 include_once __DIR__."/../database/model.php";
 
+$date = $_POST['date'] == '' ? NULL : $_POST['date'];
+
 $model = new Model('gameplays');
 $data = [
-    'employee_id' => $_POST['employee_id'],
+    'employee_id' => $employee_id,
     'emulator_name' => $_POST['emulator_name'],
-    'date' => $_POST['date'],
-    'rake' => $_POST['rake'],
-    'count' => $_POST['count'],
+    'rake' => (double)$_POST['rake'],
+    'count' => (int)$_POST['count'],
+    'date' => $date,
 ];
 
 if ($_POST['gameplay_id']) {

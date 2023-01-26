@@ -1,29 +1,41 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+if (!isset($_POST['employee_id']) || $_POST['employee_id'] == '') {
+    if (checkAuth(true)) {
+        echo "Employee id is required";
+        exit;
+    }
+    $employee_id = $_SESSION['employee_id'];
+} else {
+    if (checkAuth(true)) {
+        $employee_id = $_POST['employee_id'];
+    } else {
+        $employee_id = $_SESSION['employee_id'];
+    }
+}
 
-if (!isset($_POST['employee_id'])) {
-    echo "Employee id is required";
+if (!isset($_POST['campaign_id']) || $_POST['campaign_id'] == '') {
+    echo "Campaign id is required";
     exit;
 }
 
-if (!isset($_POST['campaign_id'])) {
+if (!isset($_POST['type']) || $_POST['type'] == '') {
     echo "Campaign id is required";
     exit;
 }
 
 include_once __DIR__."/../database/model.php";
 
+$date = $_POST['date'] == '' ? NULL : $_POST['date'];
+
 $model = new Model('leads');
 $data = [
-    'employee_id' => $_POST['employee_id'],
+    'employee_id' => $employee_id,
     'campaign_id' => $_POST['campaign_id'],
     'type' => $_POST['type'],
     'state' => $_POST['state'],
-    'count' => $_POST['count'],
-    'date' => $_POST['date'],
+    'count' => (int)$_POST['count'],
+    'date' => $date,
 ];
 
 if ($_POST['lead_id']) {

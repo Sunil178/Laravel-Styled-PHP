@@ -5,7 +5,13 @@
 
     $model = new Model('leads');
 
+    $employee_id = $_SESSION['employee_id'];
+
     $query = "SELECT leads.id, employees.name AS employees_name, employees.username, campaigns.name AS campaign_name, leads.type, leads.state, leads.count, leads.date FROM leads JOIN employees ON employees.id = leads.employee_id JOIN campaigns ON campaigns.id = leads.campaign_id";
+    if (!checkAdmin()) {
+        $query .= " WHERE leads.employee_id = '$employee_id'";
+    }
+    $query .= " ORDER BY leads.date DESC";
     $leads = $model->runQuery($query);
 ?>
 
@@ -14,7 +20,9 @@
             <thead>
                 <tr class="text-nowrap">
                     <th> # </th>
-                    <th> Employee Name </th>
+                    <?php if (checkAuth(true)) { ?>
+                        <th> Employee Name </th>
+                    <?php } ?>
                     <th> Campaign Name </th>
                     <th> Type </th>
                     <th> State </th>
@@ -27,7 +35,9 @@
                 <?php foreach ($leads as $index => $lead) { ?>
                     <tr>
                         <td> <?php echo ($index + 1) ?> </td>
-                        <td> <?php echo $lead->employees_name . ' : ' . $lead->username ?> </td>
+                        <?php if (checkAuth(true)) { ?>
+                            <td> <?php echo $lead->employees_name . ' : ' . $lead->username ?> </td>
+                        <?php } ?>
                         <td> <?php echo $lead->campaign_name ?> </td>
                         <td> <?php echo $lead->type ?> </td>
                         <td> <?php echo $lead->state ?> </td>

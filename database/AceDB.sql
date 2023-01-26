@@ -20,7 +20,7 @@ CREATE TABLE `gameplays` (
   `emulator_name` varchar(225) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `rake` decimal(12, 2) DEFAULT NULL,
-  `count` decimal(12, 2) DEFAULT NULL,
+  `count` int DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`)
