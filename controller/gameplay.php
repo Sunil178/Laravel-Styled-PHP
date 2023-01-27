@@ -39,16 +39,18 @@ $rake_ids = $_POST['rake_ids'];
 
 $model = new Model('gameplay_rakes');
 foreach ($rake_ids as $rake_id_index => $rake_id) {
-    if ($rake_id == 0) {
-        $db_res2 = $model->create([
-            'gameplay_id' => $gameplay_id,
-            'rake' => $rakes[$rake_id_index],
-        ]);
-    }
-    else {
-        $db_res2 = $model->update([
-            'rake' => $rakes[$rake_id_index],
-        ], $rake_id);
+    if ($rakes[$rake_id_index] != '') {
+        if ($rake_id == 0) {
+            $db_res2 = $model->create([
+                'gameplay_id' => $gameplay_id,
+                'rake' => (float)$rakes[$rake_id_index],
+            ]);
+        }
+        else {
+            $db_res2 = $model->update([
+                'rake' => (float)$rakes[$rake_id_index],
+            ], $rake_id);
+        }
     }
 }
 
