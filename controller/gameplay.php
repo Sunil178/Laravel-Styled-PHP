@@ -24,12 +24,14 @@ $data = [
     'emulator_name' => $_POST['emulator_name'],
     'date' => $date,
 ];
+$gameplay_id = $_POST['gameplay_id'];
 
-if ($_POST['gameplay_id']) {
-    $db_res1 = $model->update($data, $_POST['gameplay_id']);
+if ($gameplay_id) {
+    $db_res1 = $model->update($data, $gameplay_id);
 }
 else {
     $db_res1 = $model->create($data);
+    $gameplay_id = $model->getConnection()->insert_id;
 }
 
 $rakes = $_POST['rakes'];
@@ -50,7 +52,7 @@ foreach ($rake_ids as $rake_id_index => $rake_id) {
     }
 }
 
-if ($db_res1 !== false && $db_res1 > 0 && $db_res2 !== false) {
+if ($db_res1 !== false && $db_res2 !== false) {
     session_write_close();
     header("Location: /gameplays");
 }

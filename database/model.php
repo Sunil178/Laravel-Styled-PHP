@@ -18,6 +18,10 @@
             $this->table = $table;
         }
 
+        public function getConnection() {
+            return $this->conn;
+        }
+
         private function affectExecuteRows($stmt) {
             if ($stmt->execute()) {
                 if($stmt->affected_rows > 0) {

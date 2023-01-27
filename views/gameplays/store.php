@@ -42,16 +42,35 @@
                               </div>
                          </div>
                          <div class="row" id="rake-block">
-                              <div class="mb-3 col-md-2 rake-input">
-                                   <div class="form-group">
-                                        <label class="form-label">Rake 1</label>
-                                        <input type="number" step="any" class="form-control" name="rakes[0]" placeholder="Enter rake 1">
-                                        <input type="hidden" name="rake_ids[0]" value="0">
+                              <?php $total_rake = 0; ?>
+                              <?php $rake_count = is_array($gameplay_rakes) ? count($gameplay_rakes) : 0 ; ?>
+                              <?php if ($rake_count > 0) { ?>
+                                   <?php foreach ($gameplay_rakes as $index => $gameplay_rake) { ?>
+                                        <div class="mb-3 col-md-2 rake-input">
+                                             <div class="form-group">
+                                                  <label class="form-label">Rake <?php echo ($index + 1) ?></label>
+                                                  <input type="number" step="any" class="form-control" name="rakes[<?php echo $index ?>]" placeholder="Enter rake <?php echo ($index + 1) ?>" value="<?php echo $gameplay_rake->rake ?>">
+                                                  <input type="hidden" name="rake_ids[<?php echo $index ?>]" value="<?php echo $gameplay_rake->id ?>">
+                                             </div>
+                                        </div>
+                                        <?php $total_rake += $gameplay_rake->rake; ?>
+                                   <?php } ?>
+                              <?php } else { ?>
+                                   <div class="mb-3 col-md-2 rake-input">
+                                        <div class="form-group">
+                                             <label class="form-label">Rake 1</label>
+                                             <input type="number" step="any" class="form-control" name="rakes[0]" placeholder="Enter rake 1">
+                                             <input type="hidden" name="rake_ids[0]" value="0">
+                                        </div>
                                    </div>
-                              </div>
+                              <?php } ?>
                          </div>
                          <button type="submit" class="btn btn-primary">Submit</button>
                          <button type="button" id="add-rake" class="btn btn-info">Add Rake</button>
+                         <br>
+                         <br>
+                         <b><label>Rake Count: <?php echo $rake_count ?></label></b>
+                         <b><label>Total Rake: <?php echo $total_rake ?></label></b>
                     </form>
                </div>
           </div>
@@ -61,7 +80,15 @@
 <?php ob_start(); ?>
 
      <script>
-          var rake_input = $('#rake-block').first().html();
+          var rake_input = `
+<div class="mb-3 col-md-2 rake-input">
+     <div class="form-group">
+          <label class="form-label">Rake 1</label>
+          <input type="number" step="any" class="form-control" name="rakes[0]" placeholder="Enter rake 1">
+          <input type="hidden" name="rake_ids[0]" value="0">
+     </div>
+</div>
+`;
           $('#add-rake').on('click', function(event) {
                new_rake_input = $(rake_input);
                rake_count = $('.rake-input').length + 1;
@@ -69,6 +96,7 @@
                new_rake_input.find( 'input[type="number"]' ).attr('placeholder', 'Enter rake ' + rake_count);
                new_rake_input.find( 'input[type="number"]' ).attr('name', `rakes[${rake_count-1}]`);
                new_rake_input.find( 'input[type="hidden"]' ).attr('name', `rake_ids[${rake_count-1}]`);
+               new_rake_input.find( 'input[type="hidden"]' ).val(0);
                $('#rake-block').append(new_rake_input);
           });
      </script>
