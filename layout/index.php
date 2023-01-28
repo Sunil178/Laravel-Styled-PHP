@@ -49,6 +49,8 @@
         }
     </style>
 
+    <?php if (isset($customStyle)) { echo $customStyle; } ?>
+
 </head>
 
 <body>
@@ -71,12 +73,14 @@
                         </a>
                     </div>
 
+                    <?php if (isset($customNavbar)) { echo $customNavbar; } ?>
+
                     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
 
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                             <li class="nav-item lh-1 me-4">
-                                <i class='bx bxs-calendar mt-0'></i> Today: <?php echo date('Y-m-d'); ?>
+                                <i class='bx bxs-calendar mt-0'></i> Today: <?php echo date('d-m-Y'); ?>
                             </li>
 
                             <!-- User -->

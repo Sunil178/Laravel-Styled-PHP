@@ -117,6 +117,10 @@ switch ($request) {
                 showPage('/views/campaigns/edit.php', ['campaign_id', $matches[1]], true);
                 break;
 
+            case preg_match('/^\/gameplays\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))$/', $request, $matches):
+                showPage('/views/gameplays/index.php', ['date', $matches[1]]);
+                break;
+
             case preg_match('/^\/gameplays\/edit\/([0-9]+)$/', $request, $matches):
                 showPage('/views/gameplays/edit.php', ['gameplay_id', $matches[1]]);
                 break;

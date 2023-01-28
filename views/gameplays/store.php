@@ -101,7 +101,9 @@
           });
      </script>
 
-<?php $customScript = ob_get_clean(); ?>
+<?php
+     $customScript = ob_get_clean();
+     include_once __DIR__."/../../layout/index.php";
+?>
 
-<?php include_once __DIR__."/../../layout/index.php"; ?>
 
