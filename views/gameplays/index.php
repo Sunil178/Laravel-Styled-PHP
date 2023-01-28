@@ -26,7 +26,7 @@
     $query = "SELECT gameplays.id, employees.name, employees.username, gameplays.emulator_name, gameplays.date, gr.rake, gr.count FROM gameplays JOIN employees ON employees.id = gameplays.employee_id LEFT JOIN ( SELECT gameplay_id, COUNT(gameplay_rakes.id) AS count, SUM(gameplay_rakes.rake) AS rake FROM gameplay_rakes GROUP BY gameplay_id ) gr ON gr.gameplay_id = gameplays.id WHERE gameplays.date = '$date'";
 
     if (!checkAdmin()) {
-        $query .= " WHERE gameplays.employee_id = '$employee_id'";
+        $query .= " AND gameplays.employee_id = '$employee_id'";
     }
 
     $query .= " ORDER BY gameplays.date DESC";
