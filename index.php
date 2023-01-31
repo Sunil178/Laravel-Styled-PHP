@@ -4,6 +4,9 @@
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL); */
 
+$timeout = 60 * 60 * 24 * 7;                        //  1 Week
+ini_set('session.gc_maxlifetime', $timeout);
+session_set_cookie_params($timeout);
 session_start();
 
 function checkAdmin() {
@@ -26,7 +29,7 @@ function showPage($page, $data = [], $admin = false) {
 
 $request = $_SERVER['REQUEST_URI'];
 
-$request = str_replace('/tracker', '', $request);       //  For sever
+$request = str_replace('/tracker', '', $request);       //  For server
 
 switch ($request) {
     case '/' :

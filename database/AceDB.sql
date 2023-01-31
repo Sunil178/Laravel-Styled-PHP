@@ -84,3 +84,13 @@ CREATE TABLE `gameplay_rakes` (
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`gameplay_id`) REFERENCES `gameplays` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*
+ALTER TABLE `gameplays`
+  ADD COLUMN `emulator_id` INT unsigned NULL AFTER `employee_id`,
+  ADD CONSTRAINT `emulators_ibfk_2` FOREIGN KEY (`emulator_id`) REFERENCES `emulators` (`id`) ON DELETE CASCADE;
+
+ALTER TABLE `leads` 
+DROP COLUMN `count`;
+
+*/

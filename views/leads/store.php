@@ -68,23 +68,115 @@
                               </div>
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label">Count</label>
-                                        <input type="number" class="form-control" name="count" placeholder="Enter count" value="<?php echo $lead->count ?>">
-                                   </div>
-                              </div>
-                              <div class="mb-3 col-md-4">
-                                   <div class="form-group">
                                         <label class="form-label">Date</label>
                                         <input type="date" class="form-control" name="date" placeholder="Enter date" value="<?php echo $lead->date ?>">
                                    </div>
                               </div>
                          </div>
+                         <div class="row" id="emulator-block">
+                              <div class="mb-3 col-md-4 emulator-count-input">
+                                   <div class="form-group">
+                                        <label class="form-label">Count</label>
+                                        <input type="number" class="form-control" name="count" placeholder="Enter count" value="<?php echo $lead->count ?>">
+                                   </div>
+                              </div>
+                              <?php $emulator_count = is_array($lead_emulators) ? count($lead_emulators) : 0 ; ?>
+                              <?php if ($emulator_count > 0) { ?>
+                                   <?php foreach ($lead_emulators as $index => $emulator) { ?>
+                                        <div class="mb-3 col-md-2 emulator-input">
+                                             <div class="form-group">
+                                                  <label class="form-label">Emulator <?php echo ($index + 1) ?></label>
+                                                  <input type="text" class="form-control" name="emulators[<?php echo $index ?>]" placeholder="Enter emulator <?php echo ($index + 1) ?>" value="<?php echo $emulator->name ?>">
+                                                  <input type="hidden" name="emulator_ids[<?php echo $index ?>]" value="<?php echo $emulator->id ?>">
+                                             </div>
+                                        </div>
+                                   <?php } ?>
+                              <?php } else { ?>
+                                   <div class="mb-3 col-md-2 emulator-input">
+                                        <div class="form-group">
+                                             <label class="form-label">Emulator 1</label>
+                                             <input type="text" class="form-control" name="emulators[0]" placeholder="Enter emulator 1">
+                                             <input type="hidden" name="emulator_ids[0]" value="0">
+                                        </div>
+                                   </div>
+                              <?php } ?>
+                         </div>
                          <button type="submit" class="btn btn-primary">Submit</button>
+                         <button type="button" id="add-emulator" class="btn btn-info">Add Emulator</button>
+                         <div class="mt-3" id="emulator-name-count">
+                              <b><label>Emulator Count: <?php echo $emulator_count ?></label></b>
+                         </div>
                     </form>
                </div>
           </div>
      </div>
+
+<?php $customSection = ob_get_clean(); ?>
+
+<?php ob_start(); ?>
+
+     <script>
+          var emulator_input = `
+<div class="mb-3 col-md-2 emulator-input">
+     <div class="form-group">
+          <label class="form-label">Emulator 1</label>
+          <input type="text" class="form-control" name="emulators[0]" placeholder="Enter emulator 1">
+          <input type="hidden" name="emulator_ids[0]" value="0">
+     </div>
+</div>
+`;
+          $('#add-emulator').on('click', function(event) {
+               new_emulator_input = $(emulator_input);
+               emulator_count = $('.emulator-input').length + 1;
+               new_emulator_input.find( 'label' ).text('Emulator ' + emulator_count);
+               new_emulator_input.find( 'input[type="text"]' ).attr('placeholder', 'Enter emulator ' + emulator_count);
+               new_emulator_input.find( 'input[type="text"]' ).attr('name', `emulators[${emulator_count-1}]`);
+               new_emulator_input.find( 'input[type="hidden"]' ).attr('name', `emulator_ids[${emulator_count-1}]`);
+               new_emulator_input.find( 'input[type="hidden"]' ).val(0);
+               $('#emulator-block').append(new_emulator_input);
+          });
+
+          <?php if ($lead->type == 1) {?>
+               $('.emulator-count-input').hide();
+               $('.emulator-input').show();
+               $('#add-emulator').show();
+               $('#emulator-name-count').show();
+          <?php } else if ($lead->type === 0) { ?>
+               $('#add-emulator').hide();
+               $('.emulator-input').hide();
+               $('#emulator-name-count').hide();
+               $('.emulator-count-input').show();
+          <?php } else { ?>
+               $('#add-emulator').hide();
+               $('.emulator-input').hide();
+               $('.emulator-count-input').hide();
+               $('#emulator-name-count').hide();
+          <?php } ?>
+
+          $('select[name="type"]').on('change', function (event) {
+               value = $(this).val();
+               if (value == 1) {
+                    $('.emulator-count-input').hide();
+                    $('.emulator-input').show();
+                    $('#add-emulator').show();
+                    $('#emulator-name-count').show();
+               }
+               else if (value === '0') {
+                    $('#add-emulator').hide();
+                    $('.emulator-input').hide();
+                    $('#emulator-name-count').hide();
+                    $('.emulator-count-input').show();
+               }
+               else {
+                    $('#add-emulator').hide();
+                    $('.emulator-input').hide();
+                    $('.emulator-count-input').hide();
+                    $('#emulator-name-count').hide();
+               }
+          });
+     </script>
+
 <?php
-    $customSection = ob_get_clean();
-    include_once __DIR__."/../../layout/index.php";
+     $customScript = ob_get_clean();
+     include_once __DIR__."/../../layout/index.php";
 ?>

@@ -7,7 +7,8 @@
 
     $employee_id = $_SESSION['employee_id'];
 
-    $query = "SELECT leads.id, employees.name AS employees_name, employees.username, campaigns.name AS campaign_name, states.name as state_name, leads.type, leads.state, leads.count, leads.date FROM leads JOIN employees ON employees.id = leads.employee_id LEFT JOIN campaigns ON campaigns.id = leads.campaign_id LEFT JOIN states ON states.id = leads.state_id";
+    $query = "SELECT leads.id, employees.name AS employees_name, employees.username, campaigns.name AS campaign_name, states.name as state_name, leads.type, leads.state, (CASE WHEN leads.count IS NULL THEN le.count ELSE leads.count END) AS count, leads.date FROM leads JOIN employees ON employees.id = leads.employee_id LEFT JOIN campaigns ON campaigns.id = leads.campaign_id LEFT JOIN states ON states.id = leads.state_id LEFT JOIN ( SELECT lead_id, COUNT(emulators.id) AS count FROM emulators GROUP BY lead_id ) le ON le.lead_id = leads.id ";
+
     if (!checkAdmin()) {
         $query .= " WHERE leads.employee_id = '$employee_id'";
     }
@@ -24,8 +25,8 @@
                         <th> Employee Name </th>
                     <?php } ?>
                     <th> Campaign Name </th>
-                    <th> Type </th>
                     <th> State </th>
+                    <th> Type </th>
                     <th> Count </th>
                     <th> Date </th>
                     <th> Action </th>
@@ -39,8 +40,8 @@
                             <td> <?php echo $lead->employees_name . ' : ' . $lead->username ?> </td>
                         <?php } ?>
                         <td> <?php echo $lead->campaign_name ?> </td>
-                        <td> <?php echo $lead->type ?> </td>
                         <td> <?php echo $lead->state_name ?> </td>
+                        <td> <?php echo ($lead->type == 0 ? 'Registration' : 'Deposit') ?> </td>
                         <td> <?php echo $lead->count ?> </td>
                         <td> <?php echo $lead->date ?> </td>
                         <td>

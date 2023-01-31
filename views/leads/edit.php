@@ -9,5 +9,8 @@
     $model = new Model('leads');
     $lead = $model->get($lead_id);
 
+    $model = new Model('emulators');
+    $lead_emulators = $model->getBy([ 'lead_id' => $lead_id ]);
+
     include_once __DIR__."/store.php";
 ?>

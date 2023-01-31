@@ -7,7 +7,7 @@
 
     $model = new Model('gameplays');
     $gameplay = $model->get($gameplay_id);
-    
+
     $model = new Model('gameplay_rakes');
     $gameplay_rakes = $model->getBy([ 'gameplay_id' => $gameplay_id ]);
 
