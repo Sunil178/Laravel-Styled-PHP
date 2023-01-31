@@ -72,7 +72,7 @@ switch ($request) {
         break;
 
     case '/gameplays' :
-        showPage('/views/gameplays/index.php');
+        showPage('/controller/gameplays/index.php');
         break;
 
     case '/gameplays/create' :
@@ -80,7 +80,7 @@ switch ($request) {
         break;
 
     case '/gameplays/store' :
-        showPage('/controller/gameplay.php');
+        showPage('/controller/gameplays/store.php');
         break;
 
     case '/acampaigns' :
@@ -118,7 +118,7 @@ switch ($request) {
                 break;
 
             case preg_match('/^\/gameplays\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))$/', $request, $matches):
-                showPage('/views/gameplays/index.php', ['date', $matches[1]]);
+                showPage('/controller/gameplays/index.php', ['date', $matches[1]]);
                 break;
 
             case preg_match('/^\/gameplays\/edit\/([0-9]+)$/', $request, $matches):

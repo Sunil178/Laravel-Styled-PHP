@@ -14,7 +14,7 @@ if (!isset($_POST['employee_id']) || $_POST['employee_id'] == '') {
     }
 }
 
-include_once __DIR__."/../database/model.php";
+include_once __DIR__."/../../database/model.php";
 
 $date = $_POST['date'] == '' ? NULL : $_POST['date'];
 
