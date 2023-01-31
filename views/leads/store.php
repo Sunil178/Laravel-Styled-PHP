@@ -68,8 +68,8 @@
                               </div>
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label">Date</label>
-                                        <input type="date" class="form-control" name="date" placeholder="Enter date" value="<?php echo $lead->date ?>">
+                                        <label class="form-label required">Date</label>
+                                        <input type="date" class="form-control" name="date" placeholder="Enter date" value="<?php echo $lead->date ?>" required>
                                    </div>
                               </div>
                          </div>

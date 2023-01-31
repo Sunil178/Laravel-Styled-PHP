@@ -4,6 +4,8 @@
      include_once __DIR__."/../../database/model.php";
      $model = new Model('employees');
      $employees = $model->getAll();
+     $model = new Model('emulators');
+     $emulators = $model->getAll();
 ?>
 
      <div class="col-md-10">
@@ -30,14 +32,28 @@
                               <?php } ?>
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label">Emulator Name</label>
-                                        <input type="text" class="form-control" name="emulator_name" placeholder="Enter emulator name" value="<?php echo $gameplay->emulator_name ?>">
+                                        <label class="form-label required">Date</label>
+                                        <input type="date" class="form-control" name="date" placeholder="Enter date" value="<?php echo $gameplay->date ?>" required>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="row mt-4">
+                              <label class="form-label required">Any one emulator or name is required</label>
+                              <div class="mb-3 col-md-4">
+                                   <div class="form-group">
+                                        <label class="form-label">Emulator</label>
+                                        <select name="emulator_id" class="form-select">
+                                             <option value=""> -- select emulator -- </option>
+                                             <?php foreach ($emulators as $emulator) { ?>
+                                                  <option <?php echo ($gameplay->emulator_id == $emulator->id) ? 'selected' : ''; ?> value="<?php echo $emulator->id; ?>"><?php echo $emulator->name; ?></option>
+                                             <?php } ?>
+                                        </select>
                                    </div>
                               </div>
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label">Date</label>
-                                        <input type="date" class="form-control" name="date" placeholder="Enter date" value="<?php echo $gameplay->date ?>">
+                                        <label class="form-label">Emulator Name</label>
+                                        <input type="text" class="form-control" name="emulator_name" placeholder="Enter emulator name" value="<?php echo $gameplay->emulator_name ?>">
                                    </div>
                               </div>
                          </div>

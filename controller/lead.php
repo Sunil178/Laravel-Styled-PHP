@@ -20,7 +20,6 @@ if (!isset($_POST['campaign_id']) || $_POST['campaign_id'] == '') {
 }
 
 $type = @$_POST['type'];
-
 if (!isset($type) || $type == '') {
     echo "Lead type is required";
     exit;
@@ -31,9 +30,14 @@ if (!isset($_POST['state_id']) || $_POST['state_id'] == '') {
     exit;
 }
 
+$date = @$_POST['date'];
+if (!isset($date) || $date == '') {
+    echo "Date is required";
+    exit;
+}
+
 include_once __DIR__."/../database/model.php";
 
-$date = $_POST['date'] == '' ? NULL : $_POST['date'];
 $count = $_POST['count'] == '' ? NULL : ($type == 1 ? NULL : $_POST['count']);
 
 $model = new Model('leads');
