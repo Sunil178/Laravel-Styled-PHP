@@ -4,10 +4,15 @@
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL); */
 
-$timeout = 60 * 60 * 24 * 7;                        //  1 Week
+date_default_timezone_set("Asia/Kolkata");
+
+$timeout = 60 * 60 * 24 * 31;                        //  1 Month
 ini_set('session.gc_maxlifetime', $timeout);
 session_set_cookie_params($timeout);
+ini_set('session.cookie_lifetime', 0);
 session_start();
+
+include_once __DIR__."/database/model.php";
 
 function checkAdmin() {
     return $_SESSION['employee_id'] == 1;
@@ -99,7 +104,7 @@ switch ($request) {
         break;
 
     case '/leads' :
-        showPage('/views/leads/index.php');
+        showPage('/controller/leads/index.php');
         break;
 
     case '/leads/create' :
@@ -107,7 +112,7 @@ switch ($request) {
         break;
 
     case '/leads/store' :
-        showPage('/controller/lead.php');
+        showPage('/controller/leads/store.php');
         break;
 
     default:
@@ -126,6 +131,10 @@ switch ($request) {
 
             case preg_match('/^\/gameplays\/edit\/([0-9]+)$/', $request, $matches):
                 showPage('/views/gameplays/edit.php', ['gameplay_id', $matches[1]]);
+                break;
+
+            case preg_match('/^\/leads\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))$/', $request, $matches):
+                showPage('/controller/leads/index.php', ['date', $matches[1]]);
                 break;
 
             case preg_match('/^\/leads\/edit\/([0-9]+)$/', $request, $matches):

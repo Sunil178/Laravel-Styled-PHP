@@ -1,11 +1,10 @@
 <?php ob_start(); ?>
 
 <?php
-     include_once __DIR__."/../../database/model.php";
      $model = new Model('employees');
      $employees = $model->getAll();
-     $model = new Model('emulators');
-     $emulators = $model->getAll();
+     $model = new Model('leads');
+     $leads = $model->getAll();
 ?>
 
      <div class="col-md-10">
@@ -30,22 +29,16 @@
                                         </div>
                                    </div>
                               <?php } ?>
-                              <div class="mb-3 col-md-4">
-                                   <div class="form-group">
-                                        <label class="form-label required">Date</label>
-                                        <input type="date" class="form-control" name="date" placeholder="Enter date" value="<?php echo $gameplay->date ?>" required>
-                                   </div>
-                              </div>
                          </div>
                          <div class="row mt-4">
                               <label class="form-label required">Any one emulator or name is required</label>
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
                                         <label class="form-label">Emulator</label>
-                                        <select name="emulator_id" class="form-select">
-                                             <option value=""> -- select emulator -- </option>
-                                             <?php foreach ($emulators as $emulator) { ?>
-                                                  <option <?php echo ($gameplay->emulator_id == $emulator->id) ? 'selected' : ''; ?> value="<?php echo $emulator->id; ?>"><?php echo $emulator->name; ?></option>
+                                        <select name="lead_id" class="form-select">
+                                             <option value=""> -- select lead emulator -- </option>
+                                             <?php foreach ($leads as $lead) { ?>
+                                                  <option <?php echo ($gameplay->lead_id == $lead->id) ? 'selected' : ''; ?> value="<?php echo $lead->id; ?>"><?php echo $lead->emulator; ?></option>
                                              <?php } ?>
                                         </select>
                                    </div>

@@ -5,8 +5,6 @@ if (!isset($_POST['username']) || !isset($_POST['password'])) {
     exit;
 }
 
-include_once __DIR__."/../database/model.php";
-
 $model = new Model('employees');
 $username = $_POST['username'];
 $password = $_POST['password'];

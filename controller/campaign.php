@@ -1,7 +1,5 @@
 <?php
 
-include_once __DIR__."/../database/model.php";
-
 $model = new Model('campaigns');
 $data = [ 'name' => $_POST['name'] ];
 

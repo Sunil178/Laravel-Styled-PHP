@@ -5,8 +5,6 @@ if ($_POST['confirm_password'] != $_POST['password']) {
     exit;
 }
 
-include_once __DIR__."/../database/model.php";
-
 $model = new Model('employees');
 $data = [
     'username' => $_POST['username'],

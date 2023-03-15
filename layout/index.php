@@ -23,8 +23,9 @@
     <link rel="stylesheet" href="/assets/css/demo.css" />
     <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
-    <link rel="stylesheet" href="/assets/vendor/css/theme-default.css"
-        class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
     <style>
         label.error {
@@ -159,6 +160,16 @@
     <script src="/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/slim.min.js"></script>
     <script src="/assets/js/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        function updateSelect2 () {
+            $('.select2').select2({
+                theme: 'bootstrap-5',
+            });
+        }
+        updateSelect2();
+    </script>
 
     <?php if (isset($customScript)) { echo $customScript; } ?>
 

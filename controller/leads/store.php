@@ -30,24 +30,18 @@ if (!isset($_POST['state_id']) || $_POST['state_id'] == '') {
     exit;
 }
 
-$date = @$_POST['date'];
-if (!isset($date) || $date == '') {
-    echo "Date is required";
+if (!isset($_POST['emulator_name']) || $_POST['emulator_name'] == '') {
+    echo "Emulator is required";
     exit;
 }
-
-include_once __DIR__."/../database/model.php";
-
-$count = $_POST['count'] == '' ? NULL : ($type == 1 ? NULL : $_POST['count']);
 
 $model = new Model('leads');
 $data = [
     'employee_id' => $employee_id,
     'campaign_id' => $_POST['campaign_id'],
-    'type' => $type,
     'state_id' => $_POST['state_id'],
-    'count' => $count,
-    'date' => $date,
+    'type' => $type,
+    'emulator' => $_POST['emulator_name'],
 ];
 $lead_id = $_POST['lead_id'];
 
@@ -60,22 +54,25 @@ else {
 }
 
 if ($type == 1) {
-    $emulators = $_POST['emulators'];
-    $emulator_ids = $_POST['emulator_ids'];
+    $lead_deposit_amounts = $_POST['lead_deposit_amounts'];
+    $payment_method_ids = $_POST['payment_method_ids'];
+    $lead_deposit_ids = $_POST['lead_deposit_ids'];
 
-    $model = new Model('emulators');
-    foreach ($emulator_ids as $emulator_id_index => $emulator_id) {
-        if ($emulators[$emulator_id_index] != '') {
-            if ($emulator_id == 0) {
+    $model = new Model('lead_deposits');
+    foreach ($lead_deposit_ids as $lead_deposit_id_index => $lead_deposit_id) {
+        if ($lead_deposit_amounts[$lead_deposit_id_index] != '' && $payment_method_ids[$lead_deposit_id_index] != '') {
+            if ($lead_deposit_id == 0) {
                 $db_res2 = $model->create([
                     'lead_id' => $lead_id,
-                    'name' => $emulators[$emulator_id_index],
+                    'amount' => $lead_deposit_amounts[$lead_deposit_id_index],
+                    'payment_method_id' => $payment_method_ids[$lead_deposit_id_index],
                 ]);
             }
             else {
                 $db_res2 = $model->update([
-                    'name' => $emulators[$emulator_id_index],
-                ], $emulator_id);
+                    'amount' => $lead_deposit_amounts[$lead_deposit_id_index],
+                    'payment_method_id' => $payment_method_ids[$lead_deposit_id_index],
+                ], $lead_deposit_id);
             }
         }
     }

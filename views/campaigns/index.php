@@ -1,8 +1,6 @@
 <?php
     ob_start();
 
-    include_once __DIR__."/../../database/model.php";
-
     $model = new Model('campaigns');
     $campaigns = $model->getAll();
 ?>

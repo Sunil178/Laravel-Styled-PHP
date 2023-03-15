@@ -15,31 +15,22 @@ if (!isset($_POST['employee_id']) || $_POST['employee_id'] == '') {
 }
 
 
-$emulator_id = @$_POST['emulator_id'];
+$lead_id = @$_POST['lead_id'];
 $emulator_name = @$_POST['emulator_name'];
 
-if ((!isset($emulator_id) || $emulator_id == '') && (!isset($emulator_name) || $emulator_name == '')) {
+if ((!isset($lead_id) || $lead_id == '') && (!isset($emulator_name) || $emulator_name == '')) {
     echo "Emulator is required";
     exit;
 }
 
-$emulator_id = $emulator_id == '' ? NULL : $emulator_id;
+$lead_id = $lead_id == '' ? NULL : $lead_id;
 $emulator_name = $emulator_name == '' ? NULL : $emulator_name;
-
-$date = @$_POST['date'];
-if (!isset($date) || $date == '') {
-    echo "Date is required";
-    exit;
-}
-
-include_once __DIR__."/../../database/model.php";
 
 $model = new Model('gameplays');
 $data = [
     'employee_id' => $employee_id,
     'emulator_name' => $emulator_name,
-    'emulator_id' => $emulator_id,
-    'date' => $date,
+    'lead_id' => $lead_id,
 ];
 $gameplay_id = $_POST['gameplay_id'];
 

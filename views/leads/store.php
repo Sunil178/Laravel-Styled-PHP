@@ -1,14 +1,25 @@
 <?php ob_start(); ?>
 
+    <style>
+        .lead-deposit-input {
+          border-top: 2px solid black;
+        }
+    </style>
+
+<?php $customStyle = ob_get_clean(); ?>
+
+<?php ob_start(); ?>
+
 <?php
-     include_once __DIR__."/../../database/model.php";
      $model = new Model('employees');
      $employees = $model->getAll();
      $model = new Model('campaigns');
      $campaigns = $model->getAll();
      $model = new Model('states');
      $states = $model->getAll();
-?>
+     $model = new Model('payment_methods');
+     $payment_methods = $model->getAll();
+ ?>
 
      <div class="col-md-10">
           <div class="card mb-4">
@@ -68,43 +79,55 @@
                               </div>
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label required">Date</label>
-                                        <input type="date" class="form-control" name="date" placeholder="Enter date" value="<?php echo $lead->date ?>" required>
+                                        <label class="form-label required">Emulator Name</label>
+                                        <input type="text" class="form-control" name="emulator_name" placeholder="Enter emulator name" value="<?php echo $lead->emulator ?>" required>
                                    </div>
                               </div>
                          </div>
-                         <div class="row" id="emulator-block">
-                              <div class="mb-3 col-md-4 emulator-count-input">
-                                   <div class="form-group">
-                                        <label class="form-label">Count</label>
-                                        <input type="number" class="form-control" name="count" placeholder="Enter count" value="<?php echo $lead->count ?>">
-                                   </div>
-                              </div>
-                              <?php $emulator_count = is_array($lead_emulators) ? count($lead_emulators) : 0 ; ?>
-                              <?php if ($emulator_count > 0) { ?>
-                                   <?php foreach ($lead_emulators as $index => $emulator) { ?>
-                                        <div class="mb-3 col-md-2 emulator-input">
+                         <div class="row mt-5" id="lead-deposits-block">
+                              <?php $deposits_count = is_array($lead_deposits) ? count($lead_deposits) : 0 ; ?>
+                              <?php if ($deposits_count > 0) { ?>
+                                   <?php foreach ($lead_deposits as $index => $lead_deposit) { ?>
+                                        <div class="mb-3 col-md-4 lead-deposit-input">
                                              <div class="form-group">
-                                                  <label class="form-label">Emulator <?php echo ($index + 1) ?></label>
-                                                  <input type="text" class="form-control" name="emulators[<?php echo $index ?>]" placeholder="Enter emulator <?php echo ($index + 1) ?>" value="<?php echo $emulator->name ?>">
-                                                  <input type="hidden" name="emulator_ids[<?php echo $index ?>]" value="<?php echo $emulator->id ?>">
+                                                  <label class="form-label deposit-label">Deposit <?php echo ($index + 1) ?></label>
+                                                  <input type="text" class="form-control deposit-input" name="lead_deposit_amounts[<?php echo $index ?>]" placeholder="Enter deposit <?php echo ($index + 1) ?>" value="<?php echo $lead_deposit->amount ?>">
+
+                                                  <label class="form-label payment-method-label">Payment Method <?php echo ($index + 1) ?></label>
+                                                  <select name="payment_method_ids[<?php echo $index ?>]" class="form-select select2 payment-method-input">
+                                                       <option value=""> -- select payment method <?php echo ($index + 1) ?> -- </option>
+                                                       <?php foreach ($payment_methods as $payment_method) { ?>
+                                                            <option <?php echo ($lead_deposit->payment_method_id == $payment_method->id) ? 'selected' : ''; ?> value="<?php echo $payment_method->id; ?>"><?php echo $payment_method->type . ' : ' . $payment_method->name . ' : ' . $payment_method->identity; ?></option>
+                                                       <?php } ?>
+                                                  </select>
+
+                                                  <input type="hidden" name="lead_deposit_ids[<?php echo $index ?>]" value="<?php echo $lead_deposit->id ?>">
                                              </div>
                                         </div>
                                    <?php } ?>
                               <?php } else { ?>
-                                   <div class="mb-3 col-md-2 emulator-input">
+                                   <div class="mb-3 col-md-4 lead-deposit-input">
                                         <div class="form-group">
-                                             <label class="form-label">Emulator 1</label>
-                                             <input type="text" class="form-control" name="emulators[0]" placeholder="Enter emulator 1">
-                                             <input type="hidden" name="emulator_ids[0]" value="0">
+                                             <label class="form-label deposit-label">Deposit 1</label>
+                                             <input type="text" class="form-control deposit-input" name="lead_deposit_amounts[0]" placeholder="Enter deposit 1">
+
+                                             <label class="form-label payment-method-label">Payment Method 1</label>
+                                             <select name="payment_method_ids[0]" class="form-select select2 payment-method-input">
+                                                  <option value=""> -- select payment method 1 -- </option>
+                                                  <?php foreach ($payment_methods as $payment_method) { ?>
+                                                       <option value="<?php echo $payment_method->id; ?>"><?php echo $payment_method->type . ' : ' . $payment_method->name . ' : ' . $payment_method->identity; ?></option>
+                                                  <?php } ?>
+                                             </select>
+
+                                             <input type="hidden" name="lead_deposit_ids[0]" value="0">
                                         </div>
                                    </div>
                               <?php } ?>
                          </div>
                          <button type="submit" class="btn btn-primary">Submit</button>
-                         <button type="button" id="add-emulator" class="btn btn-info">Add Emulator</button>
-                         <div class="mt-3" id="emulator-name-count">
-                              <b><label>Emulator Count: <?php echo $emulator_count ?></label></b>
+                         <button type="button" id="add-lead-deposits" class="btn btn-info">Add Deposit</button>
+                         <div class="mt-3" id="lead-deposits-count">
+                              <b><label>Deposit Count: <?php echo $deposits_count ?></label></b>
                          </div>
                     </form>
                </div>
@@ -116,62 +139,73 @@
 <?php ob_start(); ?>
 
      <script>
-          var emulator_input = `
-<div class="mb-3 col-md-2 emulator-input">
+          var lead_deposits_input = `
+<div class="mb-3 col-md-4 lead-deposit-input">
      <div class="form-group">
-          <label class="form-label">Emulator 1</label>
-          <input type="text" class="form-control" name="emulators[0]" placeholder="Enter emulator 1">
-          <input type="hidden" name="emulator_ids[0]" value="0">
+          <label class="form-label deposit-label">Deposit 1</label>
+          <input type="text" class="form-control deposit-input" name="lead_deposit_amounts[0]" placeholder="Enter deposit 1">
+
+          <label class="form-label payment-method-label">Payment Method 1</label>
+          <select name="payment_method_ids[0]" class="form-select select2 payment-method-input">
+               <option value=""> -- select payment method 1 -- </option>
+               <?php foreach ($payment_methods as $payment_method) { ?>
+                    <option value="<?php echo $payment_method->id; ?>"><?php echo $payment_method->type . ' : ' . $payment_method->name . ' : ' . $payment_method->identity; ?></option>
+               <?php } ?>
+          </select>
+
+          <input type="hidden" name="lead_deposit_ids[0]" value="0">
      </div>
 </div>
 `;
-          $('#add-emulator').on('click', function(event) {
-               new_emulator_input = $(emulator_input);
-               emulator_count = $('.emulator-input').length + 1;
-               new_emulator_input.find( 'label' ).text('Emulator ' + emulator_count);
-               new_emulator_input.find( 'input[type="text"]' ).attr('placeholder', 'Enter emulator ' + emulator_count);
-               new_emulator_input.find( 'input[type="text"]' ).attr('name', `emulators[${emulator_count-1}]`);
-               new_emulator_input.find( 'input[type="hidden"]' ).attr('name', `emulator_ids[${emulator_count-1}]`);
-               new_emulator_input.find( 'input[type="hidden"]' ).val(0);
-               $('#emulator-block').append(new_emulator_input);
+          $('#add-lead-deposits').on('click', function(event) {
+               new_lead_deposits_input = $(lead_deposits_input);
+               lead_deposits_count = $('.lead-deposit-input').length + 1;
+
+               new_lead_deposits_input.find( '.deposit-label' ).text('Deposit ' + lead_deposits_count);
+               new_lead_deposits_input.find( '.payment-method-label' ).text('Payment Method ' + lead_deposits_count);
+
+               new_lead_deposits_input.find( '.deposit-input' ).attr('placeholder', 'Enter deposit ' + lead_deposits_count);
+               new_lead_deposits_input.find( '.deposit-input' ).attr('name', `lead_deposit_amounts[${lead_deposits_count-1}]`);
+
+               new_lead_deposits_input.find( '.payment-method-input option:first' ).text(` -- select payment method ${lead_deposits_count} -- `);
+               new_lead_deposits_input.find( '.payment-method-input' ).attr('name', `payment_method_ids[${lead_deposits_count-1}]`);
+
+               new_lead_deposits_input.find( 'input[type="hidden"]' ).attr('name', `lead_deposit_ids[${lead_deposits_count-1}]`);
+               new_lead_deposits_input.find( 'input[type="hidden"]' ).val(0);
+               $('#lead-deposits-block').append(new_lead_deposits_input);
+               updateSelect2();
           });
 
           <?php if ($lead->type == 1) {?>
-               $('.emulator-count-input').hide();
-               $('.emulator-input').show();
-               $('#add-emulator').show();
-               $('#emulator-name-count').show();
+               $('.lead-deposit-input').show();
+               $('#add-lead-deposits').show();
+               $('#lead-deposits-count').show();
           <?php } else if ($lead->type === 0) { ?>
-               $('#add-emulator').hide();
-               $('.emulator-input').hide();
-               $('#emulator-name-count').hide();
-               $('.emulator-count-input').show();
+               $('#add-lead-deposits').hide();
+               $('.lead-deposit-input').hide();
+               $('#lead-deposits-count').hide();
           <?php } else { ?>
-               $('#add-emulator').hide();
-               $('.emulator-input').hide();
-               $('.emulator-count-input').hide();
-               $('#emulator-name-count').hide();
+               $('#add-lead-deposits').hide();
+               $('.lead-deposit-input').hide();
+               $('#lead-deposits-count').hide();
           <?php } ?>
 
           $('select[name="type"]').on('change', function (event) {
                value = $(this).val();
                if (value == 1) {
-                    $('.emulator-count-input').hide();
-                    $('.emulator-input').show();
-                    $('#add-emulator').show();
-                    $('#emulator-name-count').show();
+                    $('.lead-deposit-input').show();
+                    $('#add-lead-deposits').show();
+                    $('#lead-deposits-count').show();
                }
                else if (value === '0') {
-                    $('#add-emulator').hide();
-                    $('.emulator-input').hide();
-                    $('#emulator-name-count').hide();
-                    $('.emulator-count-input').show();
+                    $('#add-lead-deposits').hide();
+                    $('.lead-deposit-input').hide();
+                    $('#lead-deposits-count').hide();
                }
                else {
-                    $('#add-emulator').hide();
-                    $('.emulator-input').hide();
-                    $('.emulator-count-input').hide();
-                    $('#emulator-name-count').hide();
+                    $('#add-lead-deposits').hide();
+                    $('.lead-deposit-input').hide();
+                    $('#lead-deposits-count').hide();
                }
           });
      </script>
