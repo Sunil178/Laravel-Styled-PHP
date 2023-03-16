@@ -1,3 +1,7 @@
+<?php ob_start(); ?>
+    <div class="w-100"></div>
+<?php $customNavbar = ob_get_clean(); ?>
+
 <?php
     ob_start();
 

@@ -22,7 +22,7 @@
                     <?php } ?>
                     <th> Emulator Name </th>
                     <th> Count </th>
-                    <th> Rake </th>
+                    <th> <i class='bx bx-rupee mt-0'></i> Rake </th>
                     <th> Date </th>
                     <th> Action </th>
                 </tr>
@@ -36,8 +36,8 @@
                             <td> <?php echo $gameplay->name . ' : ' . $gameplay->username ?> </td>
                         <?php } ?>
                         <td> <?php echo $gameplay->emulator_name ?> </td>
-                        <td> <?php echo $gameplay->count ?> </td>
-                        <td> <?php echo $gameplay->rake ?> </td>
+                        <td> <?php echo (int) $gameplay->count ?> </td>
+                        <td> <i class='bx bx-rupee mt-0'></i> <?php echo (int) $gameplay->rake ?> </td>
                         <td> <?php echo $gameplay->date ?> </td>
                         <td>
                             <a href="/gameplays/edit/<?php echo $gameplay->id ?>" class="btn btn-info btn-sm">Edit</a>

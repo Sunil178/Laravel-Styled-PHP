@@ -76,8 +76,7 @@
 
                     <?php if (isset($customNavbar)) { echo $customNavbar; } ?>
 
-                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
+                    <div class="navbar-nav d-flex align-items-center" id="navbar-collapse" style="width: 27%">
 
                         <ul class="navbar-nav flex-row align-items-center ms-auto">
                             <li class="nav-item lh-1 me-4">

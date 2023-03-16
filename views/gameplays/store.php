@@ -1,4 +1,8 @@
 <?php ob_start(); ?>
+    <div class="w-100"></div>
+<?php $customNavbar = ob_get_clean(); ?>
+
+<?php ob_start(); ?>
 
 <?php
      $model = new Model('employees');
@@ -35,7 +39,7 @@
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
                                         <label class="form-label">Emulator</label>
-                                        <select name="lead_id" class="form-select">
+                                        <select name="lead_id" class="form-select select2">
                                              <option value=""> -- select lead emulator -- </option>
                                              <?php foreach ($leads as $lead) { ?>
                                                   <option <?php echo ($gameplay->lead_id == $lead->id) ? 'selected' : ''; ?> value="<?php echo $lead->id; ?>"><?php echo $lead->emulator; ?></option>

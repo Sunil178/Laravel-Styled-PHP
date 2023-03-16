@@ -1,4 +1,8 @@
 <?php ob_start(); ?>
+    <div class="w-100"></div>
+<?php $customNavbar = ob_get_clean(); ?>
+
+<?php ob_start(); ?>
      <div class="col-md-10">
           <div class="card mb-4">
                <div class="card-header d-flex justify-content-between align-items-center">

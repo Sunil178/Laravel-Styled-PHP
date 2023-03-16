@@ -26,17 +26,17 @@ function checkAuth($admin = false) {
 }
 
 function showPage($page, $data = [], $admin = false) {
-    if ($data) {
-        ${$data[0]} = $data[1];
-    }
+    extract($data);
     checkAuth($admin) ? include_once __DIR__ . $page : include_once __DIR__ . '/views/403.php';
 }
 
 $request = $_SERVER['REQUEST_URI'];
 
 $request = str_replace('/tracker', '', $request);       //  For server
+$request = rtrim($request, '/');
 
 switch ($request) {
+    case '':
     case '/' :
         checkAuth() ? include_once __DIR__ . '/home.php' : include_once __DIR__ . '/views/login/index.php';
         break;
@@ -118,27 +118,27 @@ switch ($request) {
     default:
         switch (true) {
             case preg_match('/^\/employees\/edit\/([0-9]+)$/', $request, $matches):
-                showPage('/views/employees/edit.php', ['employee_id', $matches[1]], true);
+                showPage('/views/employees/edit.php', [ 'employee_id' => $matches[1] ], true);
                 break;
 
             case preg_match('/^\/acampaigns\/edit\/([0-9]+)$/', $request, $matches):
-                showPage('/views/campaigns/edit.php', ['campaign_id', $matches[1]], true);
+                showPage('/views/campaigns/edit.php', [ 'campaign_id' => $matches[1] ], true);
                 break;
 
             case preg_match('/^\/gameplays\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))$/', $request, $matches):
-                showPage('/controller/gameplays/index.php', ['date', $matches[1]]);
+                showPage('/controller/gameplays/index.php', [ 'date' => $matches[1] ]);
                 break;
 
             case preg_match('/^\/gameplays\/edit\/([0-9]+)$/', $request, $matches):
-                showPage('/views/gameplays/edit.php', ['gameplay_id', $matches[1]]);
+                showPage('/views/gameplays/edit.php', [ 'gameplay_id' => $matches[1] ]);
                 break;
 
-            case preg_match('/^\/leads\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))$/', $request, $matches):
-                showPage('/controller/leads/index.php', ['date', $matches[1]]);
+            case preg_match('/^\/leads\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))\/?([0-9]+)?$/', $request, $matches):
+                showPage('/controller/leads/index.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
                 break;
 
             case preg_match('/^\/leads\/edit\/([0-9]+)$/', $request, $matches):
-                showPage('/views/leads/edit.php', ['lead_id', $matches[1]]);
+                showPage('/views/leads/edit.php', [ 'lead_id' => $matches[1] ]);
                 break;
 
             default:

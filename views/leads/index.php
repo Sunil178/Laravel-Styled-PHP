@@ -1,12 +1,10 @@
 <?php ob_start(); ?>
-
     <style>
         input[name=date] {
             width: initial;
             display: initial;
         }
     </style>
-
 <?php $customStyle = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
@@ -22,6 +20,7 @@
                     <th> Campaign Name </th>
                     <th> State </th>
                     <th> Type </th>
+                    <th> <i class='bx bx-rupee mt-0'></i> Amount </th>
                     <th> Date </th>
                     <th> Action </th>
                 </tr>
@@ -37,6 +36,7 @@
                         <td> <?php echo $lead->campaign_name ?> </td>
                         <td> <?php echo $lead->state_name ?> </td>
                         <td> <?php echo ($lead->type == 0 ? 'Registration' : 'Deposit') ?> </td>
+                        <td> <i class='bx bx-rupee mt-0'></i> <?php echo (int) $lead->total_lead_deposit ?> </td>
                         <td> <?php echo $lead->lead_date ?> </td>
                         <td>
                             <a href="/leads/edit/<?php echo $lead->id ?>" class="btn btn-info btn-sm">Edit</a>
@@ -58,18 +58,29 @@
 
     <div class="navbar-nav-left w-100">
         <ul class="navbar-nav align-items-center ms-auto">
-            <li class="nav-item lh-1 me-4">
+            <li class="nav-item lh-1 me-3">
                 <i class='bx bxs-calendar mt-0'></i>
-                Filter Date:&nbsp;&nbsp;&nbsp;<input type="date" class="form-control" name="date" value="<?php echo $date; ?>">
+                <span class="mt-2 me-2">Date:</span>
+                <input type="date" class="form-control" name="date" value="<?php echo $date; ?>">
             </li>
-            <li class="nav-item lh-1 me-4">
-                <span>Total Registration Count: <b><i class='bx bx-rupee mt-0'></i><?php echo $total_registration_count; ?></b></span>
+            <li class="nav-item lh-1 d-flex flex-row me-3">
+                <span class="mt-2 me-2">State:</span>
+                <select name="state_id" class="form-select" required>
+                        <option value=""> -- select state -- </option>
+                        <?php foreach ($states as $state) { ?>
+                            <option <?php echo ($state_id == $state->id) ? 'selected' : ''; ?> value="<?php echo $state->id; ?>"><?php echo $state->code . ' : ' . $state->name; ?></option>
+                        <?php } ?>
+                </select>
+
             </li>
-            <li class="nav-item lh-1 me-4">
-                <span>Total Deposit Count: <b><i class='bx bx-rupee mt-0'></i><?php echo $total_deposit_count; ?></b></span>
+            <li class="nav-item lh-1 me-3">
+                <span>Registrations: <b><?php echo $total_registration_count; ?></b></span>
             </li>
-            <li class="nav-item lh-1 me-4">
-                <span>Total Deposit Amount: <b><i class='bx bx-rupee mt-0'></i><?php echo $total_deposit_amount; ?></b></span>
+            <li class="nav-item lh-1 me-3">
+                <span>Deposits: <b><?php echo $total_deposit_count; ?></b></span>
+            </li>
+            <li class="nav-item lh-1 me-3">
+                <span>Deposits: <b><i class='bx bx-rupee mt-0'></i><?php echo $total_deposit_amount; ?></b></span>
             </li>
         </ul>
     </div>
@@ -81,6 +92,10 @@
 <script>
     $('input[name="date"]').on('change', function (event) {
         window.location = "/leads/" + this.value;
+    });
+    $('select[name="state_id"]').on('change', function (event) {
+        date = $('input[name="date"]').val();
+        window.location = "/leads/" + date + "/" + this.value;
     });
 </script>
 
