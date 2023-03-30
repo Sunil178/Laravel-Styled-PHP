@@ -2,9 +2,6 @@
     if (!isset($date)) {
         $date = date('Y-m-d');
     }
-    if (!isset($state_id)) {
-        $state_id = '';
-    }
     $model = new Model('targets');
     $employee_id = $_SESSION['employee_id'];
 
@@ -20,5 +17,5 @@
     $model = new Model('states');
     $states = $model->getAll();
 
-    include_once __DIR__."/../../views/targets/index.php";
+    include_once __DIR__."/../../views/targets/view.php";
 ?>

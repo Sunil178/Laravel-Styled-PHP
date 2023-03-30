@@ -102,8 +102,8 @@ CREATE TABLE `targets` (
   `employee_id` INT unsigned NOT NULL,
   `campaign_id` INT unsigned NOT NULL,
   `reg_count` INT DEFAULT NULL,
-  `dep_count` INT DEFAULT NULL,
   `reg_state_id` INT unsigned NOT NULL,
+  `dep_count` INT DEFAULT NULL,
   `dep_state_id` INT unsigned NOT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -117,7 +117,7 @@ CREATE TABLE `targets` (
 
 CREATE TABLE `retention_days` (
   `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `day` VARCHAR(255) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

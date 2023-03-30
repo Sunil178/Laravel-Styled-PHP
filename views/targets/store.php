@@ -5,7 +5,7 @@
 <?php ob_start(); ?>
 
     <style>
-        .target-deposit-input {
+        .extra-deposit-input {
           border-top: 2px solid black;
         }
     </style>
@@ -47,72 +47,83 @@
                                         </select>
                                    </div>
                               </div>
-                              <div class="mb-3 col-md-4">
-                                   <div class="form-group">
-                                        <label class="form-label required">Type</label>
-                                        <select name="type" class="form-select" required>
-                                             <option value=""> -- select type -- </option>
-                                             <option <?php echo (((string)$target->type) == 0) ? 'selected' : ''; ?> value="0">Registration</option>
-                                             <option <?php echo (((string)$target->type) == 1) ? 'selected' : ''; ?> value="1">Deposit</option>
-                                        </select>
-                                   </div>
-                              </div>
                          </div>
                          <div class="row">
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label required">State</label>
-                                        <select name="state_id" class="form-select" required>
+                                        <label class="form-label required">Registration State</label>
+                                        <select name="reg_state_id" class="form-select" required>
                                              <option value=""> -- select state -- </option>
                                              <?php foreach ($states as $state) { ?>
-                                                  <option <?php echo ($target->state_id == $state->id) ? 'selected' : ''; ?> value="<?php echo $state->id; ?>"><?php echo $state->code . ' : ' . $state->name; ?></option>
+                                                  <option <?php echo ($target->reg_state_id == $state->id) ? 'selected' : ''; ?> value="<?php echo $state->id; ?>"><?php echo $state->code . ' : ' . $state->name; ?></option>
                                              <?php } ?>
                                         </select>
                                    </div>
                               </div>
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label required">Emulator Name</label>
-                                        <input type="text" class="form-control" name="emulator_name" placeholder="Enter emulator name" value="<?php echo $target->emulator ?>" required>
+                                        <label class="form-label required">Registration Count</label>
+                                        <input type="text" class="form-control" name="reg_count" placeholder="Enter registration count" value="<?php echo $target->reg_count ?>" required>
                                    </div>
                               </div>
                          </div>
-                         <div class="row mt-5" id="target-deposits-block">
-                              <?php $deposits_count = is_array($target_deposits) ? count($target_deposits) : 0 ; ?>
-                              <?php if ($deposits_count > 0) { ?>
-                                   <?php foreach ($target_deposits as $index => $target_deposit) { ?>
-                                        <div class="mb-3 col-md-4 target-deposit-input">
+                         <div class="row">
+                              <div class="mb-3 col-md-4">
+                                   <div class="form-group">
+                                        <label class="form-label required">Deposit State</label>
+                                        <select name="dep_state_id" class="form-select" required>
+                                             <option value=""> -- select state -- </option>
+                                             <?php foreach ($states as $state) { ?>
+                                                  <option <?php echo ($target->dep_state_id == $state->id) ? 'selected' : ''; ?> value="<?php echo $state->id; ?>"><?php echo $state->code . ' : ' . $state->name; ?></option>
+                                             <?php } ?>
+                                        </select>
+                                   </div>
+                              </div>
+                              <div class="mb-3 col-md-4">
+                                   <div class="form-group">
+                                        <label class="form-label required">Deposit Count</label>
+                                        <input type="text" class="form-control" name="dep_count" placeholder="Enter deposit count" value="<?php echo $target->dep_count ?>" required>
+                                        <?php $total_deposits_count = $target->dep_count ?: 0; ?>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="row mt-5" id="extra-deposits-block">
+                              <?php $extra_deposits_count = is_array($extra_deposits) ? count($extra_deposits) : 0 ; ?>
+                              <?php if ($extra_deposits_count > 0) { ?>
+                                   <?php foreach ($extra_deposits as $index => $extra_deposit) { ?>
+                                        <div class="mb-3 col-md-4 extra-deposit-input">
                                              <div class="form-group">
-                                                  <label class="form-label deposit-label">Deposit <?php echo ($index + 1) ?></label>
-                                                  <input type="text" class="form-control deposit-input" name="target_deposit_amounts[<?php echo $index ?>]" placeholder="Enter deposit <?php echo ($index + 1) ?>" value="<?php echo $target_deposit->amount ?>">
+                                                  <label class="form-label extra-deposit-label">Deposit Count <?php echo ($index + 1) ?></label>
+                                                  <input type="text" class="form-control deposit-input" name="extra_deposit_counts[<?php echo $index ?>]" placeholder="Enter deposit <?php echo ($index + 1) ?>" value="<?php echo $extra_deposit->count ?>">
 
-                                                  <label class="form-label payment-method-label">Payment Method <?php echo ($index + 1) ?></label>
-                                                  <select name="payment_method_ids[<?php echo $index ?>]" class="form-select select2 payment-method-input">
-                                                       <option value=""> -- select payment method <?php echo ($index + 1) ?> -- </option>
-                                                       <?php foreach ($payment_methods as $payment_method) { ?>
-                                                            <option <?php echo ($target_deposit->payment_method_id == $payment_method->id) ? 'selected' : ''; ?> value="<?php echo $payment_method->id; ?>"><?php echo $payment_method->type . ' : ' . $payment_method->name . ' : ' . $payment_method->identity; ?></option>
+                                                  <label class="form-label day-label">Day <?php echo ($index + 1) ?></label>
+                                                  <select name="day_ids[<?php echo $index ?>]" class="form-select select2 day-input">
+                                                       <option value=""> -- select day <?php echo ($index + 1) ?> -- </option>
+                                                       <?php foreach ($days as $day) { ?>
+                                                            <option <?php echo ($extra_deposit->retention_day_id == $day->id) ? 'selected' : ''; ?> value="<?php echo $day->id; ?>"><?php echo $day->name; ?></option>
                                                        <?php } ?>
                                                   </select>
 
-                                                  <input type="hidden" name="target_deposit_ids[<?php echo $index ?>]" value="<?php echo $target_deposit->id ?>">
+                                                  <input type="hidden" name="extra_deposit_ids[<?php echo $index ?>]" value="<?php echo $extra_deposit->id ?>">
+                                                  <?php $total_deposits_count += $extra_deposit->count; ?>
                                              </div>
                                         </div>
                                    <?php } ?>
                               <?php } else { ?>
-                                   <div class="mb-3 col-md-4 target-deposit-input">
+                                   <div class="mb-3 col-md-4 extra-deposit-input">
                                         <div class="form-group">
-                                             <label class="form-label deposit-label">Deposit 1</label>
-                                             <input type="text" class="form-control deposit-input" name="target_deposit_amounts[0]" placeholder="Enter deposit 1">
+                                             <label class="form-label extra-deposit-label">Deposit Count 1</label>
+                                             <input type="text" class="form-control deposit-input" name="extra_deposit_counts[0]" placeholder="Enter deposit 1">
 
-                                             <label class="form-label payment-method-label">Payment Method 1</label>
-                                             <select name="payment_method_ids[0]" class="form-select select2 payment-method-input">
-                                                  <option value=""> -- select payment method 1 -- </option>
-                                                  <?php foreach ($payment_methods as $payment_method) { ?>
-                                                       <option value="<?php echo $payment_method->id; ?>"><?php echo $payment_method->type . ' : ' . $payment_method->name . ' : ' . $payment_method->identity; ?></option>
+                                             <label class="form-label day-label">Day 1</label>
+                                             <select name="day_ids[0]" class="form-select select2 day-input">
+                                                  <option value=""> -- select day 1 -- </option>
+                                                  <?php foreach ($days as $day) { ?>
+                                                       <option value="<?php echo $day->id; ?>"><?php echo $day->name; ?></option>
                                                   <?php } ?>
                                              </select>
 
-                                             <input type="hidden" name="target_deposit_ids[0]" value="0">
+                                             <input type="hidden" name="extra_deposit_ids[0]" value="0">
                                         </div>
                                    </div>
                               <?php } ?>
@@ -120,7 +131,7 @@
                          <button type="submit" class="btn btn-primary">Submit</button>
                          <button type="button" id="add-target-deposits" class="btn btn-info">Add Deposit</button>
                          <div class="mt-3" id="target-deposits-count">
-                              <b><label>Deposit Count: <?php echo $deposits_count ?></label></b>
+                              <b><label>Total Deposit Count: <?php echo $total_deposits_count ?></label></b>
                          </div>
                     </form>
                </div>
@@ -132,75 +143,43 @@
 <?php ob_start(); ?>
 
      <script>
-          var target_deposits_input = `
-<div class="mb-3 col-md-4 target-deposit-input">
+          var extra_deposits_input = `
+<div class="mb-3 col-md-4 extra-deposit-input">
      <div class="form-group">
-          <label class="form-label deposit-label">Deposit 1</label>
-          <input type="text" class="form-control deposit-input" name="target_deposit_amounts[0]" placeholder="Enter deposit 1">
+          <label class="form-label extra-deposit-label">Deposit Count 1</label>
+          <input type="text" class="form-control deposit-input" name="extra_deposit_counts[0]" placeholder="Enter deposit 1">
 
-          <label class="form-label payment-method-label">Payment Method 1</label>
-          <select name="payment_method_ids[0]" class="form-select select2 payment-method-input">
-               <option value=""> -- select payment method 1 -- </option>
-               <?php foreach ($payment_methods as $payment_method) { ?>
-                    <option value="<?php echo $payment_method->id; ?>"><?php echo $payment_method->type . ' : ' . $payment_method->name . ' : ' . $payment_method->identity; ?></option>
+          <label class="form-label day-label">Day 1</label>
+          <select name="day_ids[0]" class="form-select select2 day-input">
+               <option value=""> -- select day 1 -- </option>
+               <?php foreach ($days as $day) { ?>
+                    <option value="<?php echo $day->id; ?>"><?php echo $day->name; ?></option>
                <?php } ?>
           </select>
 
-          <input type="hidden" name="target_deposit_ids[0]" value="0">
+          <input type="hidden" name="extra_deposit_ids[0]" value="0">
      </div>
 </div>
 `;
           $('#add-target-deposits').on('click', function(event) {
-               new_target_deposits_input = $(target_deposits_input);
-               target_deposits_count = $('.target-deposit-input').length + 1;
+               new_extra_deposits_input = $(extra_deposits_input);
+               extra_deposits_count = $('.extra-deposit-input').length + 1;
 
-               new_target_deposits_input.find( '.deposit-label' ).text('Deposit ' + target_deposits_count);
-               new_target_deposits_input.find( '.payment-method-label' ).text('Payment Method ' + target_deposits_count);
+               new_extra_deposits_input.find( '.extra-deposit-label' ).text('Deposit Count ' + extra_deposits_count);
+               new_extra_deposits_input.find( '.day-label' ).text('Day ' + extra_deposits_count);
 
-               new_target_deposits_input.find( '.deposit-input' ).attr('placeholder', 'Enter deposit ' + target_deposits_count);
-               new_target_deposits_input.find( '.deposit-input' ).attr('name', `target_deposit_amounts[${target_deposits_count-1}]`);
+               new_extra_deposits_input.find( '.deposit-input' ).attr('placeholder', 'Enter deposit ' + extra_deposits_count);
+               new_extra_deposits_input.find( '.deposit-input' ).attr('name', `extra_deposit_counts[${extra_deposits_count-1}]`);
 
-               new_target_deposits_input.find( '.payment-method-input option:first' ).text(` -- select payment method ${target_deposits_count} -- `);
-               new_target_deposits_input.find( '.payment-method-input' ).attr('name', `payment_method_ids[${target_deposits_count-1}]`);
+               new_extra_deposits_input.find( '.day-input option:first' ).text(` -- select day ${extra_deposits_count} -- `);
+               new_extra_deposits_input.find( '.day-input' ).attr('name', `day_ids[${extra_deposits_count-1}]`);
 
-               new_target_deposits_input.find( 'input[type="hidden"]' ).attr('name', `target_deposit_ids[${target_deposits_count-1}]`);
-               new_target_deposits_input.find( 'input[type="hidden"]' ).val(0);
-               $('#target-deposits-block').append(new_target_deposits_input);
+               new_extra_deposits_input.find( 'input[type="hidden"]' ).attr('name', `extra_deposit_ids[${extra_deposits_count-1}]`);
+               new_extra_deposits_input.find( 'input[type="hidden"]' ).val(0);
+               $('#extra-deposits-block').append(new_extra_deposits_input);
                updateSelect2();
           });
 
-          <?php if ($target->type == 1) {?>
-               $('.target-deposit-input').show();
-               $('#add-target-deposits').show();
-               $('#target-deposits-count').show();
-          <?php } else if ($target->type === 0) { ?>
-               $('#add-target-deposits').hide();
-               $('.target-deposit-input').hide();
-               $('#target-deposits-count').hide();
-          <?php } else { ?>
-               $('#add-target-deposits').hide();
-               $('.target-deposit-input').hide();
-               $('#target-deposits-count').hide();
-          <?php } ?>
-
-          $('select[name="type"]').on('change', function (event) {
-               value = $(this).val();
-               if (value == 1) {
-                    $('.target-deposit-input').show();
-                    $('#add-target-deposits').show();
-                    $('#target-deposits-count').show();
-               }
-               else if (value === '0') {
-                    $('#add-target-deposits').hide();
-                    $('.target-deposit-input').hide();
-                    $('#target-deposits-count').hide();
-               }
-               else {
-                    $('#add-target-deposits').hide();
-                    $('.target-deposit-input').hide();
-                    $('#target-deposits-count').hide();
-               }
-          });
      </script>
 
 <?php

@@ -120,11 +120,11 @@ switch ($request) {
         break;
 
     case '/targets/create' :
-        showPage('/controller/targets/create.php');
+        showPage('/controller/targets/create.php', [], true);
         break;
 
     case '/targets/store' :
-        showPage('/controller/targets/store.php');
+        showPage('/controller/targets/store.php', [], true);
         break;
 
     default:
@@ -157,8 +157,12 @@ switch ($request) {
                 showPage('/controller/targets/index.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
                 break;
 
+            case preg_match('/^\/targets\/view\/([0-9]+)$/', $request, $matches):
+                showPage('/controller/targets/view.php', [ 'target_id' => $matches[1] ]);
+                break;
+
             case preg_match('/^\/targets\/edit\/([0-9]+)$/', $request, $matches):
-                showPage('/views/targets/edit.php', [ 'lead_id' => $matches[1] ]);
+                showPage('/controller/targets/edit.php', [ 'target_id' => $matches[1] ], true);
                 break;
 
             default:

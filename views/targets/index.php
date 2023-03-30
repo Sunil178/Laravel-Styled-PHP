@@ -21,7 +21,7 @@
                     <th> Reg State </th>
                     <th> Reg Count </th>
                     <th> Dep State </th>
-                    <th> Dep Count </th>
+                    <th> Dep + Extra = Count </th>
                     <th> Action </th>
                 </tr>
             </thead>
@@ -33,12 +33,15 @@
                             <td> <?php echo $target->employees_name ?> </td>
                         <?php } ?>
                         <td> <?php echo $target->campaign_name ?> </td>
-                        <td> <?php echo $target->reg_state_name ?> </td>
+                        <td> <?php echo $target->reg_state ?> </td>
                         <td> <?php echo $target->reg_count ?> </td>
-                        <td> <?php echo $target->dep_state_name ?> </td>
-                        <td> <?php echo $target->dep_count ?> </td>
+                        <td> <?php echo $target->dep_state ?> </td>
+                        <td> <?php echo (int)$target->dep_count . '  +    ' . (int)$target->extra_deposit . ' =   ' . (int)($target->dep_count + $target->extra_deposit) ?> </td>
                         <td>
-                            <a href="/targets/edit/<?php echo $target->id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/targets/view/<?php echo $target->id ?>" class="btn btn-info btn-sm">View</a>
+                        <?php if (checkAuth(true)) { ?>
+                            <a href="/targets/edit/<?php echo $target->id ?>" class="btn btn-primary btn-sm">Edit</a>
+                        <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>

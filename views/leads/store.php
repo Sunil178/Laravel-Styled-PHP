@@ -173,10 +173,6 @@
                $('.lead-deposit-input').show();
                $('#add-lead-deposits').show();
                $('#lead-deposits-count').show();
-          <?php } else if ($lead->type === 0) { ?>
-               $('#add-lead-deposits').hide();
-               $('.lead-deposit-input').hide();
-               $('#lead-deposits-count').hide();
           <?php } else { ?>
                $('#add-lead-deposits').hide();
                $('.lead-deposit-input').hide();
