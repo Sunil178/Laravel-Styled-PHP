@@ -72,11 +72,11 @@ switch ($request) {
         break;
 
     case '/employees/create' :
-        showPage('/views/employees/store.php', [], true);
+        showPage('/controller/employees/create.php', [], true);
         break;
 
     case '/employees/store' :
-        showPage('/controller/employee.php', [], true);
+        showPage('/controller/employees/store.php', [], true);
         break;
 
     case '/gameplays' :
@@ -84,7 +84,7 @@ switch ($request) {
         break;
 
     case '/gameplays/create' :
-        showPage('/views/gameplays/store.php');
+        showPage('/controller/gameplays/create.php');
         break;
 
     case '/gameplays/store' :
@@ -96,11 +96,11 @@ switch ($request) {
         break;
 
     case '/acampaigns/create' :
-        showPage('/views/campaigns/store.php', [], true);
+        showPage('/controller/campaigns/create.php', [], true);
         break;
 
     case '/acampaigns/store' :
-        showPage('/controller/campaign.php', [], true);
+        showPage('/controller/campaigns/store.php', [], true);
         break;
 
     case '/leads' :
@@ -108,21 +108,33 @@ switch ($request) {
         break;
 
     case '/leads/create' :
-        showPage('/views/leads/store.php');
+        showPage('/controller/leads/create.php');
         break;
 
     case '/leads/store' :
         showPage('/controller/leads/store.php');
         break;
 
+    case '/targets' :
+        showPage('/controller/targets/index.php');
+        break;
+
+    case '/targets/create' :
+        showPage('/controller/targets/create.php');
+        break;
+
+    case '/targets/store' :
+        showPage('/controller/targets/store.php');
+        break;
+
     default:
         switch (true) {
             case preg_match('/^\/employees\/edit\/([0-9]+)$/', $request, $matches):
-                showPage('/views/employees/edit.php', [ 'employee_id' => $matches[1] ], true);
+                showPage('/controller/employees/edit.php', [ 'employee_id' => $matches[1] ], true);
                 break;
 
             case preg_match('/^\/acampaigns\/edit\/([0-9]+)$/', $request, $matches):
-                showPage('/views/campaigns/edit.php', [ 'campaign_id' => $matches[1] ], true);
+                showPage('/controller/campaigns/edit.php', [ 'campaign_id' => $matches[1] ], true);
                 break;
 
             case preg_match('/^\/gameplays\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))$/', $request, $matches):
@@ -130,7 +142,7 @@ switch ($request) {
                 break;
 
             case preg_match('/^\/gameplays\/edit\/([0-9]+)$/', $request, $matches):
-                showPage('/views/gameplays/edit.php', [ 'gameplay_id' => $matches[1] ]);
+                showPage('/controller/gameplays/edit.php', [ 'gameplay_id' => $matches[1] ]);
                 break;
 
             case preg_match('/^\/leads\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))\/?([0-9]+)?$/', $request, $matches):
@@ -138,7 +150,15 @@ switch ($request) {
                 break;
 
             case preg_match('/^\/leads\/edit\/([0-9]+)$/', $request, $matches):
-                showPage('/views/leads/edit.php', [ 'lead_id' => $matches[1] ]);
+                showPage('/controller/leads/edit.php', [ 'lead_id' => $matches[1] ]);
+                break;
+
+            case preg_match('/^\/targets\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))\/?([0-9]+)?$/', $request, $matches):
+                showPage('/controller/targets/index.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
+                break;
+
+            case preg_match('/^\/targets\/edit\/([0-9]+)$/', $request, $matches):
+                showPage('/views/targets/edit.php', [ 'lead_id' => $matches[1] ]);
                 break;
 
             default:

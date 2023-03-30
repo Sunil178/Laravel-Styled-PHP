@@ -8,5 +8,5 @@
     $model = new Model('employees');
     $employee = $model->get($employee_id);
 
-    include_once __DIR__."/store.php";
+    include_once __DIR__."/create.php";
 ?>

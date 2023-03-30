@@ -5,7 +5,6 @@
     if (!isset($state_id)) {
         $state_id = '';
     }
-
     $model = new Model('leads');
     $employee_id = $_SESSION['employee_id'];
 

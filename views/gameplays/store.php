@@ -3,14 +3,6 @@
 <?php $customNavbar = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
-
-<?php
-     $model = new Model('employees');
-     $employees = $model->getAll();
-     $model = new Model('leads');
-     $leads = $model->getAll();
-?>
-
      <div class="col-md-10">
           <div class="card mb-4">
                <div class="card-header d-flex justify-content-between align-items-center">

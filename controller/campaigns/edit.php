@@ -8,5 +8,5 @@
     $model = new Model('campaigns');
     $campaign = $model->get($campaign_id);
 
-    include_once __DIR__."/store.php";
+    include_once __DIR__."/create.php";
 ?>

@@ -10,5 +10,5 @@
     $model = new Model('gameplay_rakes');
     $gameplay_rakes = $model->getBy([ 'gameplay_id' => $gameplay_id ]);
 
-    include_once __DIR__."/store.php";
+    include_once __DIR__."/create.php";
 ?>

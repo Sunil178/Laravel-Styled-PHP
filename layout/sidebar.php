@@ -67,6 +67,27 @@
         <?php if (checkAuth()) { ?>
             <li class="menu-item open">
                 <a href="javascript:void(0);" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-target-lock"></i>
+                    <div data-i18n="Analytics">Targets</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/targets" class="menu-link">
+                            <div data-i18n="Without menu">Index</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/targets/create" class="menu-link">
+                            <div data-i18n="Without menu">Create</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        <?php } ?>
+
+        <?php if (checkAuth()) { ?>
+            <li class="menu-item open">
+                <a href="javascript:void(0);" class="menu-link">
                     <i class="menu-icon tf-icons bx bxs-dice-6"></i>
                     <div data-i18n="Analytics">Gameplays</div>
                 </a>
