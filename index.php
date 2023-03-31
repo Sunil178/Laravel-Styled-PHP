@@ -34,6 +34,7 @@ $request = $_SERVER['REQUEST_URI'];
 
 $request = str_replace('/tracker', '', $request);       //  For server
 $request = rtrim($request, '/');
+$date = '([0-9]{4}-(0[0-9]|1[0-2])-(0[0-9]|[1-2][0-9]|3[0-1]))';
 
 switch ($request) {
     case '':
@@ -137,23 +138,27 @@ switch ($request) {
                 showPage('/controller/campaigns/edit.php', [ 'campaign_id' => $matches[1] ], true);
                 break;
 
-            case preg_match('/^\/gameplays\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))$/', $request, $matches):
-                showPage('/controller/gameplays/index.php', [ 'date' => $matches[1] ]);
+            case preg_match('/^\/gameplays\/'.$date.'\/?([0-9]+)?$/', $request, $matches):
+                showPage('/controller/gameplays/index.php', [ 'date' => $matches[1], 'employee_id_param' => $matches[4] ]);
                 break;
 
             case preg_match('/^\/gameplays\/edit\/([0-9]+)$/', $request, $matches):
                 showPage('/controller/gameplays/edit.php', [ 'gameplay_id' => $matches[1] ]);
                 break;
 
-            case preg_match('/^\/leads\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))\/?([0-9]+)?$/', $request, $matches):
+            case preg_match('/^\/leads\/'.$date.'\/?([0-9]+)?$/', $request, $matches):
                 showPage('/controller/leads/index.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
+                break;
+
+            case preg_match('/^\/leads\/'.$date.'\/?([0-9]+)?\/([0-9]+)?$/', $request, $matches):
+                showPage('/controller/leads/index.php', [ 'date' => $matches[1], 'state_id' => $matches[4], 'employee_id_param' => $matches[5] ], true);
                 break;
 
             case preg_match('/^\/leads\/edit\/([0-9]+)$/', $request, $matches):
                 showPage('/controller/leads/edit.php', [ 'lead_id' => $matches[1] ]);
                 break;
 
-            case preg_match('/^\/targets\/([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))\/?([0-9]+)?$/', $request, $matches):
+            case preg_match('/^\/targets\/'.$date.'\/?([0-9]+)?$/', $request, $matches):
                 showPage('/controller/targets/index.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
                 break;
 

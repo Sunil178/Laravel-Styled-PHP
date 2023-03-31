@@ -58,6 +58,18 @@
 
     <div class="navbar-nav-left w-100">
         <ul class="navbar-nav align-items-center ms-auto">
+            <?php if (checkAuth(true)) { ?>
+                <li class="nav-item lh-1 d-flex flex-row me-3">
+                    <span class="mt-2 me-2">Employee:</span>
+                    <select name="employee_id" class="form-select" required>
+                            <option value=""> -- select employee -- </option>
+                            <?php foreach ($employees as $employee) { ?>
+                                <option <?php echo ($employee_id == $employee->id) ? 'selected' : ''; ?> value="<?php echo $employee->id; ?>"><?php echo $employee->name; ?></option>
+                            <?php } ?>
+                    </select>
+
+                </li>
+            <?php } ?>
             <li class="nav-item lh-1 me-3">
                 <i class='bx bxs-calendar mt-0'></i>
                 <span class="mt-2 me-2">Date:</span>
@@ -97,6 +109,13 @@
         date = $('input[name="date"]').val();
         window.location = "/leads/" + date + "/" + this.value;
     });
+    <?php if (checkAuth(true)) { ?>
+        $('select[name="employee_id"]').on('change', function (event) {
+            date = $('input[name="date"]').val();
+            state_id = $('select[name="state_id"]').val();
+            window.location = "/leads/" + date + "/" + state_id + "/" + this.value;
+        });
+    <?php } ?>
 </script>
 
 <?php
