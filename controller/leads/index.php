@@ -16,7 +16,7 @@
     if ($state_id != '') {
         $query .= " AND leads.state_id = '$state_id'";
     }
-    $query .= " ORDER BY lead_date DESC";
+    $query .= " ORDER BY leads.created_at DESC";
     $leads = $model->runQuery($query);
 
     $model = new Model('payment_methods');

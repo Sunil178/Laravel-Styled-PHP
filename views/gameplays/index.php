@@ -38,7 +38,7 @@
                         <td> <?php echo $gameplay->emulator_name ?> </td>
                         <td> <?php echo (int) $gameplay->count ?> </td>
                         <td> <i class='bx bx-rupee mt-0'></i> <?php echo (int) $gameplay->rake ?> </td>
-                        <td> <?php echo $gameplay->date ?> </td>
+                        <td> <?php echo $gameplay->gameplays_date ?> </td>
                         <td>
                             <a href="/gameplays/edit/<?php echo $gameplay->id ?>" class="btn btn-info btn-sm">Edit</a>
                         </td>

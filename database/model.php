@@ -1,7 +1,7 @@
 <?php
     global $conn;
     include_once __DIR__ . '/db.php';
-    $conn->query("SET @@time_zone = '+10:30';");
+    // $conn->query("SET @@time_zone = '+10:30';");
     class Model {
 
         private $conn;

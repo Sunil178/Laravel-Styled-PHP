@@ -4,7 +4,7 @@
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL); */
 
-date_default_timezone_set("Asia/Kolkata");
+// date_default_timezone_set("Asia/Kolkata");
 
 $timeout = 60 * 60 * 24 * 31;                        //  1 Month
 ini_set('session.gc_maxlifetime', $timeout);

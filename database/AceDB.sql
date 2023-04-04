@@ -135,6 +135,19 @@ CREATE TABLE `extra_deposits` (
   FOREIGN KEY (`retention_day_id`) REFERENCES `retention_days` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- DROP TABLE IF EXISTS `clients`;
+
+CREATE TABLE `clients` (
+  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(255) NOT NULL,
+  `D7_ROI` INT NOT NULL,
+  `D14_ROI` INT NOT NULL,
+  `D30_ROI` INT NOT NULL,
+  `D60_ROI` INT NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 /*
 ALTER TABLE `gameplays`
   ADD COLUMN `lead_id` INT unsigned NULL AFTER `employee_id`,
