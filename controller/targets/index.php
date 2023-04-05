@@ -8,13 +8,13 @@
     $model = new Model('targets');
     $employee_id = $_SESSION['employee_id'];
 
-    $query = "SELECT targets.id, employees.name AS employees_name, campaigns.name AS campaign_name, targets.reg_count, targets.dep_count, SUM(extra_deposits.count) AS extra_deposit, reg_states.name as reg_state, dep_states.name as dep_state FROM targets JOIN employees ON employees.id = targets.employee_id JOIN campaigns ON campaigns.id = targets.campaign_id LEFT JOIN extra_deposits ON extra_deposits.target_id = targets.id JOIN states reg_states ON reg_states.id = targets.reg_state_id JOIN states dep_states ON dep_states.id = targets.dep_state_id WHERE DATE(targets.created_at) = '$date'";
+    $query = "SELECT targets.id, employees.name AS employees_name, campaigns.name AS campaign_name, targets.reg_count, targets.dep_count, ex_dep.extra_deposit, reg_states.name as reg_state, dep_states.name as dep_state FROM targets JOIN employees ON employees.id = targets.employee_id JOIN campaigns ON campaigns.id = targets.campaign_id LEFT JOIN (SELECT SUM(extra_deposits.count) AS extra_deposit, target_id FROM extra_deposits GROUP BY target_id) ex_dep ON ex_dep.target_id = targets.id LEFT JOIN states reg_states ON reg_states.id = targets.reg_state_id LEFT JOIN states dep_states ON dep_states.id = targets.dep_state_id WHERE DATE(targets.created_at) = '$date'";
 
     if (!checkAdmin()) {
         $query .= " AND targets.employee_id = '$employee_id'";
     }
 
-    $query .= " GROUP BY extra_deposits.target_id ORDER BY targets.created_at DESC";
+    $query .= " ORDER BY targets.created_at DESC";
     $targets = $model->runQuery($query);
 
     $model = new Model('states');

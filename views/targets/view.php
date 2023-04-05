@@ -9,8 +9,30 @@
 
 <?php ob_start(); ?>
 
-<div>
+<!-- <div>
   <canvas id="myChart"></canvas>
+</div> -->
+
+<div class="table-responsive text-nowrap">
+    <table class="table table-hover">
+        <thead>
+            <tr class="text-nowrap">
+                <th> # </th>
+                <?php foreach ($states as $state) { ?>
+                    <th> <?php echo $state->name ?> </th>
+                <?php } ?>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <?php foreach ($targets as $index => $target) { ?>
+                <tr>
+                    <td> <?php echo ($index + 1) ?> </td>
+                    <?php foreach ($states as $state) { ?>
+                        <th> <?php echo $state->code ?> </th>
+                    <?php } ?>
+            <?php } ?>
+        </tbody>
+    </table>
 </div>
 
 <?php $customSection = ob_get_clean(); ?>
@@ -43,7 +65,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-<script>
+<!-- <script>
   const ctx = document.getElementById('myChart');
   Chart.register(ChartDataLabels);
 
@@ -92,7 +114,7 @@
         },
     },
   });
-</script>
+</script> -->
 <script>
     $('input[name="date"]').on('change', function (event) {
         window.location = "/targets/" + this.value;

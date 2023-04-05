@@ -19,34 +19,26 @@ if (!isset($_POST['campaign_id']) || $_POST['campaign_id'] == '') {
     exit;
 }
 
-if (!isset($_POST['reg_state_id']) || $_POST['reg_state_id'] == '') {
-    echo "Registration state is required";
-    exit;
-}
+$reg_state_id = @$_POST['reg_state_id'];
+$reg_state_id = $reg_state_id == '' ? NULL : $reg_state_id;
 
-if (!isset($_POST['reg_count']) || $_POST['reg_count'] == '') {
-    echo "Registration count is required";
-    exit;
-}
+$reg_count = @$_POST['reg_count'];
+$reg_count = $reg_count == '' ? NULL : $reg_count;
 
-if (!isset($_POST['dep_state_id']) || $_POST['dep_state_id'] == '') {
-    echo "Deposit state is required";
-    exit;
-}
+$dep_state_id = @$_POST['dep_state_id'];
+$dep_state_id = $dep_state_id == '' ? NULL : $dep_state_id;
 
-if (!isset($_POST['dep_count']) || $_POST['dep_count'] == '') {
-    echo "Deposit count is required";
-    exit;
-}
+$dep_count = @$_POST['dep_count'];
+$dep_count = $dep_count == '' ? NULL : $dep_count;
 
 $model = new Model('targets');
 $data = [
     'employee_id' => $employee_id,
     'campaign_id' => $_POST['campaign_id'],
-    'reg_state_id' => $_POST['reg_state_id'],
-    'reg_count' => $_POST['reg_count'],
-    'dep_state_id' => $_POST['dep_state_id'],
-    'dep_count' => $_POST['dep_count'],
+    'reg_state_id' => $reg_state_id,
+    'reg_count' => $reg_count,
+    'dep_state_id' => $dep_state_id,
+    'dep_count' => $dep_count,
 ];
 $target_id = $_POST['target_id'];
 

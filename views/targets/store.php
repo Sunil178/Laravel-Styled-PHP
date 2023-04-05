@@ -51,8 +51,8 @@
                          <div class="row">
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label required">Registration State</label>
-                                        <select name="reg_state_id" class="form-select" required>
+                                        <label class="form-label">Registration State</label>
+                                        <select name="reg_state_id" class="form-select">
                                              <option value=""> -- select state -- </option>
                                              <?php foreach ($states as $state) { ?>
                                                   <option <?php echo ($target->reg_state_id == $state->id) ? 'selected' : ''; ?> value="<?php echo $state->id; ?>"><?php echo $state->code . ' : ' . $state->name; ?></option>
@@ -62,16 +62,16 @@
                               </div>
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label required">Registration Count</label>
-                                        <input type="text" class="form-control" name="reg_count" placeholder="Enter registration count" value="<?php echo $target->reg_count ?>" required>
+                                        <label class="form-label">Registration Count</label>
+                                        <input type="text" class="form-control" name="reg_count" placeholder="Enter registration count" value="<?php echo $target->reg_count ?>">
                                    </div>
                               </div>
                          </div>
                          <div class="row">
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label required">Deposit State</label>
-                                        <select name="dep_state_id" class="form-select" required>
+                                        <label class="form-label">Deposit State</label>
+                                        <select name="dep_state_id" class="form-select">
                                              <option value=""> -- select state -- </option>
                                              <?php foreach ($states as $state) { ?>
                                                   <option <?php echo ($target->dep_state_id == $state->id) ? 'selected' : ''; ?> value="<?php echo $state->id; ?>"><?php echo $state->code . ' : ' . $state->name; ?></option>
@@ -81,13 +81,14 @@
                               </div>
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
-                                        <label class="form-label required">Deposit Count</label>
-                                        <input type="text" class="form-control" name="dep_count" placeholder="Enter deposit count" value="<?php echo $target->dep_count ?>" required>
+                                        <label class="form-label">Deposit Count</label>
+                                        <input type="text" class="form-control" name="dep_count" placeholder="Enter deposit count" value="<?php echo $target->dep_count ?>">
                                         <?php $total_deposits_count = $target->dep_count ?: 0; ?>
                                    </div>
                               </div>
                          </div>
                          <div class="row mt-5" id="extra-deposits-block">
+                              <label class="form-label fs-4 fw-bold">Extra Deposits</label>
                               <?php $extra_deposits_count = is_array($extra_deposits) ? count($extra_deposits) : 0 ; ?>
                               <?php if ($extra_deposits_count > 0) { ?>
                                    <?php foreach ($extra_deposits as $index => $extra_deposit) { ?>
