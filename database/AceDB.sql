@@ -95,6 +95,15 @@ CREATE TABLE `gameplay_rakes` (
   FOREIGN KEY (`gameplay_id`) REFERENCES `gameplays` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- DROP TABLE IF EXISTS `retention_days`;
+
+CREATE TABLE `retention_days` (
+  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- DROP TABLE IF EXISTS `targets`;
 
 CREATE TABLE `targets` (
@@ -111,15 +120,6 @@ CREATE TABLE `targets` (
   FOREIGN KEY (`campaign_id`) REFERENCES `campaigns` (`id`),
   FOREIGN KEY (`reg_state_id`) REFERENCES `states` (`id`),
   FOREIGN KEY (`dep_state_id`) REFERENCES `states` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- DROP TABLE IF EXISTS `retention_days`;
-
-CREATE TABLE `retention_days` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `name` VARCHAR(255) NOT NULL,
-  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- DROP TABLE IF EXISTS `extra_deposits`;
@@ -157,3 +157,12 @@ ALTER TABLE `leads`
 DROP COLUMN `count`;
 
 */
+
+TRUNCATE TABLE leads;
+TRUNCATE TABLE lead_deposits;
+TRUNCATE TABLE gameplays;
+TRUNCATE TABLE gameplay_rakes;
+TRUNCATE TABLE targets;
+TRUNCATE TABLE extra_deposits;
+
+

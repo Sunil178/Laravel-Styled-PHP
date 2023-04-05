@@ -67,7 +67,6 @@
                                 <option <?php echo ($employee_id == $employee->id) ? 'selected' : ''; ?> value="<?php echo $employee->id; ?>"><?php echo $employee->name; ?></option>
                             <?php } ?>
                     </select>
-
                 </li>
             <?php } ?>
             <li class="nav-item lh-1 me-3">
