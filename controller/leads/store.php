@@ -35,12 +35,18 @@ if (!isset($_POST['emulator_name']) || $_POST['emulator_name'] == '') {
     exit;
 }
 
+if (!isset($_POST['tracked']) || $_POST['tracked'] == '') {
+    echo "Track status is required";
+    exit;
+}
+
 $model = new Model('leads');
 $data = [
     'employee_id' => $employee_id,
     'campaign_id' => $_POST['campaign_id'],
     'state_id' => $_POST['state_id'],
     'type' => $type,
+    'tracked' => $_POST['tracked'],
     'emulator' => $_POST['emulator_name'],
 ];
 $lead_id = $_POST['lead_id'];

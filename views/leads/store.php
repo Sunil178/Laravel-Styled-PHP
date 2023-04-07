@@ -77,6 +77,16 @@
                                         <textarea id="emulator_name_textarea" class="form-control" name="emulator_name" placeholder="Enter emulator names" required><?php echo $lead->emulator ?></textarea>
                                    </div>
                               </div>
+                              <div class="mb-3 col-md-4">
+                                   <div class="form-group">
+                                        <label class="form-label required">Tracked</label>
+                                        <select name="tracked" class="form-select" required>
+                                             <option value="" disabled selected hidden> -- tracked or not? -- </option>
+                                             <option <?php echo !$lead->tracked ? 'selected' : ''; ?> value="0">Yes</option>
+                                             <option <?php echo $lead->tracked ? 'selected' : ''; ?> value="1">No</option>
+                                        </select>
+                                   </div>
+                              </div>
                          </div>
                          <div class="row mt-5" id="lead-deposits-block">
                               <?php $deposits_count = is_array($lead_deposits) ? count($lead_deposits) : 0 ; ?>

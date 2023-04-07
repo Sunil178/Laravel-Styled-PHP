@@ -50,6 +50,7 @@ CREATE TABLE `leads` (
   `campaign_id` INT unsigned DEFAULT NULL,
   `state_id` INT unsigned DEFAULT NULL,
   `type` TINYINT DEFAULT NULL COMMENT '0:registration 1:deposit',
+  `tracked` TINYINT DEFAULT NULL COMMENT '0:Yes 1:No',
   `emulator` VARCHAR(255) DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
