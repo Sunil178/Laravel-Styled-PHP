@@ -51,7 +51,7 @@
                                    <div class="form-group">
                                         <label class="form-label required">Type</label>
                                         <select name="type" class="form-select" required>
-                                             <option value=""> -- select type -- </option>
+                                             <option value="" disabled selected hidden> -- select type -- </option>
                                              <option <?php echo (((string)$lead->type) == 0) ? 'selected' : ''; ?> value="0">Registration</option>
                                              <option <?php echo (((string)$lead->type) == 1) ? 'selected' : ''; ?> value="1">Deposit</option>
                                         </select>
@@ -73,7 +73,8 @@
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
                                         <label class="form-label required">Emulator Name</label>
-                                        <input type="text" class="form-control" name="emulator_name" placeholder="Enter emulator name" value="<?php echo $lead->emulator ?>" required>
+                                        <input id="emulator_name_text" type="text" class="form-control" name="emulator_name" placeholder="Enter emulator name" value="<?php echo $lead->emulator ?>" required>
+                                        <textarea id="emulator_name_textarea" class="form-control" name="emulator_name" placeholder="Enter emulator names" required><?php echo $lead->emulator ?></textarea>
                                    </div>
                               </div>
                          </div>
@@ -173,10 +174,16 @@
                $('.lead-deposit-input').show();
                $('#add-lead-deposits').show();
                $('#lead-deposits-count').show();
+               $('#emulator_name_textarea').hide();
+               $("#emulator_name_textarea").prop('disabled', true);
+               $('#emulator_name_text').show();
           <?php } else { ?>
                $('#add-lead-deposits').hide();
                $('.lead-deposit-input').hide();
                $('#lead-deposits-count').hide();
+               $('#emulator_name_text').hide();
+               $("#emulator_name_text").prop('disabled', true);
+               $('#emulator_name_textarea').show();
           <?php } ?>
 
           $('select[name="type"]').on('change', function (event) {
@@ -185,16 +192,21 @@
                     $('.lead-deposit-input').show();
                     $('#add-lead-deposits').show();
                     $('#lead-deposits-count').show();
-               }
-               else if (value === '0') {
-                    $('#add-lead-deposits').hide();
-                    $('.lead-deposit-input').hide();
-                    $('#lead-deposits-count').hide();
+                    $('#emulator_name_textarea').hide();
+                    $("#emulator_name_text").prop('disabled', false);
+                    $('#emulator_name_text').show();
+                    $('#emulator_name_text').val($('#emulator_name_textarea').val());
+                    $("#emulator_name_textarea").prop('disabled', true);
                }
                else {
                     $('#add-lead-deposits').hide();
                     $('.lead-deposit-input').hide();
                     $('#lead-deposits-count').hide();
+                    $('#emulator_name_text').hide();
+                    $("#emulator_name_textarea").prop('disabled', false);
+                    $('#emulator_name_textarea').show();
+                    $('#emulator_name_textarea').val($('#emulator_name_text').val());
+                    $("#emulator_name_text").prop('disabled', true);
                }
           });
      </script>

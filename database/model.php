@@ -47,7 +47,7 @@
                 $rows[] = (object)$row;
             }
             return $rows;
-        }    
+        }
 
         // $model->runQueryOne("SELECT * FROM users WHERE status = 'active'");
         public function runQueryOne($query) {
@@ -55,7 +55,7 @@
             $stmt->execute();
             $result = $stmt->get_result();
             return (object)$result->fetch_assoc();
-        }    
+        }
 
         // $model->create([ 'name' => 'John Doe', 'email' => 'johndoe@example.com', 'mobile' => 30 ]);
         public function create($data) {
@@ -81,7 +81,7 @@
                 $rows[] = (object)$row;
             }
             return $rows;
-        }    
+        }
 
         // $model->get(1);
         public function get($id, $columns = '*') {
@@ -264,7 +264,7 @@
             $stmt = $this->conn->prepare($query);
             $stmt->bind_param($types, ...$params);
             return $this->affectExecuteRows($stmt);
-        }    
+        }
 
         // $model->delete(1);
         public function delete($id) {
@@ -315,7 +315,7 @@
             $query = "DELETE FROM " . $this->table . " WHERE " . $where;
             $stmt = $this->conn->prepare($query);
             return $this->affectExecuteRows($stmt);
-        }    
+        }
     }
 
     /* $model = new Model('employees');

@@ -93,7 +93,7 @@
                 <span class="mt-2 me-2">Date:</span>
                 <input type="date" class="form-control" name="date" value="<?php echo $date; ?>">
             </li>
-            <li class="nav-item lh-1 d-flex flex-row me-3">
+            <!-- <li class="nav-item lh-1 d-flex flex-row me-3">
                 <span class="mt-2 me-2">State:</span>
                 <select name="state_id" class="form-select" required>
                         <option value=""> -- select state -- </option>
@@ -101,7 +101,7 @@
                             <option <?php echo ($state_id == $state->id) ? 'selected' : ''; ?> value="<?php echo $state->id; ?>"><?php echo $state->code . ' : ' . $state->name; ?></option>
                         <?php } ?>
                 </select>
-            </li>
+            </li> -->
             <li class="nav-item lh-1 me-3">
                 <table id="totals">
                     <tr>
@@ -129,10 +129,10 @@
     $('input[name="date"]').on('change', function (event) {
         window.location = "/targets/" + this.value;
     });
-    $('select[name="state_id"]').on('change', function (event) {
+    /* $('select[name="state_id"]').on('change', function (event) {
         date = $('input[name="date"]').val();
         window.location = "/targets/" + date + "/" + this.value;
-    });
+    }); */
 </script>
 
 <?php

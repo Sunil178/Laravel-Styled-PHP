@@ -49,8 +49,18 @@ if ($lead_id) {
     $db_res1 = $model->update($data, $lead_id);
 }
 else {
-    $db_res1 = $model->create($data);
-    $lead_id = $model->getConnection()->insert_id;
+    if ($type != 1) {
+        $emulator_names = htmlspecialchars($_POST['emulator_name']);
+        $emulator_names = explode("\n", preg_replace('/^\s+|\s+$/m', '', $emulator_names));
+        foreach ($emulator_names as $emulator_name) {
+            $data['emulator'] = $emulator_name;
+            $db_res1 = $model->create($data);
+        }
+    }
+    else {
+        $db_res1 = $model->create($data);
+        $lead_id = $model->getConnection()->insert_id;
+    }
 }
 
 if ($type == 1) {
