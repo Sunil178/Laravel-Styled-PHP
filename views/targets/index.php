@@ -12,7 +12,11 @@
 
         #totals {
             table-layout: fixed;
-            width: 25vw;
+            width: 30vw;
+        }
+
+        .right-line {
+            border-right: 1.7px solid black;
         }
     </style>
 <?php $customStyle = ob_get_clean(); ?>
@@ -27,31 +31,34 @@
                     <?php if (checkAuth(true)) { ?>
                         <th> Employee Name </th>
                     <?php } ?>
-                    <th> Campaign Name </th>
+                    <th class="right-line"> Campaign Name </th>
                     <th> Reg State </th>
                     <th> Reg Count</th>
                     <th> Reg Completed </th>
-                    <th> Reg Pending </th>
+                    <th> Reg Made </th>
+                    <th class="right-line"> Reg Pending </th>
                     <th> Dep State </th>
                     <th> Dep + Extra = Count </th>
                     <th> Dep Completed </th>
-                    <th> Dep Pending </th>
+                    <th> Dep Made </th>
+                    <th class="right-line"> Dep Pending </th>
                     <th> Action </th>
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php $registration_target = $registration_completed = $registration_pending = $deposit_target = $deposit_completed = $deposit_pending = $deposit_amount = 0; ?>
+                <?php $registration_target = $registration_made = $registration_completed = $registration_pending = $deposit_target = $deposit_made = $deposit_completed = $deposit_pending = $deposit_amount = 0; ?>
                 <?php foreach ($targets as $index => $target) { ?>
                     <tr>
                         <td> <?php echo ($index + 1) ?> </td>
                         <?php if (checkAuth(true)) { ?>
                             <td> <?php echo $target->employees_name ?> </td>
                         <?php } ?>
-                        <td> <?php echo $target->campaign_name ?> </td>
+                        <td class="right-line"> <?php echo $target->campaign_name ?> </td>
                         <td> <?php echo $target->reg_state ?? '-' ?> </td>
                         <td> <?php echo (int)$target->reg_count ?> </td>
+                        <td> <?php echo (int)$target->reg_made_tracked_count ?> </td>
                         <td> <?php echo (int)$target->reg_made_count ?> </td>
-                        <td> <?php echo ((int)$target->reg_count - (int)$target->reg_made_count) ?> </td>
+                        <td class="right-line"> <?php echo ((int)$target->reg_count - (int)$target->reg_made_tracked_count) ?> </td>
                         <td> <?php echo $target->dep_state ?? '-' ?> </td>
                         <td>
                             <?php
@@ -59,8 +66,9 @@
                                 echo (int)$target->dep_count . '  +    ' . (int)$target->extra_deposit . ' =   <b>' . $total_deposits . '</b>';
                             ?>
                         </td>
+                        <td> <?php echo (int)$target->dep_made_tracked_count ?> </td>
                         <td> <?php echo (int)$target->dep_made_count ?> </td>
-                        <td> <?php echo ($total_deposits - (int)$target->dep_made_count) ?> </td>
+                        <td class="right-line"> <?php echo ($total_deposits - (int)$target->dep_made_tracked_count) ?> </td>
                         <td>
                             <a href="/targets/view/<?php echo $target->id ?>" class="btn btn-info btn-sm">View</a>
                         <?php if (checkAuth(true)) { ?>
@@ -70,12 +78,14 @@
                     </tr>
                     <?php
                         $registration_target += (int)$target->reg_count;
-                        $registration_completed += (int)$target->reg_made_count;
-                        $registration_pending += (int)$target->reg_count - (int)$target->reg_made_count;
+                        $registration_completed += (int)$target->reg_made_tracked_count;
+                        $registration_made += (int)$target->reg_made_count;
+                        $registration_pending += (int)$target->reg_count - (int)$target->reg_made_tracked_count;
 
                         $deposit_target += $total_deposits;
-                        $deposit_completed += (int)$target->dep_made_count;
-                        $deposit_pending += $total_deposits - (int)$target->dep_made_count;
+                        $deposit_completed += (int)$target->dep_made_tracked_count;
+                        $deposit_made += (int)$target->dep_made_count;
+                        $deposit_pending += $total_deposits - (int)$target->dep_made_tracked_count;
                     ?>
                 <?php } ?>
             </tbody>
@@ -108,12 +118,14 @@
                         <td> <b>Registrations:</b> </td>
                         <td> <?php echo "Target: $registration_target" ?> </td>
                         <td> <?php echo "Completed: $registration_completed" ?> </td>
+                        <td> <?php echo "Made: $registration_made" ?> </td>
                         <td> <?php echo "Pending: $registration_pending" ?> </td>
                     </tr>
                     <tr>
                         <td> <b>Deposits:</b> </td>
                         <td> <?php echo "Target: $deposit_target" ?> </td>
                         <td> <?php echo "Completed: $deposit_completed" ?> </td>
+                        <td> <?php echo "Made: $deposit_made" ?> </td>
                         <td> <?php echo "Pending: $deposit_pending" ?> </td>
                     </tr>
                 </table>
