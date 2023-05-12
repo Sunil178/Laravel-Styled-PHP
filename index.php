@@ -120,6 +120,10 @@ switch ($request) {
         showPage('/controller/targets/index.php');
         break;
 
+    case '/targets/leads' :
+        showPage('/controller/targets/leads.php');
+        break;
+
     case '/targets/create' :
         showPage('/controller/targets/create.php', [], true);
         break;
@@ -160,6 +164,10 @@ switch ($request) {
 
             case preg_match('/^\/targets\/'.$date.'\/?([0-9]+)?$/', $request, $matches):
                 showPage('/controller/targets/index.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
+                break;
+
+            case preg_match('/^\/targets\/leads\/'.$date.'\/?([0-9]+)?$/', $request, $matches):
+                showPage('/controller/targets/leads.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
                 break;
 
             case preg_match('/^\/targets\/view\/([0-9]+)$/', $request, $matches):

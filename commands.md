@@ -11,3 +11,8 @@
     ```bash
     sudo systemctl restart mysql
     ```
+
+3. Disable `ONLY_FULL_GROUP_BY` in `MySQL`
+    ```sql
+    SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+    ```

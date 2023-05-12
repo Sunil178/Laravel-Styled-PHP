@@ -105,3 +105,11 @@
   text-align: center;
   margin-top: 1rem;
 }
+
+.menu-vertical {
+  width: 12rem;
+}
+
+.layout-page {
+  padding-left: 11.25rem !important;
+}

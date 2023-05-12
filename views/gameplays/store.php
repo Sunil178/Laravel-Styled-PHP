@@ -6,11 +6,11 @@
      <div class="col-md-10">
           <div class="card mb-4">
                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"> <?php echo ($gameplay->id ? 'Edit' : 'Create') ?> Gameplay</h5>
+                    <h5 class="mb-0"> <?php echo (@$gameplay->id ? 'Edit' : 'Create') ?> Gameplay</h5>
                </div>
                <div class="card-body">
                     <form method="POST" action="/gameplays/store" id="form">
-                         <input type="hidden" name="gameplay_id" value="<?php echo $gameplay->id ?>">
+                         <input type="hidden" name="gameplay_id" value="<?php echo @$gameplay->id ?>">
                          <div class="row">
                               <?php if (checkAuth(true)) { ?>
                                    <div class="mb-3 col-md-4">
@@ -19,7 +19,7 @@
                                              <select name="employee_id" class="form-select" required>
                                                   <option value=""> -- select employee -- </option>
                                                   <?php foreach ($employees as $employee) { ?>
-                                                       <option <?php echo ($gameplay->employee_id == $employee->id) ? 'selected' : ''; ?> value="<?php echo $employee->id; ?>"><?php echo $employee->name . ' : ' . $employee->username; ?></option>
+                                                       <option <?php echo (@$gameplay->employee_id == $employee->id) ? 'selected' : ''; ?> value="<?php echo $employee->id; ?>"><?php echo $employee->name . ' : ' . $employee->username; ?></option>
                                                   <?php } ?>
                                              </select>
                                         </div>
@@ -34,7 +34,7 @@
                                         <select name="lead_id" class="form-select select2">
                                              <option value=""> -- select lead emulator -- </option>
                                              <?php foreach ($leads as $lead) { ?>
-                                                  <option <?php echo ($gameplay->lead_id == $lead->id) ? 'selected' : ''; ?> value="<?php echo $lead->id; ?>"><?php echo $lead->emulator; ?></option>
+                                                  <option <?php echo (@$gameplay->lead_id == $lead->id) ? 'selected' : ''; ?> value="<?php echo $lead->id; ?>"><?php echo $lead->emulator; ?></option>
                                              <?php } ?>
                                         </select>
                                    </div>
@@ -42,13 +42,13 @@
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
                                         <label class="form-label">Emulator Name</label>
-                                        <input type="text" class="form-control" name="emulator_name" placeholder="Enter emulator name" value="<?php echo $gameplay->emulator_name ?>">
+                                        <input type="text" class="form-control" name="emulator_name" placeholder="Enter emulator name" value="<?php echo @$gameplay->emulator_name ?>">
                                    </div>
                               </div>
                          </div>
                          <div class="row" id="rake-block">
                               <?php $total_rake = 0; ?>
-                              <?php $rake_count = is_array($gameplay_rakes) ? count($gameplay_rakes) : 0 ; ?>
+                              <?php $rake_count = is_array(@$gameplay_rakes) ? count(@$gameplay_rakes) : 0 ; ?>
                               <?php if ($rake_count > 0) { ?>
                                    <?php foreach ($gameplay_rakes as $index => $gameplay_rake) { ?>
                                         <div class="mb-3 col-md-2 rake-input">

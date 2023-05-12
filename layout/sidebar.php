@@ -76,6 +76,11 @@
                             <div data-i18n="Without menu">Index</div>
                         </a>
                     </li>
+                    <li class="menu-item">
+                        <a href="/targets/leads" class="menu-link">
+                            <div data-i18n="Without menu">Leads</div>
+                        </a>
+                    </li>
                     <?php if (checkAuth(true)) { ?>
                         <li class="menu-item">
                             <a href="/targets/create" class="menu-link">

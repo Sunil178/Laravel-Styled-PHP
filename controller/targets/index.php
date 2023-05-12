@@ -33,8 +33,6 @@
 
     $query .= " ORDER BY targets.created_at DESC";
     $targets = $model->runQuery($query);
-    /* print_r($targets);
-    exit; */
 
     $model = new Model('states');
     $states = $model->getAll();

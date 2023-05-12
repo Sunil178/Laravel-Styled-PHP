@@ -12,11 +12,15 @@
 
         #totals {
             table-layout: fixed;
-            width: 30vw;
+            width: 40vw;
         }
 
         .right-line {
             border-right: 1.7px solid black;
+        }
+
+        .navbar-nav {
+            gap: 1rem;
         }
     </style>
 <?php $customStyle = ob_get_clean(); ?>
@@ -46,7 +50,7 @@
                 </tr>
             </thead>
             <tbody id="table-body">
-                <?php $registration_target = $registration_made = $registration_completed = $registration_pending = $deposit_target = $deposit_made = $deposit_completed = $deposit_pending = $deposit_amount = 0; ?>
+                <?php $registration_target = $registration_made = $registration_completed = $registration_pending = $deposit_target = $deposit_made = $deposit_completed = $deposit_pending = 0; ?>
                 <?php foreach ($targets as $index => $target) { ?>
                     <tr>
                         <td> <?php echo ($index + 1) ?> </td>
@@ -98,12 +102,12 @@
 
     <div class="navbar-nav-left w-100">
         <ul class="navbar-nav align-items-center ms-auto">
-            <li class="nav-item lh-1 me-3">
+            <li class="nav-item lh-1 me-10">
                 <i class='bx bxs-calendar mt-0'></i>
                 <span class="mt-2 me-2">Date:</span>
                 <input type="date" class="form-control" name="date" value="<?php echo $date; ?>">
             </li>
-            <!-- <li class="nav-item lh-1 d-flex flex-row me-3">
+            <!-- <li class="nav-item lh-1 d-flex flex-row me-10">
                 <span class="mt-2 me-2">State:</span>
                 <select name="state_id" class="form-select" required>
                         <option value=""> -- select state -- </option>
@@ -112,7 +116,7 @@
                         <?php } ?>
                 </select>
             </li> -->
-            <li class="nav-item lh-1 me-3">
+            <li class="nav-item lh-1 me-10">
                 <table id="totals">
                     <tr>
                         <td> <b>Registrations:</b> </td>
