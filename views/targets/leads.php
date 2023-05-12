@@ -33,9 +33,9 @@
                 <tr class="text-nowrap">
                     <th> # </th>
                     <?php if (checkAuth(true)) { ?>
-                        <th> Employee Name </th>
+                        <th> Employee </th>
                     <?php } ?>
-                    <th class="right-line"> Campaign Name </th>
+                    <th class="right-line"> Campaign </th>
                     <th> Reg State </th>
                     <th> Reg Tracked </th>
                     <th class="right-line"> Reg Made </th>

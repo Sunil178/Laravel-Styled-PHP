@@ -15,9 +15,10 @@
                 <tr class="text-nowrap">
                     <th> # </th>
                     <?php if (checkAuth(true)) { ?>
-                        <th> Employee Name </th>
+                        <th> Employee </th>
                     <?php } ?>
-                    <th> Campaign Name </th>
+                    <th> Emulator </th>
+                    <th> Campaign </th>
                     <th> State </th>
                     <th> Type </th>
                     <th> <i class='bx bx-rupee mt-0'></i> Amount </th>
@@ -33,6 +34,7 @@
                         <?php if (checkAuth(true)) { ?>
                             <td> <?php echo $lead->employees_name . ' : ' . $lead->username ?> </td>
                         <?php } ?>
+                        <td> <?php echo $lead->emulator_name ?> </td>
                         <td> <?php echo $lead->campaign_name ?> </td>
                         <td> <?php echo $lead->state_name ?> </td>
                         <td> <?php echo ($lead->type == 0 ? 'Registration' : 'Deposit') ?> </td>
