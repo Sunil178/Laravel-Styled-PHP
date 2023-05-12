@@ -19,6 +19,7 @@
                     <?php } ?>
                     <th> Emulator </th>
                     <th> Campaign </th>
+                    <th> Tracked </th>
                     <th> State </th>
                     <th> Type </th>
                     <th> <i class='bx bx-rupee mt-0'></i> Amount </th>
@@ -36,6 +37,11 @@
                         <?php } ?>
                         <td> <?php echo $lead->emulator_name ?> </td>
                         <td> <?php echo $lead->campaign_name ?> </td>
+                        <?php if ($lead->tracked == 0) { ?>
+                            <td class="text-success"> Yes </td>
+                        <?php } else { ?>
+                            <td class="text-danger"> No </td>
+                        <?php } ?>
                         <td> <?php echo $lead->state_name ?> </td>
                         <td> <?php echo ($lead->type == 0 ? 'Registration' : 'Deposit') ?> </td>
                         <td> <i class='bx bx-rupee mt-0'></i> <?php echo (int) $lead->total_lead_deposit ?> </td>
