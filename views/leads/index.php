@@ -48,7 +48,7 @@
                         <td> <?php echo $lead->lead_date ?> </td>
                         <td>
                             <a href="/leads/edit/<?php echo $lead->id ?>" class="btn btn-info btn-sm">Edit</a>
-                            <a href="/leads/delete/<?php echo $lead->id ?>" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="#" lead-id="<?php echo $lead->id ?>" class="btn btn-danger btn-sm delete-lead">Delete</a>
                         </td>
                     </tr>
                     <?php
@@ -124,6 +124,23 @@
             window.location = "/leads/" + date + "/" + state_id + "/" + this.value;
         });
     <?php } ?>
+
+    $('.delete-lead').on('click', function (event) {
+        lead_id = $(this).attr('lead-id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+            if (result.isConfirmed) {
+                window.location = "/leads/delete/" + lead_id;
+            }
+		});
+    });
 </script>
 
 <?php

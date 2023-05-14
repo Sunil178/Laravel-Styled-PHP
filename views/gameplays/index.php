@@ -41,7 +41,7 @@
                         <td> <?php echo $gameplay->gameplays_date ?> </td>
                         <td>
                             <a href="/gameplays/edit/<?php echo $gameplay->id ?>" class="btn btn-info btn-sm">Edit</a>
-                            <a href="/gameplays/delete/<?php echo $gameplay->id ?>" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="#" gameplay-id="<?php echo $gameplay->id ?>" class="btn btn-danger btn-sm delete-gameplay">Delete</a>
                         </td>
                     </tr>
                     <?php $total_rake += $gameplay->rake; ?>
@@ -92,6 +92,24 @@
             window.location = "/gameplays/" + date + "/" + this.value;
         });
     <?php } ?>
+
+    $('.delete-gameplay').on('click', function (event) {
+        gameplay_id = $(this).attr('gameplay-id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+            if (result.isConfirmed) {
+                window.location = "/gameplays/delete/" + gameplay_id;
+            }
+		});
+    });
+
 </script>
 
 <?php
