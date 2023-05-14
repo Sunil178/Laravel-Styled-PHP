@@ -31,7 +31,7 @@
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
                                         <label class="form-label">Emulator</label>
-                                        <select name="lead_id" class="form-select select2" select-options="fetchEmulators">
+                                        <select name="lead_id" class="form-select select2" select-gameplay="true" select-options="fetchEmulators">
                                              <option value=""> -- select lead emulator -- </option>
                                              <?php if (isset($gameplay->lead_id)) { ?>
                                                   <option selected value="<?php echo $gameplay->lead_id; ?>"><?php echo @$gameplay->emulator; ?></option>
