@@ -9,7 +9,7 @@
     $employee_id = $_SESSION['employee_id'];
 
     $query = "SELECT
-        targets.id, employees.name AS employees_name, campaigns.name AS campaign_name, targets.reg_count, target_reg_leads.reg_made_count, target_reg_tracked_leads.reg_made_tracked_count, targets.dep_count, target_dep_leads.dep_made_count, target_dep_tracked_leads.dep_made_tracked_count, ex_dep.extra_deposit, reg_states.name as reg_state, dep_states.name as dep_state
+        targets.id, employees.name AS employee_name, campaigns.name AS campaign_name, targets.reg_count, target_reg_leads.reg_made_count, target_reg_tracked_leads.reg_made_tracked_count, targets.dep_count, target_dep_leads.dep_made_count, target_dep_tracked_leads.dep_made_tracked_count, ex_dep.extra_deposit, reg_states.name as reg_state, dep_states.name as dep_state
         FROM targets
         JOIN employees ON employees.id = targets.employee_id
         JOIN campaigns ON campaigns.id = targets.campaign_id

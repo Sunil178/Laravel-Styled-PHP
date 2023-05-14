@@ -30,7 +30,7 @@ if (!isset($_POST['state_id']) || $_POST['state_id'] == '') {
     exit;
 }
 
-if (!isset($_POST['emulator_name']) || $_POST['emulator_name'] == '') {
+if ((!isset($_POST['emulator_name']) || $_POST['emulator_name'] == '') && (!isset($_POST['emulator_lead_id']) || $_POST['emulator_lead_id'] == '')) {
     echo "Emulator is required";
     exit;
 }
@@ -40,14 +40,30 @@ if (!isset($_POST['tracked']) || $_POST['tracked'] == '') {
     exit;
 }
 
+$retention_day_id = @$_POST['retention_day_id'] == '' ? NULL : $_POST['retention_day_id'];
+$emulator_lead_id = @$_POST['emulator_lead_id'] == '' ? NULL : $_POST['emulator_lead_id'];
+
 $model = new Model('leads');
+
+$emulator_name = $_POST['emulator_name'];
+if ($emulator_lead_id) {
+    $lead = $model->get($emulator_lead_id);
+    if ($model) {
+        $emulator_name = $lead->emulator;
+    } else {
+        header("Location: /404");
+        exit;
+    }
+}
 $data = [
+    'lead_id' => $emulator_lead_id,
     'employee_id' => $employee_id,
     'campaign_id' => $_POST['campaign_id'],
     'state_id' => $_POST['state_id'],
     'type' => $type,
     'tracked' => $_POST['tracked'],
-    'emulator' => $_POST['emulator_name'],
+    'emulator' => $emulator_name,
+    'retention_day_id' => $retention_day_id,
 ];
 $lead_id = $_POST['lead_id'];
 
@@ -55,7 +71,7 @@ if ($lead_id) {
     $db_res1 = $model->update($data, $lead_id);
 }
 else {
-    if ($type != 1) {
+    if ($type != 1 && $type != 2) {
         $emulator_names = htmlspecialchars($_POST['emulator_name']);
         $emulator_names = explode("\n", preg_replace('/^\s+|\s+$/m', '', $emulator_names));
         foreach ($emulator_names as $emulator_name) {
@@ -69,7 +85,7 @@ else {
     }
 }
 
-if ($type == 1) {
+if ($type == 1 || $type == 2) {
     $lead_deposit_amounts = $_POST['lead_deposit_amounts'];
     $payment_method_ids = $_POST['payment_method_ids'];
     $lead_deposit_ids = $_POST['lead_deposit_ids'];
@@ -95,7 +111,6 @@ if ($type == 1) {
 }
 
 if ($db_res1 !== false && $db_res2 !== false) {
-    session_write_close();
     header("Location: /leads");
 }
 else {

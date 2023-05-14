@@ -55,7 +55,7 @@
                     <tr>
                         <td> <?php echo ($index + 1) ?> </td>
                         <?php if (checkAuth(true)) { ?>
-                            <td> <?php echo $target->employees_name ?> </td>
+                            <td> <?php echo $target->employee_name ?> </td>
                         <?php } ?>
                         <td class="right-line"> <?php echo $target->campaign_name ?> </td>
                         <td> <?php echo $target->reg_state ?? '-' ?> </td>

@@ -14,7 +14,6 @@ if (!isset($_POST['employee_id']) || $_POST['employee_id'] == '') {
     }
 }
 
-
 $lead_id = @$_POST['lead_id'];
 $emulator_name = @$_POST['emulator_name'];
 
@@ -63,7 +62,6 @@ foreach ($rake_ids as $rake_id_index => $rake_id) {
 }
 
 if ($db_res1 !== false && $db_res2 !== false) {
-    session_write_close();
     header("Location: /gameplays");
 }
 else {

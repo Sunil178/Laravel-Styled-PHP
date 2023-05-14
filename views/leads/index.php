@@ -33,7 +33,7 @@
                     <tr>
                         <td> <?php echo ($index + 1) ?> </td>
                         <?php if (checkAuth(true)) { ?>
-                            <td> <?php echo $lead->employees_name . ' : ' . $lead->username ?> </td>
+                            <td> <?php echo $lead->employees_name ?> </td>
                         <?php } ?>
                         <td> <?php echo $lead->emulator_name ?> </td>
                         <td> <?php echo $lead->campaign_name ?> </td>

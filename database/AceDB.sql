@@ -42,20 +42,33 @@ CREATE TABLE `payment_methods` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- DROP TABLE IF EXISTS `retention_days`;
+
+CREATE TABLE `retention_days` (
+  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- DROP TABLE IF EXISTS `leads`;
 
 CREATE TABLE `leads` (
   `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `lead_id` INT unsigned DEFAULT NULL,
   `employee_id` INT unsigned DEFAULT NULL,
   `campaign_id` INT unsigned DEFAULT NULL,
   `state_id` INT unsigned DEFAULT NULL,
-  `type` TINYINT DEFAULT NULL COMMENT '0:registration 1:deposit',
+  `type` TINYINT DEFAULT NULL COMMENT '0:registration 1:deposit 2:retention_deposit',
   `tracked` TINYINT DEFAULT NULL COMMENT '0:Yes 1:No',
   `emulator` VARCHAR(255) DEFAULT NULL,
+  `retention_day_id` INT unsigned DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`),
   FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
   FOREIGN KEY (`campaign_id`) REFERENCES `campaigns` (`id`),
+  FOREIGN KEY (`retention_day_id`) REFERENCES `retention_days` (`id`),
   FOREIGN KEY (`state_id`) REFERENCES `states` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -94,15 +107,6 @@ CREATE TABLE `gameplay_rakes` (
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`gameplay_id`) REFERENCES `gameplays` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- DROP TABLE IF EXISTS `retention_days`;
-
-CREATE TABLE `retention_days` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `name` VARCHAR(255) NOT NULL,
-  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- DROP TABLE IF EXISTS `targets`;
@@ -152,7 +156,15 @@ CREATE TABLE `clients` (
 /*
 ALTER TABLE `gameplays`
   ADD COLUMN `lead_id` INT unsigned NULL AFTER `employee_id`,
-  ADD CONSTRAINT `emulators_ibfk_2` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `emulators_ibfk_2` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`);
+
+ALTER TABLE `leads`
+  ADD COLUMN `lead_id` INT unsigned NULL AFTER `id`,
+  ADD CONSTRAINT `leads_ibfk_5` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`);
+
+ALTER TABLE `leads`
+  ADD COLUMN `retention_day_id` INT unsigned NULL AFTER `emulator`,
+  ADD CONSTRAINT `leads_ibfk_4` FOREIGN KEY (`retention_day_id`) REFERENCES `retention_days` (`id`);
 
 ALTER TABLE `leads` 
 DROP COLUMN `count`;

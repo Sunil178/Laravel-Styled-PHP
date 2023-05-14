@@ -17,11 +17,11 @@
      <div class="col-md-10">
           <div class="card mb-4">
                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"> <?php echo ($lead->id ? 'Edit' : 'Create') ?> Lead</h5>
+                    <h5 class="mb-0"> <?php echo (@$lead->id ? 'Edit' : 'Create') ?> Lead</h5>
                </div>
                <div class="card-body">
                     <form method="POST" action="/leads/store" id="form">
-                         <input type="hidden" name="lead_id" value="<?php echo $lead->id ?>">
+                         <input type="hidden" name="lead_id" value="<?php echo @$lead->id ?>">
                          <div class="row">
                               <?php if (checkAuth(true)) { ?>
                                    <div class="mb-3 col-md-4">
@@ -30,7 +30,7 @@
                                              <select name="employee_id" class="form-select" required>
                                                   <option value=""> -- select employee -- </option>
                                                   <?php foreach ($employees as $employee) { ?>
-                                                       <option <?php echo ($lead->employee_id == $employee->id) ? 'selected' : ''; ?> value="<?php echo $employee->id; ?>"><?php echo $employee->name . ' : ' . $employee->username; ?></option>
+                                                       <option <?php echo (@$lead->employee_id == $employee->id) ? 'selected' : ''; ?> value="<?php echo $employee->id; ?>"><?php echo $employee->name . ' : ' . $employee->username; ?></option>
                                                   <?php } ?>
                                              </select>
                                         </div>
@@ -42,7 +42,7 @@
                                         <select name="campaign_id" class="form-select" required>
                                              <option value=""> -- select campaign -- </option>
                                              <?php foreach ($campaigns as $campaign) { ?>
-                                                  <option <?php echo ($lead->campaign_id == $campaign->id) ? 'selected' : ''; ?> value="<?php echo $campaign->id; ?>"><?php echo $campaign->name; ?></option>
+                                                  <option <?php echo (@$lead->campaign_id == $campaign->id) ? 'selected' : ''; ?> value="<?php echo $campaign->id; ?>"><?php echo $campaign->name; ?></option>
                                              <?php } ?>
                                         </select>
                                    </div>
@@ -52,8 +52,9 @@
                                         <label class="form-label required">Type</label>
                                         <select name="type" class="form-select" required>
                                              <option value="" disabled selected hidden> -- select type -- </option>
-                                             <option <?php echo (((string)$lead->type) == 0) ? 'selected' : ''; ?> value="0">Registration</option>
-                                             <option <?php echo (((string)$lead->type) == 1) ? 'selected' : ''; ?> value="1">Deposit</option>
+                                             <option <?php echo (((string)@$lead->type) == 0) ? 'selected' : ''; ?> value="0">Registration</option>
+                                             <option <?php echo (((string)@$lead->type) == 1) ? 'selected' : ''; ?> value="1">Deposit</option>
+                                             <option <?php echo (((string)@$lead->type) == 2) ? 'selected' : ''; ?> value="2">Retention Deposit</option>
                                         </select>
                                    </div>
                               </div>
@@ -65,7 +66,7 @@
                                         <select name="state_id" class="form-select" required>
                                              <option value=""> -- select state -- </option>
                                              <?php foreach ($states as $state) { ?>
-                                                  <option <?php echo ($lead->state_id == $state->id) ? 'selected' : ''; ?> value="<?php echo $state->id; ?>"><?php echo $state->code . ' : ' . $state->name; ?></option>
+                                                  <option <?php echo (@$lead->state_id == $state->id) ? 'selected' : ''; ?> value="<?php echo $state->id; ?>"><?php echo $state->code . ' : ' . $state->name; ?></option>
                                              <?php } ?>
                                         </select>
                                    </div>
@@ -73,8 +74,14 @@
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
                                         <label class="form-label required">Emulator Name</label>
-                                        <input id="emulator_name_text" type="text" class="form-control" name="emulator_name" placeholder="Enter emulator name" value="<?php echo $lead->emulator ?>" required>
-                                        <textarea id="emulator_name_textarea" class="form-control" name="emulator_name" placeholder="Enter emulator names" required><?php echo $lead->emulator ?></textarea>
+                                        <input id="emulator_name_text" type="text" class="form-control" name="emulator_name" placeholder="Enter emulator name" value="<?php echo @$lead->emulator ?>" required>
+                                        <textarea id="emulator_name_textarea" class="form-control" name="emulator_name" placeholder="Enter emulator names" required><?php echo @$lead->emulator ?></textarea>
+                                        <select id="emulator_name_select" name="emulator_lead_id" class="form-select" select-options="fetchEmulators">
+                                             <option value=""> -- select lead emulator -- </option>
+                                             <?php if (isset($lead->id)) { ?>
+                                                  <option selected value="<?php echo @$lead->id; ?>"><?php echo @$lead->emulator; ?></option>
+                                             <?php } ?>
+                                        </select>
                                    </div>
                               </div>
                               <div class="mb-3 col-md-4">
@@ -82,8 +89,21 @@
                                         <label class="form-label required">Tracked</label>
                                         <select name="tracked" class="form-select" required>
                                              <option value="" disabled selected hidden> -- tracked or not? -- </option>
-                                             <option <?php echo !$lead->tracked ? 'selected' : ''; ?> value="0">Yes</option>
-                                             <option <?php echo $lead->tracked ? 'selected' : ''; ?> value="1">No</option>
+                                             <option <?php echo !@$lead->tracked ? 'selected' : ''; ?> value="0">Yes</option>
+                                             <option <?php echo @$lead->tracked ? 'selected' : ''; ?> value="1">No</option>
+                                        </select>
+                                   </div>
+                              </div>
+                         </div>
+                         <div class="row" id="retention_day_section">
+                              <div class="mb-3 col-md-4">
+                                   <div class="form-group">
+                                        <label class="form-label required">Retention Day</label>
+                                        <select id="retention_day_id" name="retention_day_id" class="form-select" required>
+                                             <option value=""> -- select retention day -- </option>
+                                             <?php foreach ($retention_days as $retention_day) { ?>
+                                                  <option <?php echo (@$lead->retention_day_id == $retention_day->id) ? 'selected' : ''; ?> value="<?php echo $retention_day->id; ?>"><?php echo $retention_day->name; ?></option>
+                                             <?php } ?>
                                         </select>
                                    </div>
                               </div>
@@ -142,6 +162,8 @@
 
 <?php ob_start(); ?>
 
+     <script src="/assets/custom-js/emulators.js"></script>
+
      <script>
           var lead_deposits_input = `
 <div class="mb-3 col-md-4 lead-deposit-input">
@@ -180,42 +202,104 @@
                updateSelect2();
           });
 
-          <?php if ($lead->type == 1) {?>
-               $('.lead-deposit-input').show();
-               $('#add-lead-deposits').show();
-               $('#lead-deposits-count').show();
+          <?php if (@$lead->type == 1) {?>
+
                $('#emulator_name_textarea').hide();
                $("#emulator_name_textarea").prop('disabled', true);
+
+               $('#emulator_name_select').hide();
+               $("#emulator_name_select").prop('disabled', true);
+
+               $('#retention_day_section').hide();
+               $('#retention_day_id').hide();
+               $("#retention_day_id").prop('disabled', true);
+
                $('#emulator_name_text').show();
-          <?php } else { ?>
-               $('#add-lead-deposits').hide();
-               $('.lead-deposit-input').hide();
-               $('#lead-deposits-count').hide();
+          <?php } else if (@$lead->type == 2) { ?>
+
                $('#emulator_name_text').hide();
                $("#emulator_name_text").prop('disabled', true);
+
+               $('#emulator_name_textarea').hide();
+               $("#emulator_name_textarea").prop('disabled', true);
+
+               $('#emulator_name_select').addClass('select2');
+          <?php } else { ?>
+
+               $('#add-lead-deposits, .lead-deposit-input, #lead-deposits-count').hide();
+
+               $('#emulator_name_text').hide();
+               $("#emulator_name_text").prop('disabled', true);
+
+               $('#emulator_name_select').hide();
+               $("#emulator_name_select").prop('disabled', true);
+
+               $('#retention_day_section').hide();
+               $('#retention_day_id').hide();
+               $("#retention_day_id").prop('disabled', true);
+
                $('#emulator_name_textarea').show();
           <?php } ?>
 
           $('select[name="type"]').on('change', function (event) {
                value = $(this).val();
                if (value == 1) {
-                    $('.lead-deposit-input').show();
-                    $('#add-lead-deposits').show();
-                    $('#lead-deposits-count').show();
+                    $('#add-lead-deposits, .lead-deposit-input, #lead-deposits-count').show();
+
                     $('#emulator_name_textarea').hide();
-                    $("#emulator_name_text").prop('disabled', false);
-                    $('#emulator_name_text').show();
-                    $('#emulator_name_text').val($('#emulator_name_textarea').val());
                     $("#emulator_name_textarea").prop('disabled', true);
+
+                    $("#emulator_name_select").val('').change();
+                    $('#emulator_name_select').removeClass('select2');
+                    $('#emulator_name_select').hide();
+                    $('#emulator_name_select').next('.select2-container').hide();
+                    $("#emulator_name_select").prop('disabled', true);
+
+                    $('#retention_day_section').hide();
+                    $('#retention_day_id').hide();
+                    $("#retention_day_id").prop('disabled', true);
+
+                    $('#emulator_name_text').show();
+                    $("#emulator_name_text").prop('disabled', false);
+
+               }
+               else if (value == 2) {
+                    $('#add-lead-deposits, .lead-deposit-input, #lead-deposits-count').show();
+
+                    $('#emulator_name_textarea').hide();
+                    $("#emulator_name_textarea").prop('disabled', true);
+                    $('#emulator_name_text').hide();
+                    $("#emulator_name_text").prop('disabled', true);
+
+                    $('#emulator_name_select').addClass('select2');
+                    $('#emulator_name_select').show();
+                    $("#emulator_name_select").prop('disabled', false);
+
+                    $('#retention_day_section').show();
+                    $('#retention_day_id').show();
+                    $("#retention_day_id").prop('disabled', false);
+
+                    updateSelect2();
                }
                else {
-                    $('#add-lead-deposits').hide();
-                    $('.lead-deposit-input').hide();
-                    $('#lead-deposits-count').hide();
+                    $('#add-lead-deposits, .lead-deposit-input, #lead-deposits-count').hide();
+
                     $('#emulator_name_text').hide();
-                    $("#emulator_name_textarea").prop('disabled', false);
+
+                    $("#emulator_name_select").val('').change();
+                    $('#emulator_name_select').removeClass('select2');
+                    $('#emulator_name_select').hide();
+                    $('#emulator_name_select').next('.select2-container').hide();
+                    $("#emulator_name_select").prop('disabled', true);
+
                     $('#emulator_name_textarea').show();
+                    $("#emulator_name_textarea").prop('disabled', false);
                     $('#emulator_name_textarea').val($('#emulator_name_text').val());
+
+                    $('#retention_day_section').hide();
+                    $('#retention_day_id').hide();
+                    $("#retention_day_id").prop('disabled', true);
+
                     $("#emulator_name_text").prop('disabled', true);
                }
           });

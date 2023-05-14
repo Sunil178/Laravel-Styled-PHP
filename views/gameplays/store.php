@@ -31,10 +31,10 @@
                               <div class="mb-3 col-md-4">
                                    <div class="form-group">
                                         <label class="form-label">Emulator</label>
-                                        <select name="lead_id" class="form-select select2">
+                                        <select name="lead_id" class="form-select select2" select-options="fetchEmulators">
                                              <option value=""> -- select lead emulator -- </option>
-                                             <?php foreach ($leads as $lead) { ?>
-                                                  <option <?php echo (@$gameplay->lead_id == $lead->id) ? 'selected' : ''; ?> value="<?php echo $lead->id; ?>"><?php echo $lead->emulator; ?></option>
+                                             <?php if (isset($gameplay->lead_id)) { ?>
+                                                  <option selected value="<?php echo $gameplay->lead_id; ?>"><?php echo @$gameplay->emulator; ?></option>
                                              <?php } ?>
                                         </select>
                                    </div>
@@ -83,6 +83,8 @@
 <?php $customSection = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
+
+     <script src="/assets/custom-js/emulators.js"></script>
 
      <script>
           var rake_input = `

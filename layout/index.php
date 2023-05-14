@@ -156,21 +156,28 @@
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/dashboards-analytics.js"></script>
     <script async defer src="/assets/js/buttons.js"></script>
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/slim.min.js"></script>
     <script src="/assets/js/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <?php if (isset($customScript)) { echo $customScript; } ?>
+
     <script>
         function updateSelect2 () {
-            $('.select2').select2({
-                theme: 'bootstrap-5',
+            $('.select2').each(function(index, element) {
+                element = $(element);
+                options = {};
+                const select_options = element.attr('select-options');
+                if (select_options) {
+                    options = eval(select_options + "()");
+                }
+                element.select2({
+                    theme: 'bootstrap-5',
+                    ...options
+                });
             });
         }
         updateSelect2();
     </script>
-
-    <?php if (isset($customScript)) { echo $customScript; } ?>
 
 </body>
 

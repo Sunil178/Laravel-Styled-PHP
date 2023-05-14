@@ -41,6 +41,10 @@ switch ($request) {
     case '/' :
         checkAuth() ? include_once __DIR__ . '/home.php' : include_once __DIR__ . '/views/login/index.php';
         break;
+    
+    case '/404':
+        include_once __DIR__ . '/views/404.php';
+        break;
 
     case '/home' :
         include_once __DIR__ . '/home.php';
@@ -130,7 +134,7 @@ switch ($request) {
 
     case '/targets/store' :
         showPage('/controller/targets/store.php', [], true);
-        break;
+        break;    
 
     default:
         switch (true) {
@@ -162,6 +166,10 @@ switch ($request) {
                 showPage('/controller/leads/edit.php', [ 'lead_id' => $matches[1] ]);
                 break;
 
+            case preg_match('/^\/leads\/emulators\/?(.*)?/', $request, $matches):
+                showPage('/controller/leads/emulators.php', [ 'emulator_name' => $matches[1] ]);
+                break;
+
             case preg_match('/^\/targets\/'.$date.'\/?([0-9]+)?$/', $request, $matches):
                 showPage('/controller/targets/index.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
                 break;
@@ -179,7 +187,8 @@ switch ($request) {
                 break;
 
             default:
-                include_once __DIR__ . '/views/404.php';
+                session_write_close();
+                header("Location: /404");
                 break;
         }
         break;

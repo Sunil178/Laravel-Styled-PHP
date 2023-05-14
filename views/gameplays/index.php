@@ -18,9 +18,9 @@
                 <tr class="text-nowrap">
                     <th> # </th>
                     <?php if (checkAuth(true)) { ?>
-                        <th> Employee Name </th>
+                        <th> Employee </th>
                     <?php } ?>
-                    <th> Emulator Name </th>
+                    <th> Emulator </th>
                     <th> Count </th>
                     <th> <i class='bx bx-rupee mt-0'></i> Rake </th>
                     <th> Date </th>
@@ -33,7 +33,7 @@
                     <tr>
                         <td> <?php echo ($index + 1) ?> </td>
                         <?php if (checkAuth(true)) { ?>
-                            <td> <?php echo $gameplay->name . ' : ' . $gameplay->username ?> </td>
+                            <td> <?php echo $gameplay->name ?> </td>
                         <?php } ?>
                         <td> <?php echo $gameplay->emulator_name ?> </td>
                         <td> <?php echo (int) $gameplay->count ?> </td>
