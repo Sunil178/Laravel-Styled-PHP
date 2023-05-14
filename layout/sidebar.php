@@ -14,6 +14,12 @@
     </div>
 
     <ul class="menu-inner py-1">
+        <li class="menu-item open">
+            <div class="fw-semibold menu-link">
+                <img src="/assets/img/profile.png" class="w-px-30 menu-icon" />
+                <span data-i18n="Analytics" class="text-info"><?php echo $_SESSION["employee_name"] ?? 'User'; ?></span>
+            </div>
+        </li>
         <?php if (!checkAuth()) { ?>
             <li class="menu-item open">
                 <a href="/login" class="menu-link">

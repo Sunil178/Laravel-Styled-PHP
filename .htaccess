@@ -3,9 +3,6 @@ RewriteEngine On
     #Remove folder based routing
     RewriteRule ^(.*)/index\.php$ /$1 [R=301,NC,L]
 
-    # Allow dots in URLs
-    AllowOverride FileInfo
-
     #Allow routing only from index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
