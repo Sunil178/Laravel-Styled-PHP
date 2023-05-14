@@ -154,6 +154,10 @@ switch ($request) {
                 showPage('/controller/gameplays/edit.php', [ 'gameplay_id' => $matches[1] ]);
                 break;
 
+            case preg_match('/^\/gameplays\/delete\/([0-9]+)$/', $request, $matches):
+                showPage('/controller/gameplays/delete.php', [ 'gameplay_id' => $matches[1] ]);
+                break;
+
             case preg_match('/^\/leads\/'.$date.'\/?([0-9]+)?$/', $request, $matches):
                 showPage('/controller/leads/index.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
                 break;
@@ -164,6 +168,10 @@ switch ($request) {
 
             case preg_match('/^\/leads\/edit\/([0-9]+)$/', $request, $matches):
                 showPage('/controller/leads/edit.php', [ 'lead_id' => $matches[1] ]);
+                break;
+
+            case preg_match('/^\/leads\/delete\/([0-9]+)$/', $request, $matches):
+                showPage('/controller/leads/delete.php', [ 'lead_id' => $matches[1] ]);
                 break;
 
             case preg_match('/^\/leads\/emulators\/?(.*)?/', $request, $matches):

@@ -48,6 +48,7 @@
                         <td> <?php echo $lead->lead_date ?> </td>
                         <td>
                             <a href="/leads/edit/<?php echo $lead->id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/leads/delete/<?php echo $lead->id ?>" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                     <?php

@@ -41,6 +41,7 @@
                         <td> <?php echo $gameplay->gameplays_date ?> </td>
                         <td>
                             <a href="/gameplays/edit/<?php echo $gameplay->id ?>" class="btn btn-info btn-sm">Edit</a>
+                            <a href="/gameplays/delete/<?php echo $gameplay->id ?>" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                     <?php $total_rake += $gameplay->rake; ?>
