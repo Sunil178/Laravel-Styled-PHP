@@ -21,9 +21,9 @@
 
         LEFT JOIN (SELECT employee_id, campaign_id, state_id, COUNT(emulator) AS reg_made_tracked_count FROM leads WHERE DATE(leads.created_at) = '$date' AND type = '0'  AND tracked = '0' GROUP BY employee_id, campaign_id, state_id) target_reg_tracked_leads ON target_reg_tracked_leads.employee_id = targets.employee_id AND target_reg_tracked_leads.campaign_id = targets.campaign_id AND target_reg_tracked_leads.state_id = targets.reg_state_id
 
-        LEFT JOIN (SELECT employee_id, campaign_id, state_id, COUNT(emulator) AS dep_made_count FROM leads WHERE DATE(leads.created_at) = '$date' AND type = '1' GROUP BY employee_id, campaign_id, state_id) target_dep_leads ON target_dep_leads.employee_id = targets.employee_id AND target_dep_leads.campaign_id = targets.campaign_id AND target_dep_leads.state_id = targets.dep_state_id
+        LEFT JOIN (SELECT employee_id, campaign_id, state_id, COUNT(emulator) AS dep_made_count FROM leads WHERE DATE(leads.created_at) = '$date' AND (type = '1' OR type = '2') GROUP BY employee_id, campaign_id, state_id) target_dep_leads ON target_dep_leads.employee_id = targets.employee_id AND target_dep_leads.campaign_id = targets.campaign_id AND target_dep_leads.state_id = targets.dep_state_id
 
-        LEFT JOIN (SELECT employee_id, campaign_id, state_id, COUNT(emulator) AS dep_made_tracked_count FROM leads WHERE DATE(leads.created_at) = '$date' AND type = '1'  AND tracked = '0' GROUP BY employee_id, campaign_id, state_id) target_dep_tracked_leads ON target_dep_tracked_leads.employee_id = targets.employee_id AND target_dep_tracked_leads.campaign_id = targets.campaign_id AND target_dep_tracked_leads.state_id = targets.dep_state_id
+        LEFT JOIN (SELECT employee_id, campaign_id, state_id, COUNT(emulator) AS dep_made_tracked_count FROM leads WHERE DATE(leads.created_at) = '$date' AND (type = '1' OR type = '2') AND tracked = '0' GROUP BY employee_id, campaign_id, state_id) target_dep_tracked_leads ON target_dep_tracked_leads.employee_id = targets.employee_id AND target_dep_tracked_leads.campaign_id = targets.campaign_id AND target_dep_tracked_leads.state_id = targets.dep_state_id
 
         WHERE DATE(targets.created_at) = '$date'";
 

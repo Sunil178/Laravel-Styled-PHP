@@ -10,13 +10,11 @@
 
     $query = "SELECT
     
-employees.name employee_name, campaigns.name campaign_name,
-(CASE WHEN leads.type = '0' THEN states.name ELSE '-' END) reg_state,
-(CASE WHEN leads.type = '1' THEN states.name ELSE '-' END) dep_state,
+employees.name employee_name, campaigns.name campaign_name, states.name state_name,
 SUM(CASE WHEN leads.type = '0' THEN 1 ELSE 0 END) reg_made_count,
 SUM(CASE WHEN leads.type = '0' AND tracked = '0' THEN 1 ELSE 0 END) reg_made_tracked_count,
-SUM(CASE WHEN leads.type = '1' THEN 1 ELSE 0 END) dep_made_count,
-SUM(CASE WHEN leads.type = '1' AND tracked = '0' THEN 1 ELSE 0 END) dep_made_tracked_count
+SUM(CASE WHEN leads.type = '1' OR leads.type = '2' THEN 1 ELSE 0 END) dep_made_count,
+SUM(CASE WHEN (leads.type = '1' OR leads.type = '2') AND tracked = '0' THEN 1 ELSE 0 END) dep_made_tracked_count
 FROM leads
 LEFT JOIN states ON states.id = leads.state_id
 LEFT JOIN employees ON employees.id = leads.employee_id

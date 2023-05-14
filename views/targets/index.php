@@ -38,13 +38,13 @@
                     <th class="right-line"> Campaign </th>
                     <th> Reg State </th>
                     <th> Reg Count</th>
-                    <th> Reg Completed </th>
                     <th> Reg Made </th>
+                    <th> Reg Tracked </th>
                     <th class="right-line"> Reg Pending </th>
                     <th> Dep State </th>
                     <th> Dep + Extra = Count </th>
-                    <th> Dep Completed </th>
                     <th> Dep Made </th>
+                    <th> Dep Tracked </th>
                     <th class="right-line"> Dep Pending </th>
                     <th> Action </th>
                 </tr>
@@ -60,8 +60,8 @@
                         <td class="right-line"> <?php echo $target->campaign_name ?> </td>
                         <td> <?php echo $target->reg_state ?? '-' ?> </td>
                         <td> <?php echo (int)$target->reg_count ?> </td>
-                        <td> <?php echo (int)$target->reg_made_tracked_count ?> </td>
                         <td> <?php echo (int)$target->reg_made_count ?> </td>
+                        <td> <?php echo (int)$target->reg_made_tracked_count ?> </td>
                         <td class="right-line"> <?php echo ((int)$target->reg_count - (int)$target->reg_made_tracked_count) ?> </td>
                         <td> <?php echo $target->dep_state ?? '-' ?> </td>
                         <td>
@@ -70,8 +70,8 @@
                                 echo (int)$target->dep_count . '  +    ' . (int)$target->extra_deposit . ' =   <b>' . $total_deposits . '</b>';
                             ?>
                         </td>
-                        <td> <?php echo (int)$target->dep_made_tracked_count ?> </td>
                         <td> <?php echo (int)$target->dep_made_count ?> </td>
+                        <td> <?php echo (int)$target->dep_made_tracked_count ?> </td>
                         <td class="right-line"> <?php echo ($total_deposits - (int)$target->dep_made_tracked_count) ?> </td>
                         <td>
                             <a href="/targets/view/<?php echo $target->id ?>" class="btn btn-info btn-sm">View</a>

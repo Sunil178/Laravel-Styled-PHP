@@ -35,13 +35,12 @@
                     <?php if (checkAuth(true)) { ?>
                         <th> Employee </th>
                     <?php } ?>
-                    <th class="right-line"> Campaign </th>
-                    <th> Reg State </th>
-                    <th> Reg Tracked </th>
-                    <th class="right-line"> Reg Made </th>
-                    <th> Dep State </th>
-                    <th> Dep Tracked </th>
-                    <th class="right-line"> Dep Made </th>
+                    <th> Campaign </th>
+                    <th class="right-line"> State </th>
+                    <th> Reg Made </th>
+                    <th class="right-line"> Reg Tracked </th>
+                    <th> Dep Made </th>
+                    <th class="right-line"> Dep Tracked </th>
                 </tr>
             </thead>
             <tbody id="table-body">
@@ -52,13 +51,12 @@
                         <?php if (checkAuth(true)) { ?>
                             <td> <?php echo $target->employee_name ?> </td>
                         <?php } ?>
-                        <td class="right-line"> <?php echo $target->campaign_name ?> </td>
-                        <td> <?php echo $target->reg_state ?? '-' ?> </td>
-                        <td> <?php echo (int)$target->reg_made_tracked_count ?> </td>
-                        <td class="right-line"> <?php echo (int)$target->reg_made_count ?> </td>
-                        <td> <?php echo $target->dep_state ?? '-' ?> </td>
-                        <td> <?php echo (int)$target->dep_made_tracked_count ?> </td>
-                        <td class="right-line"> <?php echo (int)$target->dep_made_count ?> </td>
+                        <td> <?php echo $target->campaign_name ?> </td>
+                        <td class="right-line"> <?php echo $target->state_name ?? '-' ?> </td>
+                        <td> <?php echo (int)$target->reg_made_count ?> </td>
+                        <td class="right-line"> <?php echo (int)$target->reg_made_tracked_count ?> </td>
+                        <td> <?php echo (int)$target->dep_made_count ?> </td>
+                        <td class="right-line"> <?php echo (int)$target->dep_made_tracked_count ?> </td>
                     </tr>
                     <?php
                         $registration_tracked += (int)$target->reg_made_tracked_count;
