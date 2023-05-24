@@ -182,8 +182,8 @@ switch ($request) {
                 showPage('/controller/targets/index.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
                 break;
 
-            case preg_match('/^\/targets\/leads\/'.$date.'\/?([0-9]+)?$/', $request, $matches):
-                showPage('/controller/targets/leads.php', [ 'date' => $matches[1], 'state_id' => $matches[4] ]);
+            case preg_match('/^\/targets\/leads\/'.$date.'\/'.$date.'\/?([0-9]+)?$/', $request, $matches):
+                showPage('/controller/targets/leads.php', [ 'from_date' => $matches[1], 'to_date' => $matches[4], 'state_id' => $matches[7] ]);
                 break;
 
             case preg_match('/^\/targets\/view\/([0-9]+)$/', $request, $matches):

@@ -1,6 +1,7 @@
 <?php
-    if (!isset($date)) {
-        $date = date('Y-m-d');
+    if (!isset($from_date) || !isset($to_date)) {
+        $from_date = date('Y-m-d');
+        $to_date = $from_date;
     }
     if (!isset($state_id)) {
         $state_id = '';
@@ -19,7 +20,7 @@ FROM leads
 LEFT JOIN states ON states.id = leads.state_id
 LEFT JOIN employees ON employees.id = leads.employee_id
 LEFT JOIN campaigns ON campaigns.id = leads.campaign_id
-WHERE DATE(leads.created_at) = '$date'";
+WHERE (DATE(leads.created_at) BETWEEN '$from_date' AND '$to_date')";
 
     if (!checkAdmin()) {
         $query .= " AND leads.employee_id = '$employee_id'";

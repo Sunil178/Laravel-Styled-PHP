@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
     <style>
-        input[name=date] {
+        input[type=date] {
             width: initial;
             display: initial;
         }
@@ -33,7 +33,7 @@
                 <tr class="text-nowrap">
                     <th> # </th>
                     <?php if (checkAuth(true)) { ?>
-                        <th> Employee </th>
+                        <th> Publisher </th>
                     <?php } ?>
                     <th> Campaign </th>
                     <th class="right-line"> State </th>
@@ -78,8 +78,13 @@
         <ul class="navbar-nav align-items-center ms-auto">
             <li class="nav-item lh-1 me-10">
                 <i class='bx bxs-calendar mt-0'></i>
-                <span class="mt-2 me-2">Date:</span>
-                <input type="date" class="form-control" name="date" value="<?php echo $date; ?>">
+                <span class="mt-2 me-2">From:</span>
+                <input type="date" class="form-control" name="from_date" value="<?php echo $from_date; ?>">
+            </li>
+            <li class="nav-item lh-1 me-10">
+                <i class='bx bxs-calendar mt-0'></i>
+                <span class="mt-2 me-2">To:</span>
+                <input type="date" class="form-control" name="to_date" value="<?php echo $to_date; ?>">
             </li>
             <!-- <li class="nav-item lh-1 d-flex flex-row me-10">
                 <span class="mt-2 me-2">State:</span>
@@ -112,8 +117,10 @@
 <?php ob_start(); ?>
 
 <script>
-    $('input[name="date"]').on('change', function (event) {
-        window.location = "/targets/leads/" + this.value;
+    $('input[type="date"]').on('change', function (event) {
+        from_date = $('input[name="from_date"]').val();
+        to_date = $('input[name="to_date"]').val();
+        window.location = "/targets/leads/" + from_date + "/" + to_date;
     });
     /* $('select[name="state_id"]').on('change', function (event) {
         date = $('input[name="date"]').val();
