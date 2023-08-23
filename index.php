@@ -1,8 +1,8 @@
 <?php
 
-/* ini_set('display_errors', 1);
+ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL); */
+error_reporting(E_ALL);
 
 // date_default_timezone_set("Asia/Kolkata");
 
@@ -134,7 +134,15 @@ switch ($request) {
 
     case '/targets/store' :
         showPage('/controller/targets/store.php', [], true);
-        break;    
+        break;
+
+    case '/sims' :
+        showPage('/controller/sims/index.php');
+        break;
+
+    case '/sims/new' :
+        showPage('/controller/sims/new.php');
+        break;
 
     default:
         switch (true) {
@@ -192,6 +200,26 @@ switch ($request) {
 
             case preg_match('/^\/targets\/edit\/([0-9]+)$/', $request, $matches):
                 showPage('/controller/targets/edit.php', [ 'target_id' => $matches[1] ], true);
+                break;
+
+            case preg_match('/^\/sims\/'.$date.'\/?([0-9]+)?$/', $request, $matches):
+                showPage('/controller/sims/index.php', [ 'date' => $matches[1], 'employee_id_param' => $matches[4] ]);
+                break;
+
+            case preg_match('/^\/sims\/([0-9]+)$/', $request, $matches):
+                showPage('/controller/sims/sim.php', [ 'order_id' => $matches[1] ]);
+                break;
+
+            case preg_match('/^\/sims\/ban\/([0-9]+)$/', $request, $matches):
+                showPage('/controller/sims/ban.php', [ 'order_id' => $matches[1] ]);
+                break;
+
+            case preg_match('/^\/sims\/cancel\/([0-9]+)$/', $request, $matches):
+                showPage('/controller/sims/cancel.php', [ 'order_id' => $matches[1] ]);
+                break;
+
+            case preg_match('/^\/sims\/finish\/([0-9]+)$/', $request, $matches):
+                showPage('/controller/sims/finish.php', [ 'order_id' => $matches[1] ]);
                 break;
 
             default:

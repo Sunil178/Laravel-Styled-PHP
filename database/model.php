@@ -99,6 +99,30 @@
         }
 
         /*
+            $model->getByOne([ 'status' => 'active' ]);
+            $model->getByOne([ 'status' => 'active', 'age' => '25' ]);
+        */
+        public function getByOne($conditions, $columns = '*') {
+            if (is_array($columns)) {
+                $columns = implode(', ', $columns);
+            }
+            $query = "SELECT " . $columns . " FROM " . $this->table . " WHERE ";
+            $types = "";
+            $params = array();
+            foreach($conditions as $key => $value) {
+                $query .= $key . " = ? AND ";
+                $types .= "s";
+                $params[] = $value;
+            }
+            $query = rtrim($query, " AND ");
+            $stmt = $this->conn->prepare($query);
+            $stmt->bind_param($types, ...$params);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return (object)$result->fetch_assoc();
+        }
+
+        /*
             $model->getBy([ 'status' => 'active' ]);
             $model->getBy([ 'status' => 'active', 'age' => '25' ]);
         */

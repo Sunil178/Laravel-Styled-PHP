@@ -2,7 +2,7 @@
 -- DROP TABLE IF EXISTS `employees`;
 
 CREATE TABLE `employees` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) DEFAULT NULL,
   `username` VARCHAR(255) DEFAULT NULL,
   `mobile` VARCHAR(255) DEFAULT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE `employees` (
 -- DROP TABLE IF EXISTS `campaigns`;
 
 CREATE TABLE `campaigns` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -24,7 +24,7 @@ CREATE TABLE `campaigns` (
 -- DROP TABLE IF EXISTS `states`;
 
 CREATE TABLE `states` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) DEFAULT NULL,
   `code` VARCHAR(255) DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -34,7 +34,7 @@ CREATE TABLE `states` (
 -- DROP TABLE IF EXISTS `payment_methods`;
 
 CREATE TABLE `payment_methods` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) DEFAULT NULL,
   `type` VARCHAR(255) DEFAULT NULL COMMENT 'card / paytm / netbanking / mobikwik',
   `identity` VARCHAR(255) DEFAULT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `payment_methods` (
 -- DROP TABLE IF EXISTS `retention_days`;
 
 CREATE TABLE `retention_days` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -54,15 +54,15 @@ CREATE TABLE `retention_days` (
 -- DROP TABLE IF EXISTS `leads`;
 
 CREATE TABLE `leads` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `lead_id` INT unsigned DEFAULT NULL,
-  `employee_id` INT unsigned DEFAULT NULL,
-  `campaign_id` INT unsigned DEFAULT NULL,
-  `state_id` INT unsigned DEFAULT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `lead_id` INT UNSIGNED DEFAULT NULL,
+  `employee_id` INT UNSIGNED DEFAULT NULL,
+  `campaign_id` INT UNSIGNED DEFAULT NULL,
+  `state_id` INT UNSIGNED DEFAULT NULL,
   `type` TINYINT DEFAULT NULL COMMENT '0:registration 1:deposit 2:retention_deposit',
   `tracked` TINYINT DEFAULT NULL COMMENT '0:Yes 1:No',
   `emulator` VARCHAR(255) DEFAULT NULL,
-  `retention_day_id` INT unsigned DEFAULT NULL,
+  `retention_day_id` INT UNSIGNED DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`),
@@ -75,9 +75,9 @@ CREATE TABLE `leads` (
 -- DROP TABLE IF EXISTS `lead_deposits`;
 
 CREATE TABLE `lead_deposits` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `lead_id` INT unsigned DEFAULT NULL,
-  `payment_method_id` INT unsigned DEFAULT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `lead_id` INT UNSIGNED DEFAULT NULL,
+  `payment_method_id` INT UNSIGNED DEFAULT NULL,
   `amount` DECIMAL(12, 2) DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -88,9 +88,9 @@ CREATE TABLE `lead_deposits` (
 -- DROP TABLE IF EXISTS `gameplays`;
 
 CREATE TABLE `gameplays` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `employee_id` INT unsigned DEFAULT NULL,
-  `lead_id` INT unsigned DEFAULT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `employee_id` INT UNSIGNED DEFAULT NULL,
+  `lead_id` INT UNSIGNED DEFAULT NULL,
   `emulator_name` VARCHAR(255) DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -101,8 +101,8 @@ CREATE TABLE `gameplays` (
 -- DROP TABLE IF EXISTS `gameplay_rakes`;
 
 CREATE TABLE `gameplay_rakes` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `gameplay_id` INT unsigned DEFAULT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `gameplay_id` INT UNSIGNED DEFAULT NULL,
   `rake` DECIMAL(12, 2) DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -112,13 +112,13 @@ CREATE TABLE `gameplay_rakes` (
 -- DROP TABLE IF EXISTS `targets`;
 
 CREATE TABLE `targets` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `employee_id` INT unsigned NOT NULL,
-  `campaign_id` INT unsigned NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `employee_id` INT UNSIGNED NOT NULL,
+  `campaign_id` INT UNSIGNED NOT NULL,
   `reg_count` INT DEFAULT NULL,
-  `reg_state_id` INT unsigned DEFAULT NULL,
+  `reg_state_id` INT UNSIGNED DEFAULT NULL,
   `dep_count` INT DEFAULT NULL,
-  `dep_state_id` INT unsigned DEFAULT NULL,
+  `dep_state_id` INT UNSIGNED DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
@@ -130,10 +130,10 @@ CREATE TABLE `targets` (
 -- DROP TABLE IF EXISTS `extra_deposits`;
 
 CREATE TABLE `extra_deposits` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `target_id` INT unsigned NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `target_id` INT UNSIGNED NOT NULL,
   `count` INT NOT NULL,
-  `retention_day_id` INT unsigned DEFAULT NULL,
+  `retention_day_id` INT UNSIGNED DEFAULT NULL,
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (`target_id`) REFERENCES `targets` (`id`),
@@ -143,7 +143,7 @@ CREATE TABLE `extra_deposits` (
 -- DROP TABLE IF EXISTS `clients`;
 
 CREATE TABLE `clients` (
-  `id` INT unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(255) NOT NULL,
   `D7_ROI` INT NOT NULL,
   `D14_ROI` INT NOT NULL,
@@ -153,17 +153,78 @@ CREATE TABLE `clients` (
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- DROP TABLE IF EXISTS `products`;
+
+CREATE TABLE `products` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `AceDB`.`products` (`name`) VALUES ('rummycircle');
+INSERT INTO `AceDB`.`products` (`name`) VALUES ('jungleerummy');
+INSERT INTO `AceDB`.`products` (`name`) VALUES ('classicrummy');
+
+-- DROP TABLE IF EXISTS `operators`;
+
+CREATE TABLE `operators` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `AceDB`.`operators` (`name`) VALUES ('virtual21');
+INSERT INTO `AceDB`.`operators` (`name`) VALUES ('virtual35');
+
+-- DROP TABLE IF EXISTS `sims`;
+
+CREATE TABLE `sims` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `employee_id` INT UNSIGNED NOT NULL,
+  `product_id` INT UNSIGNED NOT NULL,
+  `operator_id` INT UNSIGNED NOT NULL,
+  `order_id` VARCHAR(255) DEFAULT NULL,
+  `phone` VARCHAR(255) DEFAULT NULL,
+  `price` INT UNSIGNED DEFAULT NULL,
+  `otp` INT UNSIGNED DEFAULT NULL,
+  `status` VARCHAR(255) DEFAULT NULL,
+  `sms` JSON DEFAULT NULL,
+  `sim_created_at` VARCHAR(255) DEFAULT NULL,
+  `expires_at` VARCHAR(255) DEFAULT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`),
+  FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  FOREIGN KEY (`operator_id`) REFERENCES `operators` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- DROP TABLE IF EXISTS `tokens`;
+
+CREATE TABLE `tokens` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `email` VARCHAR(255) NOT NULL,
+  `key` TEXT DEFAULT NULL,
+  `status` TINYINT DEFAULT NULL COMMENT 'Must be 1 for active token and rest of all must be 0',
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `AceDB`.`tokens` (`email`, `key`, `status`) VALUES ('bhupesh.b09@gmail.com', '<actual-key-from-5sim-account>', 1);
+INSERT INTO `AceDB`.`tokens` (`email`, `key`, `status`) VALUES ('nikhil.b@aceaffilino.com', '<actual-key-from-5sim-account>', 0);
+
 /*
 ALTER TABLE `gameplays`
-  ADD COLUMN `lead_id` INT unsigned NULL AFTER `employee_id`,
+  ADD COLUMN `lead_id` INT UNSIGNED NULL AFTER `employee_id`,
   ADD CONSTRAINT `emulators_ibfk_2` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`);
 
 ALTER TABLE `leads`
-  ADD COLUMN `lead_id` INT unsigned NULL AFTER `id`,
+  ADD COLUMN `lead_id` INT UNSIGNED NULL AFTER `id`,
   ADD CONSTRAINT `leads_ibfk_5` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`);
 
 ALTER TABLE `leads`
-  ADD COLUMN `retention_day_id` INT unsigned NULL AFTER `emulator`,
+  ADD COLUMN `retention_day_id` INT UNSIGNED NULL AFTER `emulator`,
   ADD CONSTRAINT `leads_ibfk_4` FOREIGN KEY (`retention_day_id`) REFERENCES `retention_days` (`id`);
 
 ALTER TABLE `leads` 

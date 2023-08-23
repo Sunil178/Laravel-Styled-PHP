@@ -122,6 +122,22 @@
         <?php if (checkAuth()) { ?>
             <li class="menu-item open">
                 <a href="javascript:void(0);" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-memory-card"></i>
+                    <div data-i18n="Analytics">SIMs</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/sims" class="menu-link">
+                            <div data-i18n="Without menu">Index</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        <?php } ?>
+
+        <?php if (checkAuth()) { ?>
+            <li class="menu-item open">
+                <a href="javascript:void(0);" class="menu-link">
                     <i class="menu-icon tf-icons bx bxl-android"></i>
                     <div data-i18n="Analytics">Leads</div>
                 </a>
