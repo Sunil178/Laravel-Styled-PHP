@@ -24,5 +24,14 @@
     $model = new Model('operators');
     $operators = $model->getAll();
 
+    include_once __DIR__."/../utils/http.php";
+    $result = getProfile();
+    if ($result !== false) {
+        $balance = $result['balance'];
+    } else {
+        echo "Something went wrong with api!";
+        exit;
+    }
+
     include_once __DIR__."/../../views/sims/index.php";
 ?>

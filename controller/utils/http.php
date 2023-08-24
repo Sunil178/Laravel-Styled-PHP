@@ -36,4 +36,9 @@ function checkOrder($order_id) {
     return getResponse($url);
 }
 
+function getProfile() {
+    $url = "https://5sim.net/v1/user/profile";
+    return getResponse($url);
+}
+
 ?>

@@ -222,6 +222,10 @@ switch ($request) {
                 showPage('/controller/sims/finish.php', [ 'order_id' => $matches[1] ]);
                 break;
 
+            case preg_match('/^\/sims\/check\/([0-9]+)$/', $request, $matches):
+                showPage('/controller/sims/check.php', [ 'order_id' => $matches[1] ]);
+                break;
+
             default:
                 session_write_close();
                 header("Location: /404");

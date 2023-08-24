@@ -12,6 +12,7 @@
 <?php $customStyle = ob_get_clean(); ?>
 
 <?php ob_start(); ?>
+
     <div class="navbar-nav-left w-100">
         <ul class="navbar-nav align-items-center ms-auto">
             <li class="nav-item lh-1 me-10">
@@ -21,6 +22,9 @@
             </li>
             <li class="nav-item lh-1 me-10">
                 <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#newNumberModal">New Number</button>
+            </li>
+            <li class="nav-item lh-1 me-10 fs-5">
+                <strong>Balance:</strong>&nbsp;&nbsp;<span class="amount"><?php echo $balance; ?></span> ₽
             </li>
         </ul>
     </div>
@@ -40,11 +44,9 @@
                     <th> Employee </th>
                 <?php } ?>
                 <th> Order ID </th>
-                <th> Phone </th>
-                <th> Price </th>
-                <th> OTP </th>
                 <th> Campaign </th>
-                <th> Operator </th>
+                <th> Phone </th>
+                <th> OTP </th>
                 <th> Date </th>
                 <th> Status </th>
                 <th> Action </th>
@@ -58,11 +60,9 @@
                         <td> <?php echo $sim->employees_name ?> </td>
                     <?php } ?>
                     <td> <?php echo $sim->order_id ?> </td>
-                    <td> <?php echo $sim->phone ?> </td>
-                    <td> <?php echo $sim->price ?> </td>
-                    <td> <?php echo $sim->otp ?> </td>
                     <td> <?php echo $sim->product_name ?> </td>
-                    <td> <?php echo $sim->operator_name ?> </td>
+                    <td> <?php echo $sim->phone ?> </td>
+                    <td> <?php echo $sim->otp ?> </td>
                     <td> <?php echo $sim->created_at ?> </td>
                     <td> <?php echo $sim->status ?> </td>
                     <td>
@@ -119,6 +119,16 @@
     $('input[name="date"]').on('change', function (event) {
         window.location = "/sims/" + this.value;
     });
+
+    const amount = $('.amount');
+    const currency = parseFloat(amount.text().trim())
+                        .toLocaleString('en-IN', {
+                                style: 'currency',
+                                currency: 'INR',
+                            })
+                            .replace('₹', '');
+    amount.text(currency);
+
 </script>
 
 <?php
