@@ -22,7 +22,7 @@
             opacity: 0;
         }
 
-        .finish-section {
+        .hidden {
             display: none;
         }
     </style>
@@ -77,11 +77,11 @@
                 <div class="col-6 text-end sim-status"><?php echo $sim->status; ?></div>
             </div>
             <?php if ($sim->status == 'RECEIVED') { ?>
-                <div class="row text-center ban-cancel-section">
+                <div class="row text-center ban-cancel-section <?php $sim->otp ? 'hidden' : '' ?>">
                     <div class="col-6"><a href="/sims/ban/<?php echo $sim->order_id; ?>" class="btn btn-info w-75">Ban</a></div>
                     <div class="col-6"><a href="/sims/cancel/<?php echo $sim->order_id; ?>" class="btn btn-info w-75">Cancel</a></div>
                 </div>
-                <div class="row finish-section">
+                <div class="row finish-section <?php $sim->otp ? '' : 'hidden' ?>">
                     <div class="col-12 text-center"><a href="/sims/finish/<?php echo $sim->order_id; ?>" class="btn btn-info w-75">Finish</a></div>
                 </div>
             <?php } ?>
@@ -134,11 +134,10 @@
     <?php if ($sim->status == 'RECEIVED') { ?>
         var otp = "<?php echo $sim->otp; ?>";
         function getNumberOtp() {
-            console.log("getNumberOtp()");
             $.ajax({
                 url: "/sims/check/<?php echo $sim->order_id; ?>",
                 success: function (response) {
-                    console.log("Success", response);
+                    // console.log("Success", response);
                     response = JSON.parse(response);
                     if (response.status == 200 || response.status == 421) {
                         otp = response.data.otp;
@@ -187,8 +186,10 @@
 
         var timeleft = Math.floor((expire_at - current_date) / 1000);
 
-        if (timeleft < 0) {
+        if (timeleft <= 0) {
             timeleft = 0;
+            $('.ban-cancel-section').hide();
+            $('.finish-section').hide();
         }
         const progress_bar = $('.progress-bar');
         const time_element = progress_bar.width() / 1200;

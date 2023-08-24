@@ -40,8 +40,10 @@ if ($result !== false) {
     }
     if ($response['status'] == 200 || $response['status'] == 421) {
         $response['data'] = [ 'status' => $result['status'], 'otp' => $otp ];
-        $db_res = $model->updateBy([ 'status' => $result['status'], 'sms' => json_encode($result['sms']), 'otp' => ($otp == '0000' ? null : $otp) ], [ 'order_id' => $order_id ]);
-        if ($db_res == false) {
+        $sms_message = $result['sms'] ? json_encode($result['sms']) : null;
+
+        $db_res = $model->updateBy([ 'status' => $result['status'], 'sms' => $sms_message, 'otp' => ($otp == '0000' ? null : $otp) ], [ 'order_id' => $order_id ]);
+        if ($db_res === false) {
             $response['message'] = 'Failed to update database';
         }
     }
