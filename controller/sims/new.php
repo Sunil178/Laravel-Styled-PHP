@@ -45,9 +45,9 @@ if ($result !== false) {
         session_write_close();
         header("Location: /sims/" . $result['id']);
     } else {
-        echo "Something Went Wrong!";
+        echo "Something went wrong with database!";
     }
 } else {
-    echo "Something Went Wrong!";
+    echo "Something went wrong with api!";
 }
 ?>

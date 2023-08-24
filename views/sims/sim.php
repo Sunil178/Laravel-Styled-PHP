@@ -77,11 +77,11 @@
                 <div class="col-6 text-end sim-status"><?php echo $sim->status; ?></div>
             </div>
             <?php if ($sim->status == 'RECEIVED') { ?>
-                <div class="row text-center ban-cancel-section <?php $sim->otp ? 'hidden' : '' ?>">
+                <div class="row text-center ban-cancel-section <?php echo $sim->otp ? 'hidden' : '' ?>">
                     <div class="col-6"><a href="/sims/ban/<?php echo $sim->order_id; ?>" class="btn btn-info w-75">Ban</a></div>
                     <div class="col-6"><a href="/sims/cancel/<?php echo $sim->order_id; ?>" class="btn btn-info w-75">Cancel</a></div>
                 </div>
-                <div class="row finish-section <?php $sim->otp ? '' : 'hidden' ?>">
+                <div class="row finish-section <?php echo $sim->otp ? '' : 'hidden' ?>">
                     <div class="col-12 text-center"><a href="/sims/finish/<?php echo $sim->order_id; ?>" class="btn btn-info w-75">Finish</a></div>
                 </div>
             <?php } ?>
@@ -144,7 +144,6 @@
                         $('.otp').data('copy', otp);
                         $('.otp-icon').data('copy', otp);
                         $('.otp').text(otp);
-                        $('.progress-section').hide();
                         $('.sim-status').text(response.data.status);
                     }
                     if (response.status == 200) {
@@ -152,6 +151,7 @@
                         $('.finish-section').show();
                     }
                     else if (response.status == 421) {
+                        $('.progress-section').hide();
                         $('.ban-cancel-section').hide();
                         $('.finish-section').hide();
                     }
@@ -165,7 +165,7 @@
         function progress(timeleft, time_element, $element) {
             var progressBarWidth = timeleft * time_element;
             $element.animate({ width: progressBarWidth }, 500).html(Math.floor(timeleft % 3600 / 60) + " : " + Math.floor(timeleft % 3600 % 60));
-            if (otp) {
+            if (otp && otp == '0000') {
                 return;
             }
             if (timeleft % 2 == 0) {
