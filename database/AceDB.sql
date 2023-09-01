@@ -214,6 +214,28 @@ CREATE TABLE `tokens` (
 INSERT INTO `AceDB`.`tokens` (`email`, `key`, `status`) VALUES ('bhupesh.b09@gmail.com', '<actual-key-from-5sim-account>', 1);
 INSERT INTO `AceDB`.`tokens` (`email`, `key`, `status`) VALUES ('nikhil.b@aceaffilino.com', '<actual-key-from-5sim-account>', 0);
 
+-- DROP TABLE IF EXISTS `bot_leads`;
+
+CREATE TABLE `bot_leads` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `android_id` VARCHAR(255) DEFAULT NULL,
+  `model` VARCHAR(255) DEFAULT NULL,
+  `sdk_int` INT UNSIGNED DEFAULT NULL,
+  `ipv4` VARCHAR(255) DEFAULT NULL,
+  `ipv6` VARCHAR(255) DEFAULT NULL,
+  `proxy` VARCHAR(255) DEFAULT NULL,
+  `rotation` VARCHAR(255) DEFAULT NULL,
+  `location` VARCHAR(255) DEFAULT NULL,
+  `tracking_link` VARCHAR(255) DEFAULT NULL,
+  `click_time` DATETIME DEFAULT NULL,
+  `install_time` DATETIME DEFAULT NULL,
+  `install_wait_time` DATETIME DEFAULT NULL,
+  `register_time` DATETIME DEFAULT NULL,
+  `register_wait_time` DATETIME DEFAULT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 /*
 ALTER TABLE `gameplays`
   ADD COLUMN `lead_id` INT UNSIGNED NULL AFTER `employee_id`,
@@ -229,14 +251,25 @@ ALTER TABLE `leads`
 
 ALTER TABLE `leads` 
 DROP COLUMN `count`;
-
 */
 
+
+/*
+TRUNCATE TABLE employees;
+TRUNCATE TABLE campaigns;
+TRUNCATE TABLE states;
+TRUNCATE TABLE payment_methods;
+TRUNCATE TABLE retention_days;
 TRUNCATE TABLE leads;
 TRUNCATE TABLE lead_deposits;
 TRUNCATE TABLE gameplays;
 TRUNCATE TABLE gameplay_rakes;
 TRUNCATE TABLE targets;
 TRUNCATE TABLE extra_deposits;
-
-
+TRUNCATE TABLE clients;
+TRUNCATE TABLE products;
+TRUNCATE TABLE operators;
+TRUNCATE TABLE sims;
+TRUNCATE TABLE tokens;
+TRUNCATE TABLE bot_leads;
+*/

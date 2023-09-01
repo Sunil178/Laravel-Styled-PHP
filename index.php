@@ -144,6 +144,14 @@ switch ($request) {
         showPage('/controller/sims/new.php');
         break;
 
+    case '/bot/store' :
+        include_once __DIR__ . '/controller/bot/store.php';
+        break;
+
+    case '/bot/update' :
+        include_once __DIR__ . '/controller/bot/update.php';
+        break;
+
     default:
         switch (true) {
             case preg_match('/^\/employees\/edit\/([0-9]+)$/', $request, $matches):

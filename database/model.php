@@ -119,7 +119,11 @@
             $stmt->bind_param($types, ...$params);
             $stmt->execute();
             $result = $stmt->get_result();
-            return (object)$result->fetch_assoc();
+            $result = (object)$result->fetch_assoc();
+            if ((array)$result == []) {
+                return false;
+            }
+            return $result;
         }
 
         /*
