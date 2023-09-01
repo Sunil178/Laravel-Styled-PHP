@@ -144,6 +144,10 @@ switch ($request) {
         showPage('/controller/sims/new.php');
         break;
 
+    case '/bot/index' :
+        showPage('/controller/bot/index.php');
+        break;
+
     case '/bot/store' :
         include_once __DIR__ . '/controller/bot/store.php';
         break;
@@ -232,6 +236,10 @@ switch ($request) {
 
             case preg_match('/^\/sims\/check\/([0-9]+)$/', $request, $matches):
                 showPage('/controller/sims/check.php', [ 'order_id' => $matches[1] ]);
+                break;
+
+            case preg_match('/^\/bot\/index\/'.$date.'$/', $request, $matches):
+                showPage('/controller/bot/index.php', [ 'date' => $matches[1] ]);
                 break;
 
             default:
