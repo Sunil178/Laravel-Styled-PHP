@@ -39,7 +39,7 @@ if ($result !== false) {
         $response['message'] = 'Number status changed';
     }
     if ($response['status'] == 200 || $response['status'] == 421) {
-        $response['data'] = [ 'status' => $result['status'], 'otp' => $otp ];
+        $response['data'] = [ 'status' => $result['status'], 'otp' => $otp, 'sms' => $result['sms'] ];
         $sms_message = $result['sms'] ? json_encode($result['sms']) : null;
 
         $db_res = $model->updateBy([ 'status' => $result['status'], 'sms' => $sms_message, 'otp' => ($otp == '0000' ? null : $otp) ], [ 'order_id' => $order_id ]);

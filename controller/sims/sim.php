@@ -27,7 +27,7 @@
     }
 
     $query = "SELECT
-            sims.id, sims.order_id, sims.phone, sims.price, sims.otp, sims.status, sims.product_id, products.name AS product_name, sims.operator_id, operators.name as operator_name, sims.sim_created_at, sims.expires_at
+            sims.id, sims.order_id, sims.phone, sims.price, sims.otp, sims.status, sims.sms, sims.product_id, products.name AS product_name, sims.operator_id, operators.name as operator_name, sims.sim_created_at, sims.expires_at
             FROM sims
             LEFT JOIN products ON products.id = sims.product_id
             LEFT JOIN operators ON operators.id = sims.operator_id
